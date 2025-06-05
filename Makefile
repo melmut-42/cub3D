@@ -8,6 +8,7 @@ NAME    = cub3d
 # Directories
 SRC_DIR = srcs
 CHECKER_DIR = $(SRC_DIR)/checker
+GNL_DIR = $(SRC_DIR)/gnl
 
 # Object directory
 OBJ_DIR = objs
@@ -17,8 +18,10 @@ LIBFT_DIR = libs/libft
 MLX_DIR  = libs/mlx
 
 # Source files
-SRCS    =	$(SRC_DIR)/main.c 				\
-			$(CHECKER_DIR)/file_checker.c
+SRCS    =	$(SRC_DIR)/main.c 					\
+			$(CHECKER_DIR)/file_checker.c		\
+			$(GNL_DIR)/get_next_line.c			\
+			$(GNL_DIR)/get_next_line_utils.c	
 
 # Object files
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -52,5 +55,4 @@ fclean: clean
 
 re: fclean all
 
-# Bonus targets
 .PHONY: all clean fclean re

@@ -8,8 +8,9 @@
 #include "unistd.h"
 #include "stdbool.h"
 
-#include "../libs/libft/libft.h"
+#include "get_next_line.h"
 #include "../libs/mlx/mlx.h"
+#include "../libs/libft/libft.h"
 
 
 // ============= Constants =============
