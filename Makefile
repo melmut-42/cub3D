@@ -7,8 +7,10 @@ NAME    = cub3d
 
 # Directories
 SRC_DIR = srcs
+
+# Subdirectories
 CHECKER_DIR = $(SRC_DIR)/checker
-GNL_DIR = $(SRC_DIR)/gnl
+UTIL_DIR = $(SRC_DIR)/utils
 
 # Object directory
 OBJ_DIR = objs
@@ -20,8 +22,8 @@ MLX_DIR  = libs/mlx
 # Source files
 SRCS    =	$(SRC_DIR)/main.c 					\
 			$(CHECKER_DIR)/file_checker.c		\
-			$(GNL_DIR)/get_next_line.c			\
-			$(GNL_DIR)/get_next_line_utils.c	
+			$(UTIL_DIR)/display_message.c		\
+			$(UTIL_DIR)/str_utils.c
 
 # Object files
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
