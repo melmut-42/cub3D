@@ -9,6 +9,7 @@ NAME    = cub3d
 SRC_DIR = srcs
 
 # Subdirectories
+INIT_DIR = $(SRC_DIR)/init
 CHECKER_DIR = $(SRC_DIR)/checker
 UTIL_DIR = $(SRC_DIR)/utils
 
@@ -21,9 +22,13 @@ MLX_DIR  = libs/mlx
 
 # Source files
 SRCS    =	$(SRC_DIR)/main.c 					\
+			$(INIT_DIR)/init_game.c				\
+			$(INIT_DIR)/init_data.c				\
 			$(CHECKER_DIR)/file_checker.c		\
 			$(UTIL_DIR)/display_message.c		\
-			$(UTIL_DIR)/str_utils.c
+			$(UTIL_DIR)/str_utils.c				\
+			$(GNL_DIR)/get_next_line.c			\
+			$(GNL_DIR)/get_next_line_utils.c
 
 # Object files
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

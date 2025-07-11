@@ -3,12 +3,21 @@
 
 // ============= Constants =============
 
-#define MAP_FILE_EXTENSION ".cub"
+# define BUFFER_SIZE 1024
+# define MAP_FILE_EXTENSION ".cub"
 
+# define NORTH_ABB "NO"
+# define SOUTH_ABB "SO"
+# define WEST_ABB "WE"
+# define EAST_ABB "EA"
+# define FLOOR_ABB "F"
+# define CEILING_ABB "C"
+
+# define SPACE_SET "\n\t\v\f\r "
 
 // ============= Enums =============
 
-typedef enum	e_directions
+typedef enum e_directions
 {
 	NORTH,
 	SOUTH,
@@ -18,23 +27,35 @@ typedef enum	e_directions
 	CEILING
 }				t_directions;
 
-
 // ============= Structures =============
 
 typedef struct s_texture
 {
-	t_directions	dir;
-	char			*path;
-	int				rgb[3];
+	char		*no_path;
+	char		*so_path;
+	char		*we_path;
+	char		*ea_path;
+	int			floor_rgb[3];
+	int			ceil_rgb[3];
 }				t_texture;
+
+typedef struct s_map
+{
+	char		*map_path;
+	char		**matrix;
+}				t_map;
+
+typedef	struct	s_data
+{
+	t_map		map;
+	t_texture	texture;
+}				t_data;
 
 
 typedef struct s_game
 {
 	char		*name;
-	char		*map_path;
-	t_texture	texture_list[6];
+	t_data		data;
 }				t_game;
-
 
 #endif
