@@ -15,10 +15,12 @@
 # include "structures.h"
 # include "error_logs.h"
 
-// ============================ Checker Functions ============================
+// ========================== Initialization Functions ==========================
 
 t_game	*init_game(char *map_path);
 bool	init_data(t_game *game);
+bool	process_texture_data(t_game *game, t_texture *texture, int fd);
+void	process_rgb(t_game *game, int rgb[3], char *data);
 
 // ============================ Checker Functions ============================
 
@@ -30,6 +32,9 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	display_error_message(const char *msg, bool is_perror);
 char	*get_next_line(int fd);
 bool	is_space(char c);
+bool	does_fully_include_spaces(char *str);
+bool	is_number(char *str);
+void	free_tab(char **state);
 
 // ================================ GNL Utils ================================
 

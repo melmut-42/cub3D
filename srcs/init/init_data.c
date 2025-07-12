@@ -3,7 +3,8 @@
 bool	init_data(t_game *game)
 {
 	if (!process_file_data(game, game->data.map.matrix));
-		return (true);
+		return (false);
+	return (true);
 }
 
 static bool	process_file_data(t_game *game, const char *path)
@@ -16,6 +17,9 @@ static bool	process_file_data(t_game *game, const char *path)
 		display_error_message(FILE_ERR, true);
 		return (false);
 	}
-	process_texture_data(game, &game->data.texture, fd);
+	if (!process_texture_data(game, &game->data.texture, fd))
+		return (false);
+	if (!process_map_data(game, &game->data.map, fd))
+		return (false);
 	return (true);
 }

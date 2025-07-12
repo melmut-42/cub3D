@@ -24,6 +24,8 @@ MLX_DIR  = libs/mlx
 SRCS    =	$(SRC_DIR)/main.c 					\
 			$(INIT_DIR)/init_game.c				\
 			$(INIT_DIR)/init_data.c				\
+			$(INIT_DIR)/init_rgb.c				\
+			$(INIT_DIR)/init_texture.c			\
 			$(CHECKER_DIR)/file_checker.c		\
 			$(UTIL_DIR)/display_message.c		\
 			$(UTIL_DIR)/str_utils.c				\

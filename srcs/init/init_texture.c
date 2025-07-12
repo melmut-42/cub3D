@@ -1,7 +1,8 @@
 #include "game.h"
 
-static bool	process_texture_line(t_game *game, t_texture *texture, char *line);
+static char	*get_dir_path(t_game *game, char *line);
 static int	get_start_index(char *line);
+static bool	process_texture_attr(t_game *game, t_texture *texture, char *line);
 
 bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 {
@@ -18,49 +19,87 @@ bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 			display_error_message(GAME_ERR, true);
 			return (false);
 		}
-		if (!process_texture_line(game, &game->data.texture, trimmed))
-		{
+		if (trimmed[0] == '\0')
 			free(trimmed);
+		else if (!process_texture_attr(game, texture, trimmed))
 			return (false);
-		}
-		free(trimmed);
 		line = get_next_line(fd);
 	}
 	return (true);
 }
 
-static bool	process_texture_line(t_game *game, t_texture *texture, char *line)
+static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 {
-	int	i;
+	int		i;
+	char	*data;
 
-	if (ft_strncmp(line, NORTH_ABB, ft_strlen(line)))
-		texture->no_path = get_dir_path(line);
-	else if (ft_strncmp(line, SOUTH_ABB, ft_strlen(line)))
-		texture->so_path = get_dir_path(line);
-	else if (ft_strncmp(line, SOUTH_ABB, ft_strlen(line)))
-		texture->ea_path = get_dir_path(line);
-	else if (ft_strncmp(line, SOUTH_ABB, ft_strlen(line)))
-		texture->we_path = get_dir_path(line);
+	data = get_dir_path(game, line);
+	if (!data)
+	{
+		free(line);
+		return (false);
+	}
+	if (ft_strncmp(line, NORTH_ABB, ft_strlen(NORTH_ABB)) == 0)
+		texture->no_path = data;
+	else if (ft_strncmp(line, SOUTH_ABB, ft_strlen(SOUTH_ABB)) == 0)
+		texture->so_path = data;
+	else if (ft_strncmp(line, EAST_ABB, ft_strlen(EAST_ABB)) == 0)
+		texture->ea_path = data;
+	else if (ft_strncmp(line, WEST_ABB, ft_strlen(WEST_ABB)) == 0)
+		texture->we_path = data;
+	else if (ft_strncmp(line, FLOOR_ABB, ft_strlen(FLOOR_ABB)) == 0)
+		process_rgb(game, texture->floor_rgb, data);
+	else if (ft_strncmp(line, CEILING_ABB, ft_strlen(CEILING_ABB)) == 0)
+		process_rgb(game, texture->ceil_rgb, data);
+	free(line);
+	if (game->error_flag)
+		return (false);
+	return (true);
 }
 
-static char	*get_dir_path(char *line)
+static char	*get_dir_path(t_game *game, char *line)
 {
-	int	i;
+	int		i;
+	char	*path;
 
 	i = get_start_index(line);
-	return (ft_substr(line, line + i, ft_strlen(line + i)));
+	if (i == NPOS)
+	{
+		display_error_message(INV_DATA, false);
+		game->error_flag = true;
+		return (NULL);
+	}
+	path = ft_substr(line, line + i, ft_strlen(line + i));
+	if (!path)
+	{
+		display_error_message(GAME_ERR, true);
+		game->error_flag = true;
+		return (NULL);
+	}
+	return (path);
 }
 
 static int	get_start_index(char *line)
 {
 	int	i;
 
-	i = 2;
-	while(is_space(line[i]))
+	if (ft_strncmp(line, NORTH_ABB, ft_strlen(NORTH_ABB)) == 0
+		|| ft_strncmp(line, EAST_ABB, ft_strlen(EAST_ABB)) == 0
+		|| ft_strncmp(line, WEST_ABB, ft_strlen(WEST_ABB)) == 0
+		|| ft_strncmp(line, SOUTH_ABB, ft_strlen(SOUTH_ABB)) == 0)
 	{
-		i++;
+		i = ft_strlen(EAST_ABB);
 	}
+	else if (ft_strncmp(line, FLOOR_ABB, ft_strlen(FLOOR_ABB)) == 0
+			|| ft_strncmp(line, CEILING_ABB, ft_strlen(CEILING_ABB)) == 0)
+	{
+		i = ft_strlen(FLOOR_ABB);
+	}
+	else
+		return (NPOS);
+	while (is_space(line[i]))
+		i++;
 	if (line[i] == '\0')
-		return (-1);
+		return (NPOS);
 	return (i);
 }

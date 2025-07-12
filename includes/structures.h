@@ -3,17 +3,30 @@
 
 // ============= Constants =============
 
-# define BUFFER_SIZE 1024
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+# define NPOS -1
+
+# define RGB_CONSTANT 3
+# define RGB_MIN_VAL 0
+# define RGB_MAX_VAL 255
+
 # define MAP_FILE_EXTENSION ".cub"
 
-# define NORTH_ABB "NO"
-# define SOUTH_ABB "SO"
-# define WEST_ABB "WE"
-# define EAST_ABB "EA"
-# define FLOOR_ABB "F"
-# define CEILING_ABB "C"
+# define COMMA ','
 
+# define NORTH_ABB "NO "
+# define SOUTH_ABB "SO "
+# define WEST_ABB "WE "
+# define EAST_ABB "EA "
+# define FLOOR_ABB "F "
+# define CEILING_ABB "C "
+
+# define NEWLINE "\n"
 # define SPACE_SET "\n\t\v\f\r "
+
 
 // ============= Enums =============
 
@@ -35,12 +48,13 @@ typedef struct s_texture
 	char		*so_path;
 	char		*we_path;
 	char		*ea_path;
-	int			floor_rgb[3];
-	int			ceil_rgb[3];
+	int			ceil_rgb[RGB_CONSTANT];
+	int			floor_rgb[RGB_CONSTANT];
 }				t_texture;
 
 typedef struct s_map
 {
+	size_t		height;
 	char		*map_path;
 	char		**matrix;
 }				t_map;
@@ -56,6 +70,7 @@ typedef struct s_game
 {
 	char		*name;
 	t_data		data;
+	bool		error_flag;
 }				t_game;
 
 #endif
