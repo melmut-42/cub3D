@@ -25,3 +25,19 @@ int	ft_is_newline_char(const char *s)
 	}
 	return (0);
 }
+
+void	clear_get_next_line(int fd)
+{
+	char	*line;
+
+	if (fd < 0)
+	{
+		return ;
+	}
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+}

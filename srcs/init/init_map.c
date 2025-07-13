@@ -1,8 +1,8 @@
 #include "game.h"
 
 static bool	skip_map_line(t_game *game, int fd);
-static bool	matrix_realloc(t_game *game, t_map *map, char *data);
-static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *data);
+static bool	matrix_realloc(t_game *game, t_map *map, char *line);
+static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *line);
 
 bool	process_map_data(t_game *game, t_map *map, int fd)
 {
@@ -20,30 +20,48 @@ bool	process_map_data(t_game *game, t_map *map, int fd)
 	return (true);
 }
 
-static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *data)
+static void	ft_rtrim(char *line)
+{
+	int	i;
+
+	i = ft_strlen(line) - 1;
+	while (is_space(line[i]))
+	{
+		line[i] = '\0';
+		i--;
+	}
+}
+
+static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *line)
 {
 	char	*trimmed;
 
-	while (data)
+	while (line)
 	{
-		if (does_fully_include_spaces(data))
+		if (does_fully_include_spaces(line))
 		{
-			free(data);
+			free(line);
 			return (skip_map_line(game, fd));
 		}
-		trimmed = ultimate_trim(game, data, NEWLINE);
+		ft_rtrim(line);
+		trimmed = ft_strdup(line);
+		free(line);
 		if (!trimmed)
+		{
+			display_error_message(GAME_ERR, true);
+			game->error_flag = true;
 			return (false);
+		}
 		if (!matrix_realloc(game, map, trimmed))
 			return (false);
 		if (game->error_flag)
 			return (false);
-		data = get_next_line(fd);
+		line = get_next_line(fd);
 	}
 	return (true);
 }
 
-static bool	matrix_realloc(t_game *game, t_map *map, char *data)
+static bool	matrix_realloc(t_game *game, t_map *map, char *line)
 {
 	char	**new_matrix;
 	size_t	i;
@@ -52,6 +70,7 @@ static bool	matrix_realloc(t_game *game, t_map *map, char *data)
 	new_matrix = ft_calloc(map->height + 1, sizeof(char *));
 	if (!new_matrix)
 	{
+		free(line);
 		game->error_flag = true;
 		display_error_message(GAME_ERR, true);
 		return (false);
@@ -62,7 +81,7 @@ static bool	matrix_realloc(t_game *game, t_map *map, char *data)
 		new_matrix[i] = map->matrix[i];
 		i++;
 	}
-	new_matrix[i++] = data;
+	new_matrix[i++] = line;
 	new_matrix[i] = NULL;
 	free(map->matrix);
 	map->matrix = new_matrix;

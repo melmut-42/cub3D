@@ -76,6 +76,7 @@ static void	process_path(t_game *game, t_texture *tex, t_directions dir, char *p
 	slot = targets[dir];
 	if (*slot)
 	{
+		free(path);
 		game->error_flag = true;
 		display_error_message(DUP_DATA, false);
 		return ;

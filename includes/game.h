@@ -15,7 +15,7 @@
 # include "structures.h"
 # include "error_logs.h"
 
-// ========================== Initialization Functions ==========================
+// ========================= Initialization Functions =========================
 
 t_game	*init_game(char *map_path);
 bool	init_data(t_game *game);
@@ -24,11 +24,15 @@ void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data);
 bool	process_map_data(t_game *game, t_map *map, int fd);
 bool	does_texture_attr_completed(t_texture *texture);
 
-// ============================ Checker Functions ============================
+// ============================ Free Functions ============================
+
+void	free_game(t_game *game);
+void	free_tab(char **state);
+// =========================== Checker Functions ===========================
 
 bool	has_valid_cub_extension(const char *filename);
 
-// ================================= Utils =================================
+// ================================ Utils ================================
 
 int		ft_strcmp(const char *s1, const char *s2);
 void	display_error_message(const char *msg, bool is_perror);
@@ -36,14 +40,13 @@ char	*get_next_line(int fd);
 bool	is_space(char c);
 bool	does_fully_include_spaces(char *str);
 bool	is_number(char *str);
-void	free_tab(char **state);
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set);
 
-// ================================ GNL Utils ================================
+// =============================== GNL Utils ===============================
 
 int		ft_is_newline_char(const char *s);
 char	*ft_update_repo(char *total_line, char *repo);
-
+void	clear_get_next_line(int fd);
 
 // =============================== Debug Utils ===============================
 

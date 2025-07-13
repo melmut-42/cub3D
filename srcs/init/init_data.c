@@ -19,10 +19,14 @@ static bool	process_file_data(t_game *game, const char *path)
 		display_error_message(FILE_ERR, true);
 		return (false);
 	}
-	if (!process_texture_data(game, &game->data.texture, fd))
+	if (!process_texture_data(game, &game->data.texture, fd)
+		|| !process_map_data(game, &game->data.map, fd))
+	{
+		clear_get_next_line(fd);
+		close(fd);
 		return (false);
-	if (!process_map_data(game, &game->data.map, fd))
-		return (false);
+	}
+	close(fd);
 	return (true);
 }
 

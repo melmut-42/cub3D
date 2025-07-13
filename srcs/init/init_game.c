@@ -16,7 +16,7 @@ t_game *init_game(char *map_path)
 	data_ctor(&game->data);
 	if (!init_data(game))
 	{
-		// TODO: Implement the free function that frees every allocated fields
+		free_game(game);
 		return (NULL);
 	}
 	return (game);
