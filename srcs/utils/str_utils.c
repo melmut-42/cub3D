@@ -30,33 +30,16 @@ bool	is_space(char c)
 {
 	int		i;
 	char	*space_set;
-	bool	result;
 
 	i = 0;
 	space_set = SPACE_SET;
-	result = false;
 	while (space_set[i])
 	{
 		if (c == space_set[i])
-			result = true;
+			return (true);
 		i++;
 	}
-	return (result);
-}
-
-void	free_tab(char **state)
-{
-	int	i;
-
-	if (!state)
-		return ;
-	i = 0;
-	while (state[i])
-	{
-		free(state[i]);
-		i++;
-	}
-	free(state);
+	return (false);
 }
 
 bool	does_fully_include_spaces(char *str)
@@ -73,4 +56,19 @@ bool	does_fully_include_spaces(char *str)
 		i++;
 	}
 	return (true);
+}
+
+char	*ultimate_trim(t_game *game, char *raw, char *trim_set)
+{
+	char	*trimmed;
+
+	trimmed = ft_strtrim(raw, trim_set);
+	free(raw);
+	if (!trimmed)
+	{
+		game->error_flag = false;
+		display_error_message(GAME_ERR, true);
+		return (NULL);
+	}
+	return (trimmed);
 }

@@ -16,5 +16,6 @@ int	main(int argc, char **argv)
 	game = init_game(argv[1]);
 	if (!game)
 		return (EXIT_FAILURE);
+	display_game(game);
 	return (EXIT_SUCCESS);
 }

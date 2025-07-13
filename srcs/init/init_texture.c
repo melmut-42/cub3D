@@ -1,8 +1,9 @@
 #include "game.h"
 
-static char	*get_dir_path(t_game *game, char *line);
 static int	get_start_index(char *line);
+static char	*get_dir_path(t_game *game, char *line);
 static bool	process_texture_attr(t_game *game, t_texture *texture, char *line);
+static void	process_path(t_game *game, t_texture *tex, t_directions dir, char *path);
 
 bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 {
@@ -12,25 +13,27 @@ bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		trimmed = ft_strtrim(line, SPACE_SET);
-		free(line);
+		trimmed = ultimate_trim(game, line, SPACE_SET);
 		if (!trimmed)
-		{
-			display_error_message(GAME_ERR, true);
 			return (false);
-		}
 		if (trimmed[0] == '\0')
 			free(trimmed);
 		else if (!process_texture_attr(game, texture, trimmed))
 			return (false);
+		if (does_texture_attr_completed(&game->data.texture))
+			return (true);
 		line = get_next_line(fd);
+	}
+	if (!does_texture_attr_completed(&game->data.texture))
+	{
+		display_error_message(LACK_TEXTURE, false);
+		return (false);
 	}
 	return (true);
 }
 
 static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 {
-	int		i;
 	char	*data;
 
 	data = get_dir_path(game, line);
@@ -40,13 +43,13 @@ static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 		return (false);
 	}
 	if (ft_strncmp(line, NORTH_ABB, ft_strlen(NORTH_ABB)) == 0)
-		texture->no_path = data;
+		process_path(game, &game->data.texture, NORTH, data);
 	else if (ft_strncmp(line, SOUTH_ABB, ft_strlen(SOUTH_ABB)) == 0)
-		texture->so_path = data;
+		process_path(game, &game->data.texture, SOUTH, data);
 	else if (ft_strncmp(line, EAST_ABB, ft_strlen(EAST_ABB)) == 0)
-		texture->ea_path = data;
+		process_path(game, &game->data.texture, EAST, data);
 	else if (ft_strncmp(line, WEST_ABB, ft_strlen(WEST_ABB)) == 0)
-		texture->we_path = data;
+		process_path(game, &game->data.texture, WEST, data);
 	else if (ft_strncmp(line, FLOOR_ABB, ft_strlen(FLOOR_ABB)) == 0)
 		process_rgb(game, texture->floor_rgb, data);
 	else if (ft_strncmp(line, CEILING_ABB, ft_strlen(CEILING_ABB)) == 0)
@@ -56,6 +59,30 @@ static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 		return (false);
 	return (true);
 }
+
+static void	process_path(t_game *game, t_texture *tex, t_directions dir, char *path)
+{
+	char	**targets[NUMBER_DIR];
+	char	**slot;
+
+	if (dir < NORTH || dir > EAST)
+	{
+		return ;
+	}
+	targets[NORTH] = &tex->no_path;
+	targets[SOUTH] = &tex->so_path;
+	targets[WEST]  = &tex->we_path;
+	targets[EAST]  = &tex->ea_path;
+	slot = targets[dir];
+	if (*slot)
+	{
+		game->error_flag = true;
+		display_error_message(DUP_DATA, false);
+		return ;
+	}
+	*slot = path;
+}
+
 
 static char	*get_dir_path(t_game *game, char *line)
 {
@@ -69,7 +96,7 @@ static char	*get_dir_path(t_game *game, char *line)
 		game->error_flag = true;
 		return (NULL);
 	}
-	path = ft_substr(line, line + i, ft_strlen(line + i));
+	path = ft_substr(line, i, ft_strlen(line + i));
 	if (!path)
 	{
 		display_error_message(GAME_ERR, true);

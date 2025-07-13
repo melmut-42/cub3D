@@ -9,6 +9,8 @@
 
 # define NPOS -1
 
+# define NUMBER_DIR 4
+
 # define RGB_CONSTANT 3
 # define RGB_MIN_VAL 0
 # define RGB_MAX_VAL 255

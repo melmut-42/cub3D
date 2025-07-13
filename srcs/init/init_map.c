@@ -1,6 +1,7 @@
 #include "game.h"
 
 static bool	skip_map_line(t_game *game, int fd);
+static bool	matrix_realloc(t_game *game, t_map *map, char *data);
 static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *data);
 
 bool	process_map_data(t_game *game, t_map *map, int fd)
@@ -30,36 +31,39 @@ static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *data)
 			free(data);
 			return (skip_map_line(game, fd));
 		}
-		trimmed = ft_strtrim(data, NEWLINE);
-		free(data);
+		trimmed = ultimate_trim(game, data, NEWLINE);
 		if (!trimmed)
-		{
-			display_error_message(GAME_ERR, true);
-			game->error_flag = true;
 			return (false);
-		}
-		matrix_realloc(game, map, trimmed);
+		if (!matrix_realloc(game, map, trimmed))
+			return (false);
+		if (game->error_flag)
+			return (false);
 		data = get_next_line(fd);
 	}
+	return (true);
 }
 
 static bool	matrix_realloc(t_game *game, t_map *map, char *data)
 {
 	char	**new_matrix;
-	int		i;
+	size_t	i;
 
 	map->height++;
 	new_matrix = ft_calloc(map->height + 1, sizeof(char *));
 	if (!new_matrix)
+	{
+		game->error_flag = true;
+		display_error_message(GAME_ERR, true);
 		return (false);
+	}
 	i = 0;
 	while (i < map->height - 1)
 	{
 		new_matrix[i] = map->matrix[i];
 		i++;
 	}
-	new_matrix[i] = data;
-	new_matrix[++i] = NULL;
+	new_matrix[i++] = data;
+	new_matrix[i] = NULL;
 	free(map->matrix);
 	map->matrix = new_matrix;
 	return (true);

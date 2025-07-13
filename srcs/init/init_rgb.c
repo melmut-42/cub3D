@@ -2,13 +2,16 @@
 
 static bool	are_rgb_valid(t_game *game, char **rgb);
 static char	**get_splitted_rgb(t_game *game, char *data);
+static bool	has_rgb_already_processed(t_game *game, int rgb[RGB_CONSTANT]);
 
-void	process_rgb(t_game *game, int rgb[3], char *data)
+void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data)
 {
 	char	**splitted_rgb;
 	int		i;
 
 	if (game->error_flag)
+		return ;
+	if (has_rgb_already_processed(game, rgb))
 		return ;
 	splitted_rgb = get_splitted_rgb(game, data);
 	if (!splitted_rgb)
@@ -25,6 +28,22 @@ void	process_rgb(t_game *game, int rgb[3], char *data)
 		i++;
 	}
 	free_tab(splitted_rgb);
+}
+
+static bool	has_rgb_already_processed(t_game *game, int rgb[RGB_CONSTANT])
+{
+	int	i;
+
+	i = 0;
+	while (i < RGB_CONSTANT)
+	{
+		if (rgb[i] == -1)
+			return (false);
+		i++;
+	}
+	display_error_message(DUP_DATA, false);
+	game->error_flag = true;
+	return (true);
 }
 
 static bool	are_rgb_valid(t_game *game, char **rgb)

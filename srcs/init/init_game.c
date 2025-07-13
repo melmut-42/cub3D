@@ -1,5 +1,7 @@
 #include "game.h"
 
+static void	data_ctor(t_data *data);
+
 t_game *init_game(char *map_path)
 {
 	t_game	*game;
@@ -11,9 +13,24 @@ t_game *init_game(char *map_path)
 		return (NULL);
 	}
 	game->data.map.map_path = map_path;
+	data_ctor(&game->data);
 	if (!init_data(game))
 	{
 		// TODO: Implement the free function that frees every allocated fields
 		return (NULL);
+	}
+	return (game);
+}
+
+static void	data_ctor(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < RGB_CONSTANT)
+	{
+		data->texture.ceil_rgb[i] = -1;
+		data->texture.floor_rgb[i] = -1;
+		i++;
 	}
 }

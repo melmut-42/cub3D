@@ -12,6 +12,8 @@ SRC_DIR = srcs
 INIT_DIR = $(SRC_DIR)/init
 CHECKER_DIR = $(SRC_DIR)/checker
 UTIL_DIR = $(SRC_DIR)/utils
+CLEANUP_DIR = $(SRC_DIR)/cleanup
+GNL_DIR = $(SRC_DIR)/gnl
 
 # Object directory
 OBJ_DIR = objs
@@ -26,11 +28,16 @@ SRCS    =	$(SRC_DIR)/main.c 					\
 			$(INIT_DIR)/init_data.c				\
 			$(INIT_DIR)/init_rgb.c				\
 			$(INIT_DIR)/init_texture.c			\
+			$(INIT_DIR)/init_map.c				\
+			$(CLEANUP_DIR)/free.c				\
 			$(CHECKER_DIR)/file_checker.c		\
 			$(UTIL_DIR)/display_message.c		\
 			$(UTIL_DIR)/str_utils.c				\
+			$(UTIL_DIR)/debug.c					\
 			$(GNL_DIR)/get_next_line.c			\
 			$(GNL_DIR)/get_next_line_utils.c
+
+# ! Line 35 is only for debug
 
 # Object files
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
