@@ -123,6 +123,7 @@ typedef	struct	s_data
 	t_texture		texture;
 }					t_data;
 
+// TODO: Fix conflict with prior player structure
 typedef struct s_player
 {
 	t_position		pos;
