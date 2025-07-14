@@ -65,6 +65,8 @@ int	handle_keyrelease(int keycode, t_game *game)
 // * Handles mouse events within the game window
 int	handle_mouse(int x, int y, t_game *game)
 {
+	int	midpoint_x;
+
 	// Check if the mouse is within the window bounds
 	if (x < 0 || x >= game->mlx->width || y < 0 || y >= game->mlx->height)
 		return (0); // Ignore mouse events outside the window
@@ -74,8 +76,9 @@ int	handle_mouse(int x, int y, t_game *game)
 	game->player->mouse_y = y;
 
 	// Update player rotation based on mouse position
-	game->player->rot_left = (x < (game->mlx->width / 2)); // Rotate left if mouse is on the left side of the screen
-	game->player->rot_right = (x > (game->mlx->width / 2)); // Rotate right if mouse is on the right side of the screen
+	midpoint_x = game->mlx->width / 2;
+	game->player->rot_left = (x < midpoint_x); // Rotate left if mouse is on the left side of the screen
+	game->player->rot_right = (x > midpoint_x); // Rotate right if mouse is on the right side of the screen
 
 	return (0);
 }
