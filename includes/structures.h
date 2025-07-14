@@ -30,8 +30,14 @@
 # define FLOOR_ABB "F"
 # define CEILING_ABB "C"
 
-# define NEWLINE "\n"
-# define SPACE_SET "\n\t\v\f\r "
+# define GROUND '0'
+# define WALL '1'
+# define VISITED 'X'
+
+
+# define DIR_SET "NSWE"
+# define SPACE_SET " \n\t\v\f\r"
+
 
 // ============= Key Codes =============
 
@@ -52,8 +58,9 @@ typedef enum	e_directions
 	WEST,
 	EAST,
 	FLOOR,
-	CEILING
-}				t_directions;
+	CEILING,
+	NONE
+}					t_directions;
 
 typedef enum	e_err_code
 {
@@ -63,22 +70,28 @@ typedef enum	e_err_code
 
 // ============= Structures =============
 
+typedef struct s_position
+{
+	int				x_axis;
+	int				y_axis;
+}					t_position;
+
 typedef struct s_texture
 {
-	char		*no_path;
-	char		*so_path;
-	char		*we_path;
-	char		*ea_path;
-	int			ceil_rgb[RGB_CONSTANT];
-	int			floor_rgb[RGB_CONSTANT];
-}				t_texture;
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
+	int				ceil_rgb[RGB_CONSTANT];
+	int				floor_rgb[RGB_CONSTANT];
+}					t_texture;
 
 typedef struct s_map
 {
-	size_t		height;
-	char		*map_path;
-	char		**matrix;
-}				t_map;
+	size_t			height;
+	char			*map_path;
+	char			**matrix;
+}					t_map;
 
 typedef struct	s_player
 {
@@ -106,10 +119,15 @@ typedef struct	t_mlx
 
 typedef	struct	s_data
 {
-	t_map		map;
-	t_texture	texture;
-}				t_data;
+	t_map			map;
+	t_texture		texture;
+}					t_data;
 
+typedef struct s_player
+{
+	t_position		pos;
+	t_directions	dir;
+}					t_player;
 
 typedef struct s_game
 {

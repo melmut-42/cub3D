@@ -15,12 +15,13 @@ t_game *init_game(char *map_path)
 	}
 	game->data.map.map_path = map_path;
 	data_ctor(&game->data);
-	player_ctor(&game->player);
-	if (!init_data(game))
+
+	if (!init_data(game) || !init_player(game) || !check_map(game))
 	{
 		free_game(game);
 		return (NULL);
 	}
+  player_ctor(&game->player); // TODO: Combine with the init_player function (for struct unity)
 	return (game);
 }
 
