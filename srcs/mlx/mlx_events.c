@@ -2,7 +2,7 @@
 
 int	handle_keypress(int keycode, t_game *game)
 {
-	if (keycode == 65307) // ESC keycode on Linux (X11)
+	if (keycode == KEY_ESC) // ESC keycode on Linux (X11)
 	{
 		free_game(game);
 		exit(EXIT_SUCCESS);
