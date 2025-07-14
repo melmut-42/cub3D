@@ -1,8 +1,16 @@
 #include "game.h"
 
+static bool	check_accessability(t_game *game);
+static bool	check_invalid_element(t_game *game, char **matrix);
 static void	flood_fill(t_game *game, char **matrix, int x, int y);
 
 bool	check_map(t_game *game)
+{
+	return (check_invalid_element(game, game->data.map.matrix)
+		&& check_accessability(game));
+}
+
+static bool	check_accessability(t_game *game)
 {
 	char	**cpy;
 	int		i;
@@ -30,11 +38,37 @@ bool	check_map(t_game *game)
 	return (true);
 }
 
+static bool	check_invalid_element(t_game *game, char **matrix)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (matrix[i])
+	{
+		j = 0;
+		while (matrix[i][j])
+		{
+			if (!(is_space(matrix[i][j]) || matrix[i][j] == WALL
+					|| matrix[i][j] == GROUND || is_player(matrix[i][j])))
+			{
+				display_error_message(INV_MAP_ELEMENT, false);
+				game->error_flag = true;
+				return (false);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
+
 static void	flood_fill(t_game *game, char **matrix, int x, int y)
 {
 	if (matrix[y][x] == WALL || matrix[y][x] == VISITED || game->error_flag)
 		return ;
-	if (is_space(matrix[y][x]) || x == 0 || matrix[y][x] == '\0' || y == 0 || (size_t)y >= game->data.map.height - 1)
+	if (is_space(matrix[y][x]) || x == 0 || matrix[y][x] == '\0' || y == 0
+		|| (size_t)y >= game->data.map.height - 1)
 	{
 		game->error_flag = true;
 		display_error_message(MAP_ACCESS_ERR, false);

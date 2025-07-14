@@ -41,6 +41,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	display_error_message(const char *msg, bool is_perror);
 char	*get_next_line(int fd);
 bool	is_space(char c);
+bool	is_player(char player);
 bool	does_fully_include_spaces(char *str);
 bool	is_number(char *str);
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set);

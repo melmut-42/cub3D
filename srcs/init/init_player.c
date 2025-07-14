@@ -2,7 +2,6 @@
 
 static void	player_ctor(t_player *player);
 static bool	set_player(t_game *game, t_player *player);
-static bool	is_player(char player);
 static bool	update_player_pos(t_game *g, t_player *player, t_position new_pos);
 
 bool	init_player(t_game *game)
@@ -40,7 +39,7 @@ static bool	set_player(t_game *game, t_player *player)
 	return (true);
 }
 
-static bool	is_player(char player)
+bool	is_player(char player)
 {
 	int		i;
 	char	*dir_set;
