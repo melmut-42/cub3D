@@ -26,9 +26,8 @@
 # define FLOOR_ABB "F"
 # define CEILING_ABB "C"
 
-# define NEWLINE "\n"
-# define SPACE_SET "\n\t\v\f\r "
-
+# define DIR_SET "NSWE"
+# define SPACE_SET " \n\t\v\f\r"
 
 // ============= Enums =============
 
@@ -39,40 +38,53 @@ typedef enum e_directions
 	WEST,
 	EAST,
 	FLOOR,
-	CEILING
-}				t_directions;
+	CEILING,
+	NONE
+}					t_directions;
 
 // ============= Structures =============
 
+typedef struct s_position
+{
+	int				x_axis;
+	int				y_axis;
+}					t_position;
+
 typedef struct s_texture
 {
-	char		*no_path;
-	char		*so_path;
-	char		*we_path;
-	char		*ea_path;
-	int			ceil_rgb[RGB_CONSTANT];
-	int			floor_rgb[RGB_CONSTANT];
-}				t_texture;
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
+	int				ceil_rgb[RGB_CONSTANT];
+	int				floor_rgb[RGB_CONSTANT];
+}					t_texture;
 
 typedef struct s_map
 {
-	size_t		height;
-	char		*map_path;
-	char		**matrix;
-}				t_map;
+	size_t			height;
+	char			*map_path;
+	char			**matrix;
+}					t_map;
 
-typedef	struct	s_data
+typedef struct s_data
 {
-	t_map		map;
-	t_texture	texture;
-}				t_data;
+	t_map			map;
+	t_texture		texture;
+}					t_data;
 
+typedef struct s_player
+{
+	t_position		pos;
+	t_directions	dir;
+}					t_player;
 
 typedef struct s_game
 {
-	char		*name;
-	t_data		data;
-	bool		error_flag;
-}				t_game;
+	char			*name;
+	bool			error_flag;
+	t_data			data;
+	t_player		player;
+}					t_game;
 
 #endif

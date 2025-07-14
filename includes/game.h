@@ -19,6 +19,7 @@
 
 t_game	*init_game(char *map_path);
 bool	init_data(t_game *game);
+bool	init_player(t_game *game);
 bool	process_texture_data(t_game *game, t_texture *texture, int fd);
 void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data);
 bool	process_map_data(t_game *game, t_map *map, int fd);
@@ -42,6 +43,7 @@ bool	is_space(char c);
 bool	does_fully_include_spaces(char *str);
 bool	is_number(char *str);
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set);
+char	**copy_matrix(t_game *game, char **matrix);
 
 // =============================== GNL Utils ===============================
 

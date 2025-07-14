@@ -16,5 +16,6 @@
 # define INV_RGB_VAL "Invalid RGB value in the map file"
 # define LACK_TEXTURE "Lack of texture data in the map file"
 # define DUP_DATA "Duplicate data found in the map file"
+# define MULTI_USER "Multiple user found in the map"
 
 #endif

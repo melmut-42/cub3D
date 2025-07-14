@@ -29,10 +29,13 @@ SRCS    =	$(SRC_DIR)/main.c 					\
 			$(INIT_DIR)/init_rgb.c				\
 			$(INIT_DIR)/init_texture.c			\
 			$(INIT_DIR)/init_map.c				\
+			$(INIT_DIR)/init_player.c			\
 			$(CLEANUP_DIR)/free.c				\
 			$(CHECKER_DIR)/file_checker.c		\
+			$(CHECKER_DIR)/map_checker.c		\
 			$(UTIL_DIR)/display_message.c		\
 			$(UTIL_DIR)/str_utils.c				\
+			$(UTIL_DIR)/matrix_utils.c			\
 			$(UTIL_DIR)/debug.c					\
 			$(GNL_DIR)/get_next_line.c			\
 			$(GNL_DIR)/get_next_line_utils.c
