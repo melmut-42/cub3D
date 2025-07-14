@@ -80,6 +80,21 @@ typedef struct s_map
 	char		**matrix;
 }				t_map;
 
+typedef struct	s_player
+{
+	float		x;			// ? Float because players can be in-between tiles
+	float		y;
+	float		direction;	// Angle in radians
+	int			mov_up;
+	int			mov_down;
+	int			mov_left;
+	int			mov_right;
+	int			rot_left;
+	int			rot_right;
+	int			mouse_x;
+	int			mouse_y;
+}				t_player;
+
 typedef struct	t_mlx
 {
 	void		*mlx_ptr;
@@ -101,6 +116,7 @@ typedef struct s_game
 	char		*name;
 	t_data		data;
 	t_mlx		*mlx;
+	t_player	*player;
 	bool		error_flag;
 }				t_game;
 
