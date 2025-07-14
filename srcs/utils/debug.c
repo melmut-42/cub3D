@@ -1,5 +1,6 @@
 #include "game.h"
 
+// * Display texture file paths and RGB color values
 static void display_texture(const t_texture *tex)
 {
     printf("Textures:\n");
@@ -13,7 +14,7 @@ static void display_texture(const t_texture *tex)
            tex->floor_rgb[0], tex->floor_rgb[1], tex->floor_rgb[2]);
 }
 
-
+// * Display map info alongside its matrix representation
 static void	display_map(const t_map *m)
 {
 	size_t	i;
@@ -27,6 +28,7 @@ static void	display_map(const t_map *m)
 	{
 		for (j = 0; m->matrix[i][j]; j++)
 		{
+			// Print '.' for space chars for better visibility
 			if (is_space((unsigned char)m->matrix[i][j]))
 				ft_putchar_fd('.', 1);
 			else
@@ -36,7 +38,7 @@ static void	display_map(const t_map *m)
 	}
 }
 
-
+// * Display the combined game data (map & textures)
 void display_data(const t_data *d)
 {
     printf("--- Game Data ---\n");
@@ -44,6 +46,7 @@ void display_data(const t_data *d)
     display_texture(&d->texture);
 }
 
+// * Display overall game info including error flag and game data
 void display_game(const t_game *g)
 {
     printf("Game: %s\n", g->name);

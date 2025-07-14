@@ -1,5 +1,6 @@
 #include "game.h"
 
+// * Compares two strings "lexographically" lol
 int ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && (*s1 == *s2))
@@ -10,6 +11,7 @@ int ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
+// * Checks if the given string contains only digits
 bool	is_number(char *str)
 {
 	int	i;
@@ -26,6 +28,7 @@ bool	is_number(char *str)
 	return (true);
 }
 
+// * Checks if  the given char is a space character (defined by SPACE_SET)
 bool	is_space(char c)
 {
 	int		i;
@@ -42,6 +45,7 @@ bool	is_space(char c)
 	return (false);
 }
 
+// * Returns true if the given string contains only space characters
 bool	does_fully_include_spaces(char *str)
 {
 	int	i;
@@ -58,6 +62,7 @@ bool	does_fully_include_spaces(char *str)
 	return (true);
 }
 
+// * Trims chars (defined by trim_set) from raw string and handles memory and errors
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set)
 {
 	char	*trimmed;

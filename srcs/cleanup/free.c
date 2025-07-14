@@ -1,15 +1,6 @@
 #include "game.h"
 
-static void	free_data(t_data *data);
-
-void	free_game(t_game *game)
-{
-	if (!game)
-		return ;
-	free_data(&game->data);
-	free(game);
-}
-
+// * Helper function to free allocated texture paths and map matrix
 static void	free_data(t_data *data)
 {
 	free(data->texture.ea_path);
@@ -19,7 +10,7 @@ static void	free_data(t_data *data)
 	free_tab(data->map.matrix);
 }
 
-
+// * Frees a 2D array of strings
 void	free_tab(char **state)
 {
 	int	i;
@@ -33,4 +24,13 @@ void	free_tab(char **state)
 		i++;
 	}
 	free(state);
+}
+
+// * Frees the entire game structure including its data
+void	free_game(t_game *game)
+{
+	if (!game)
+		return ;
+	free_data(&game->data);
+	free(game);
 }

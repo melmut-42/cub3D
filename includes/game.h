@@ -3,11 +3,11 @@
 
 // ============= Includes =============
 
-# include "stdbool.h"
-# include "stdio.h"
-# include "stdlib.h"
-# include "unistd.h"
-# include "fcntl.h"
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 # include "../libs/libft/libft.h"
 # include "../libs/mlx/mlx.h"
@@ -28,6 +28,7 @@ bool	does_texture_attr_completed(t_texture *texture);
 
 void	free_game(t_game *game);
 void	free_tab(char **state);
+
 // =========================== Checker Functions ===========================
 
 bool	has_valid_cub_extension(const char *filename);
