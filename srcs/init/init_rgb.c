@@ -48,7 +48,7 @@ static bool	has_rgb_already_processed(t_game *game, int rgb[RGB_CONSTANT])
 
 static bool	are_rgb_valid(t_game *game, char **rgb)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (++i < RGB_CONSTANT)
@@ -56,7 +56,8 @@ static bool	are_rgb_valid(t_game *game, char **rgb)
 		rgb[i] = ultimate_trim(game, rgb[i], SPACE_SET);
 		if (!rgb[i])
 			return (false);
-		if (!is_number(rgb[i]) || ft_atoi(rgb[i]) < RGB_MIN_VAL || ft_atoi(rgb[i]) > RGB_MAX_VAL)
+		if (ft_strlen(rgb[i]) >= 4 || !is_number(rgb[i])
+			|| ft_atoi(rgb[i]) < RGB_MIN_VAL || ft_atoi(rgb[i]) > RGB_MAX_VAL)
 		{
 			game->error_flag = true;
 			display_error_message(INV_RGB_VAL, false);
