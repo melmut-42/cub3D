@@ -76,4 +76,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# ? USAGE: make valgrind MAP=path/to/map.cub
+valgrind:
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d $(MAP)
+
+.PHONY: all clean fclean re valgrind
