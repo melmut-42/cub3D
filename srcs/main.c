@@ -18,7 +18,7 @@ static int	execube(char *map_file)
 		return (EXIT_FAILURE);
 
 	// Initialize the mlx structure and create a new window
-	game->mlx = setup_mlx(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
+	game->mlx = setup_mlx(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE, game);
 	if (!game->mlx)
 	{
 		handle_error(MALLOC_ERR, false);

@@ -1,12 +1,12 @@
 #include "game.h"
 
 // TODO: consider returning a different value
-void	*setup_mlx(int width, int height, char *title)
+void	*setup_mlx(int width, int height, char *title, t_game *game)
 {
 	t_mlx	*mlx;
 
 	// Allocate memory for the mlx structure
-	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	mlx = (t_mlx *)ft_calloc(1, sizeof(t_mlx));
 	if (!mlx)
 	{
 		handle_error(MALLOC_ERR, false);
@@ -27,7 +27,11 @@ void	*setup_mlx(int width, int height, char *title)
 	if (!mlx->win_ptr)
 	{
 		mlx_destroy_display(mlx->mlx_ptr);
-		free(mlx);
+		ft_free((void **)&mlx->mlx_ptr);
+		ft_free((void **)&mlx);
+
+		free_game(game);
+
 		handle_error(MALLOC_ERR, false);
 		return (NULL);
 	}

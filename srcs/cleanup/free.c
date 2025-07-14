@@ -23,9 +23,11 @@ static void	destroy_img(t_game *game)
 		if (game->mlx->mlx_ptr)
 		{
 			mlx_destroy_display(game->mlx->mlx_ptr);
+			free(game->mlx->mlx_ptr);
 			game->mlx->mlx_ptr = NULL;
 		}
 	}
+	free(game->mlx);
 }
 
 // * Free 2D array of strings
@@ -60,8 +62,12 @@ void	free_game(t_game *game)
 	if (!game)
 		return ;
 
+	// Free all allocated textures
 	free_data(&game->data);
+
+	// Free the mlx structure and its resources
 	destroy_img(game);
-	ft_free((void **)&game->mlx);
+
+	// Free the game structure itself
 	ft_free((void **)&game);
 }

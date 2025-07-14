@@ -26,7 +26,7 @@ bool	does_texture_attr_completed(t_texture *texture);
 
 // ========================= MLX Functions =========================
 
-void	*setup_mlx(int width, int height, char *title);
+void	*setup_mlx(int width, int height, char *title, t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_close(t_game *game);
 
@@ -34,6 +34,7 @@ int		handle_close(t_game *game);
 
 void	free_game(t_game *game);
 void	free_tab(char **state);
+void	ft_free(void **ptr);
 
 // =========================== Checker Functions ===========================
 
