@@ -9,7 +9,8 @@ WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
 
-F 1,100,0 
+
+F 255,100,0 
 C 255,30,0
 
 

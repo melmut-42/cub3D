@@ -25,10 +25,24 @@ void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data);
 bool	process_map_data(t_game *game, t_map *map, int fd);
 bool	does_texture_attr_completed(t_texture *texture);
 
+// ========================= MLX Functions =========================
+
+void	*setup_mlx(int width, int height, char *title, t_game *game);
+
+// ========================= Game Loop Functions =========================
+int		gameloop(t_game *game);
+int		handle_keypress(int keycode, t_game *game);
+int		handle_close(t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
+int		handle_mouse(int x, int y, t_game *game);
+void	init_hooks(t_game *game);
+
 // ============================ Free Functions ============================
 
 void	free_game(t_game *game);
 void	free_tab(char **state);
+void	ft_free(void **ptr);
+void	handle_error(t_err_code err_code, bool exit_program);
 
 // =========================== Checker Functions ===========================
 

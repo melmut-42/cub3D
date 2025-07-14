@@ -7,6 +7,10 @@
 #  define BUFFER_SIZE 1024
 # endif
 
+# define WIN_TITLE "Cub3D"
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
+
 # define NPOS -1
 
 # define NUMBER_DIR 4
@@ -30,12 +34,24 @@
 # define WALL '1'
 # define VISITED 'X'
 
+
 # define DIR_SET "NSWE"
 # define SPACE_SET " \n\t\v\f\r"
 
+
+// ============= Key Codes =============
+
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+
 // ============= Enums =============
 
-typedef enum e_directions
+typedef enum	e_directions
 {
 	NORTH,
 	SOUTH,
@@ -45,6 +61,12 @@ typedef enum e_directions
 	CEILING,
 	NONE
 }					t_directions;
+
+typedef enum	e_err_code
+{
+	MALLOC_ERR,
+	RENDER_ERR
+}				t_err_code;
 
 // ============= Structures =============
 
@@ -71,7 +93,31 @@ typedef struct s_map
 	char			**matrix;
 }					t_map;
 
-typedef struct s_data
+typedef struct	s_player
+{
+	float		x;			// ? Float because players can be in-between tiles
+	float		y;
+	float		direction;	// Angle in radians
+	int			mov_up;
+	int			mov_down;
+	int			mov_left;
+	int			mov_right;
+	int			rot_left;
+	int			rot_right;
+	int			mouse_x;
+	int			mouse_y;
+}				t_player;
+
+typedef struct	t_mlx
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	char		*title;
+	int			width;
+	int			height;
+}				t_mlx;
+
+typedef	struct	s_data
 {
 	t_map			map;
 	t_texture		texture;
@@ -85,10 +131,11 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	char			*name;
-	bool			error_flag;
-	t_data			data;
-	t_player		player;
-}					t_game;
+	char		*name;
+	t_data		data;
+	t_mlx		*mlx;
+	t_player	player;
+	bool		error_flag;
+}				t_game;
 
 #endif
