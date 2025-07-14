@@ -28,9 +28,8 @@ static int	execube(char *map_file)
 	// Load textures and initialize the game data
 	display_game(game);
 
-	// Hook ESC key and window close events
-	mlx_hook(game->mlx->win_ptr, 2, 1L << 0, handle_keypress, game);
-	mlx_hook(game->mlx->win_ptr, 17, 1L << 0, handle_close, game);
+	// Initialize hooks for mlx events
+	init_hooks(game);
 	
 	// Start the mlx event loop
 	mlx_loop(game->mlx->mlx_ptr);

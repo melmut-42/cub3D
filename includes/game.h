@@ -27,8 +27,14 @@ bool	does_texture_attr_completed(t_texture *texture);
 // ========================= MLX Functions =========================
 
 void	*setup_mlx(int width, int height, char *title, t_game *game);
+
+// ========================= Game Loop Functions =========================
+int		gameloop(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_close(t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
+int		handle_mouse(int x, int y, t_game *game);
+void	init_hooks(t_game *game);
 
 // ============================ Free Functions ============================
 

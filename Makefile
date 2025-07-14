@@ -12,6 +12,7 @@ SRC_DIR 	=	srcs
 INIT_DIR	=	$(SRC_DIR)/init
 CHECKER_DIR	=	$(SRC_DIR)/checker
 MLX_SRC_DIR	=	$(SRC_DIR)/mlx
+LOOP_DIR	=	$(SRC_DIR)/gameloop
 UTIL_DIR	=	$(SRC_DIR)/utils
 CLEANUP_DIR	=	$(SRC_DIR)/cleanup
 GNL_DIR		=	$(SRC_DIR)/gnl
@@ -30,8 +31,10 @@ SRCS    =	$(SRC_DIR)/main.c 					\
 			$(INIT_DIR)/init_rgb.c				\
 			$(INIT_DIR)/init_texture.c			\
 			$(INIT_DIR)/init_map.c				\
-			$(MLX_SRC_DIR)/mlx_setup.c			\
-			$(MLX_SRC_DIR)/mlx_events.c			\
+			$(INIT_DIR)/init_window.c			\
+			$(LOOP_DIR)/loop.c					\
+			$(LOOP_DIR)/input.c					\
+			$(LOOP_DIR)/hooks.c					\
 			$(CLEANUP_DIR)/free.c				\
 			$(CHECKER_DIR)/file_checker.c		\
 			$(UTIL_DIR)/display_message.c		\

@@ -116,7 +116,7 @@ typedef struct s_game
 	char		*name;
 	t_data		data;
 	t_mlx		*mlx;
-	t_player	*player;
+	t_player	player;
 	bool		error_flag;
 }				t_game;
 
