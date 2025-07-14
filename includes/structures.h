@@ -19,12 +19,12 @@
 
 # define COMMA ','
 
-# define NORTH_ABB "NO "
-# define SOUTH_ABB "SO "
-# define WEST_ABB "WE "
-# define EAST_ABB "EA "
-# define FLOOR_ABB "F "
-# define CEILING_ABB "C "
+# define NORTH_ABB "NO"
+# define SOUTH_ABB "SO"
+# define WEST_ABB "WE"
+# define EAST_ABB "EA"
+# define FLOOR_ABB "F"
+# define CEILING_ABB "C"
 
 # define NEWLINE "\n"
 # define SPACE_SET "\n\t\v\f\r "

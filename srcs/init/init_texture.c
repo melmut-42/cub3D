@@ -125,6 +125,8 @@ static int	get_start_index(char *line)
 	}
 	else
 		return (NPOS);
+	if (!is_space(line[i]))
+		return (NPOS);
 	while (is_space(line[i]))
 		i++;
 	if (line[i] == '\0')

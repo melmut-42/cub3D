@@ -18,9 +18,13 @@ bool	is_number(char *str)
 
 	if (!str)
 		return (false);
+	if (does_fully_include_spaces(str))
+		return (false);
 	i = 0;
 	while (str[i])
 	{
+		while(is_space(str[i]))
+			i++;
 		if (!ft_isdigit(str[i]))
 			return (false);
 		i++;
