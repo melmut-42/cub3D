@@ -14,7 +14,7 @@ t_game *init_game(char *map_path)
 	}
 	game->data.map.map_path = map_path;
 	data_ctor(&game->data);
-	if (!init_data(game) || !init_player(game))
+	if (!init_data(game) || !init_player(game) || !check_map(game))
 	{
 		free_game(game);
 		return (NULL);

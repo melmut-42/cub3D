@@ -2,7 +2,7 @@
 
 char	**copy_matrix(t_game *game, char **matrix)
 {
-	char	*copy;
+	char	**copy;
 	int		i;
 
 	copy = ft_calloc((game->data.map.height) + 1, sizeof(char *));
@@ -15,7 +15,7 @@ char	**copy_matrix(t_game *game, char **matrix)
 	i = 0;
 	while (game->data.map.matrix[i])
 	{
-		copy[i] = ft_strdup(game->data.map.matrix[i]);
+		copy[i] = ft_strdup(matrix[i]);
 		if (!copy[i])
 		{
 			game->error_flag = true;

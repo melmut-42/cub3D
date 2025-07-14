@@ -26,6 +26,10 @@
 # define FLOOR_ABB "F"
 # define CEILING_ABB "C"
 
+# define GROUND '0'
+# define WALL '1'
+# define VISITED 'X'
+
 # define DIR_SET "NSWE"
 # define SPACE_SET " \n\t\v\f\r"
 

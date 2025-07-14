@@ -33,6 +33,7 @@ void	free_tab(char **state);
 // =========================== Checker Functions ===========================
 
 bool	has_valid_cub_extension(const char *filename);
+bool	check_map(t_game *game);
 
 // ================================ Utils ================================
 
