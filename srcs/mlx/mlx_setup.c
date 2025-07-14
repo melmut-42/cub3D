@@ -1,6 +1,6 @@
 #include "game.h"
 
-// TODO: consider returning a different value
+// * Sets up the mlx structure and creates a new window
 void	*setup_mlx(int width, int height, char *title, t_game *game)
 {
 	t_mlx	*mlx;
@@ -22,14 +22,13 @@ void	*setup_mlx(int width, int height, char *title, t_game *game)
 		return (NULL);
 	}
 
-	// Create a new window with the specified width, height, and title
+	// Create a new window with the given dimensions and title
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, width, height, title);
 	if (!mlx->win_ptr)
 	{
 		mlx_destroy_display(mlx->mlx_ptr);
 		ft_free((void **)&mlx->mlx_ptr);
 		ft_free((void **)&mlx);
-
 		free_game(game);
 
 		handle_error(MALLOC_ERR, false);
