@@ -1,6 +1,7 @@
 #include "game.h"
 
 static void	data_ctor(t_data *data);
+static void player_ctor(t_player *player);
 
 t_game *init_game(char *map_path)
 {
@@ -14,7 +15,8 @@ t_game *init_game(char *map_path)
 	}
 	game->data.map.map_path = map_path;
 	data_ctor(&game->data);
-	if (!init_data(game))
+	player_ctor(&game->player);
+	if (!init_data(game) || !init_player(game) || !check_map(game))
 	{
 		free_game(game);
 		return (NULL);
@@ -33,4 +35,15 @@ static void	data_ctor(t_data *data)
 		data->texture.floor_rgb[i] = -1;
 		i++;
 	}
+}
+
+static void	player_ctor(t_player *player)
+{
+	player->pos.x = NPOS;
+	player->pos.y = NPOS;
+	player->mov_speed = 0.5;
+	player->sens.x = 0.1;
+	player->sens.y = 0.1;
+	player->plane.x = 0;
+	player->plane.y = 0.66;
 }

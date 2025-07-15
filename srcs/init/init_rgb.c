@@ -9,10 +9,11 @@ void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data)
 	char	**splitted_rgb;
 	int		i;
 
-	if (game->error_flag)
+	if (game->error_flag || has_rgb_already_processed(game, rgb))
+	{
+		free(data);
 		return ;
-	if (has_rgb_already_processed(game, rgb))
-		return ;
+	}
 	splitted_rgb = get_splitted_rgb(game, data);
 	if (!splitted_rgb)
 		return ;
@@ -50,8 +51,8 @@ static bool	are_rgb_valid(t_game *game, char **rgb)
 {
 	int	i;
 
-	i = -1;
-	while (++i < RGB_CONSTANT)
+	i = 0;
+	while (rgb[i] && i < RGB_CONSTANT)
 	{
 		rgb[i] = ultimate_trim(game, rgb[i], SPACE_SET);
 		if (!rgb[i])
@@ -63,8 +64,9 @@ static bool	are_rgb_valid(t_game *game, char **rgb)
 			display_error_message(INV_RGB_VAL, false);
 			return (false);
 		}
+		i++;
 	}
-	if (rgb[i])
+	if (i != RGB_CONSTANT || rgb[i])
 	{
 		game->error_flag = true;
 		return (false);

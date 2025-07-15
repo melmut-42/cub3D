@@ -30,8 +30,14 @@
 # define FLOOR_ABB "F"
 # define CEILING_ABB "C"
 
-# define NEWLINE "\n"
-# define SPACE_SET "\n\t\v\f\r "
+# define GROUND '0'
+# define WALL '1'
+# define VISITED 'X'
+
+
+# define DIR_SET "NSWE"
+# define SPACE_SET " \n\t\v\f\r"
+
 
 // ============= Key Codes =============
 
@@ -45,6 +51,7 @@
 
 // ============= Enums =============
 
+// * Defines the possible directions for map parsing
 typedef enum	e_directions
 {
 	NORTH,
@@ -52,9 +59,11 @@ typedef enum	e_directions
 	WEST,
 	EAST,
 	FLOOR,
-	CEILING
-}				t_directions;
+	CEILING,
+	NONE
+}					t_directions;
 
+// * Defines errors for robust error handling
 typedef enum	e_err_code
 {
 	MALLOC_ERR,
@@ -63,36 +72,59 @@ typedef enum	e_err_code
 
 // ============= Structures =============
 
+// * Represents an image in memory with its properties
+typedef struct	s_img
+{
+	void		*img_ptr;		// pointer to image in memory
+	char		*addr;			// pointer to the image data
+	int			bpp;			// bits per pixel
+	int			endian;			// endianess of the image data
+	int			line_len;		// length of a line in bytes
+	int			width;			// width of the image
+	int			height;			// height of the image
+}				t_img;
+
+// * Represents a texture with paths for different directions and RGB values for ceiling and floor
 typedef struct s_texture
 {
-	char		*no_path;
-	char		*so_path;
-	char		*we_path;
-	char		*ea_path;
-	int			ceil_rgb[RGB_CONSTANT];
-	int			floor_rgb[RGB_CONSTANT];
-}				t_texture;
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
+	int				ceil_rgb[RGB_CONSTANT];
+	int				floor_rgb[RGB_CONSTANT];
+	t_img			textures[NUMBER_DIR];		// array of textures for different directions
+}					t_texture;
 
+// * Represents a map with height, path to the map file, and a 2D matrix of characters
 typedef struct s_map
 {
-	size_t		height;
-	char		*map_path;
-	char		**matrix;
-}				t_map;
+	size_t			height;
+	char			*map_path;
+	char			**matrix;
+}					t_map;
 
+// * Represents a 2D axis with x and y coordinates
+typedef struct s_axis
+{
+	double				x;
+	double				y;
+}					t_axis;
+
+// * Holds direction, position, movement flags, and camera settings
 typedef struct	s_player
 {
-	float		x;			// ? Float because players can be in-between tiles
-	float		y;
-	float		direction;	// Angle in radians
-	int			mov_up;
-	int			mov_down;
-	int			mov_left;
-	int			mov_right;
-	int			rot_left;
-	int			rot_right;
-	int			mouse_x;
-	int			mouse_y;
+	int			mov_up;        	// move forward flag
+	int			mov_down;      	// move backward flag
+	int			mov_left;      	// move left flag (strafe)
+	int			mov_right;     	// move right flag (strafe)
+	double		mov_speed;		// movement speed
+	double		pitch_angle;	// vertical look angle (up/down)
+	t_axis		dir;			// camera direction vector
+	t_axis		plane;			// camera plane vector
+	t_axis		pos;			// player position in the map
+	t_axis		rot;			// rotation vector
+	t_axis		sens;			// sensitivity vector
 }				t_player;
 
 typedef struct	t_mlx
@@ -102,21 +134,22 @@ typedef struct	t_mlx
 	char		*title;
 	int			width;
 	int			height;
+	t_img		frame_img;		// image structure for the frame (main screen buffer)
+	t_img		minimap_img;	// image structure for the minimap
 }				t_mlx;
 
 typedef	struct	s_data
 {
-	t_map		map;
-	t_texture	texture;
-}				t_data;
-
+	t_map			map;
+	t_texture		texture;
+}					t_data;
 
 typedef struct s_game
 {
 	char		*name;
 	t_data		data;
 	t_mlx		*mlx;
-	t_player	*player;
+	t_player	player;
 	bool		error_flag;
 }				t_game;
 

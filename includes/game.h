@@ -19,6 +19,7 @@
 
 t_game	*init_game(char *map_path);
 bool	init_data(t_game *game);
+bool	init_player(t_game *game);
 bool	process_texture_data(t_game *game, t_texture *texture, int fd);
 void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data);
 bool	process_map_data(t_game *game, t_map *map, int fd);
@@ -27,18 +28,26 @@ bool	does_texture_attr_completed(t_texture *texture);
 // ========================= MLX Functions =========================
 
 void	*setup_mlx(int width, int height, char *title, t_game *game);
+
+// ========================= Game Loop Functions =========================
+int		gameloop(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_close(t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
+int		handle_mouse(int x, int y, t_game *game);
+void	init_hooks(t_game *game);
 
 // ============================ Free Functions ============================
 
 void	free_game(t_game *game);
 void	free_tab(char **state);
 void	ft_free(void **ptr);
+void	handle_error(t_err_code err_code, bool exit_program);
 
 // =========================== Checker Functions ===========================
 
 bool	has_valid_cub_extension(const char *filename);
+bool	check_map(t_game *game);
 
 // ================================ Utils ================================
 
@@ -46,10 +55,11 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	display_error_message(const char *msg, bool is_perror);
 char	*get_next_line(int fd);
 bool	is_space(char c);
+bool	is_player(char player);
 bool	does_fully_include_spaces(char *str);
 bool	is_number(char *str);
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set);
-void	handle_error(t_err_code err_code, bool exit_program);
+char	**copy_matrix(t_game *game, char **matrix);
 
 // =============================== GNL Utils ===============================
 

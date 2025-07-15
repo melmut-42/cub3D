@@ -71,6 +71,7 @@ char	*ultimate_trim(t_game *game, char *raw, char *trim_set)
 {
 	char	*trimmed;
 
+	// TODO: Implement seg protection
 	trimmed = ft_strtrim(raw, trim_set);
 	free(raw);
 	if (!trimmed)
