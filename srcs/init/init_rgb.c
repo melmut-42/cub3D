@@ -51,8 +51,8 @@ static bool	are_rgb_valid(t_game *game, char **rgb)
 {
 	int	i;
 
-	i = -1;
-	while (rgb[++i] && i < RGB_CONSTANT)
+	i = 0;
+	while (rgb[i] && i < RGB_CONSTANT)
 	{
 		rgb[i] = ultimate_trim(game, rgb[i], SPACE_SET);
 		if (!rgb[i])
@@ -64,6 +64,7 @@ static bool	are_rgb_valid(t_game *game, char **rgb)
 			display_error_message(INV_RGB_VAL, false);
 			return (false);
 		}
+		i++;
 	}
 	if (i != RGB_CONSTANT || rgb[i])
 	{
