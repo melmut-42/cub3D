@@ -9,10 +9,11 @@ void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data)
 	char	**splitted_rgb;
 	int		i;
 
-	if (game->error_flag)
+	if (game->error_flag || has_rgb_already_processed(game, rgb))
+	{
+		free(data);
 		return ;
-	if (has_rgb_already_processed(game, rgb))
-		return ;
+	}
 	splitted_rgb = get_splitted_rgb(game, data);
 	if (!splitted_rgb)
 		return ;
