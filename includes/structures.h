@@ -51,6 +51,7 @@
 
 // ============= Enums =============
 
+// Defines the possible directions for map parsing
 typedef enum	e_directions
 {
 	NORTH,
@@ -62,6 +63,7 @@ typedef enum	e_directions
 	NONE
 }					t_directions;
 
+// Defines errors for robust error handling
 typedef enum	e_err_code
 {
 	MALLOC_ERR,
@@ -70,12 +72,7 @@ typedef enum	e_err_code
 
 // ============= Structures =============
 
-typedef struct s_position
-{
-	int				x_axis;
-	int				y_axis;
-}					t_position;
-
+// Represents a texture with paths for different directions and RGB values for ceiling and floor
 typedef struct s_texture
 {
 	char			*no_path;
@@ -86,6 +83,7 @@ typedef struct s_texture
 	int				floor_rgb[RGB_CONSTANT];
 }					t_texture;
 
+// Represents a map with height, path to the map file, and a 2D matrix of characters
 typedef struct s_map
 {
 	size_t			height;
@@ -93,19 +91,27 @@ typedef struct s_map
 	char			**matrix;
 }					t_map;
 
+// Represents a 2D axis with x and y coordinates
+typedef struct s_axis
+{
+	double				x;
+	double				y;
+}					t_axis;
+
+// Holds direction, position, movement flags, and camera settings
 typedef struct	s_player
 {
-	float		x;			// ? Float because players can be in-between tiles
-	float		y;
-	float		direction;	// Angle in radians
-	int			mov_up;
-	int			mov_down;
-	int			mov_left;
-	int			mov_right;
-	int			rot_left;
-	int			rot_right;
-	int			mouse_x;
-	int			mouse_y;
+	int			mov_up;        	// move forward flag
+	int			mov_down;      	// move backward flag
+	int			mov_left;      	// move left flag (strafe)
+	int			mov_right;     	// move right flag (strafe)
+	double		mov_speed;		// movement speed
+	double		pitch_angle;	// vertical look angle (up/down)
+	t_axis		dir;			// camera direction vector
+	t_axis		plane;			// camera plane vector
+	t_axis		pos;			// player position in the map
+	t_axis		rot;			// rotation vector
+	t_axis		sens;			// sensitivity vector
 }				t_player;
 
 typedef struct	t_mlx
@@ -122,13 +128,6 @@ typedef	struct	s_data
 	t_map			map;
 	t_texture		texture;
 }					t_data;
-
-// TODO: Fix conflict with prior player structure
-typedef struct s_player
-{
-	t_position		pos;
-	t_directions	dir;
-}					t_player;
 
 typedef struct s_game
 {
