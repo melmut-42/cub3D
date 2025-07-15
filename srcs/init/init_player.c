@@ -1,43 +1,46 @@
 #include "game.h"
 
-static void	player_ctor(t_player *player);
+static void	update_dir(t_directions dir, t_axis *dir_vector);
+static void	update_pos(t_axis *pos, t_axis new_pos, int *x, int *y);
 static bool	set_player(t_game *game, t_player *player);
-static bool	update_player_pos(t_game *g, t_player *player, t_position new_pos);
+static bool	update_player(t_game *g, t_player *player, t_axis new_pos);
 
+// TODO: Implement direction
 bool	init_player(t_game *game)
 {
-	player_ctor(&game->player);
 	if (!set_player(game, &game->player))
 		return (false);
 	return (true);
 }
 
-static void	player_ctor(t_player *player)
-{
-	player->pos.x_axis = NPOS;
-	player->pos.y_axis = NPOS;
-	player->dir = NONE;
-}
-
 static bool	set_player(t_game *game, t_player *player)
 {
-	t_position	pos;
+	t_axis	pos;
 	char		**matrix;
+	int			y;
+	int			x;
 
-	pos.y_axis = -1;
 	matrix = game->data.map.matrix;
-	while (matrix[++(pos.y_axis)])
+	y = 0;
+	while (matrix[y])
 	{
-		pos.x_axis = -1;
-		while (matrix[pos.y_axis][++(pos.x_axis)])
+		x = 0;
+		while (matrix[y][x])
 		{
-			if (is_player(matrix[pos.y_axis][pos.x_axis]))
-				if (!update_player_pos(game, player, pos))
+			if (is_player(matrix[y][x]))
+			{
+				pos.x = (float)x + 0.5f;
+				pos.y = (float)y + 0.5f;
+				if (!update_player(game, player, pos))
 					return (false);
+			}
+			x++;
 		}
+		y++;
 	}
 	return (true);
 }
+
 
 bool	is_player(char player)
 {
@@ -55,29 +58,60 @@ bool	is_player(char player)
 	return (false);
 }
 
-static bool	update_player_pos(t_game *g, t_player *player, t_position new_pos)
+static bool	update_player(t_game *g, t_player *player, t_axis new_pos)
 {
-	int		i;
 	char	*dir_set;
+	int		y;
+	int		x;
 
-	if (player->pos.x_axis != NPOS || player->pos.y_axis != NPOS
-		|| player->dir != NONE)
+	if (player->pos.x != NPOS || player->pos.y != NPOS
+		|| (player->dir.x != 0 || player->dir.y != 0))
 	{
 		display_error_message(MULTI_USER, false);
 		g->error_flag = true;
 		return (false);
 	}
-	player->pos.x_axis = new_pos.x_axis;
-	player->pos.y_axis = new_pos.y_axis;
-	i = 0;
+	update_pos(&player->pos, new_pos, &x, &y);
 	dir_set = DIR_SET;
-	if (dir_set[NORTH] == g->data.map.matrix[new_pos.y_axis][new_pos.x_axis])
-		player->dir = NORTH;
-	else if (dir_set[SOUTH] == g->data.map.matrix[new_pos.y_axis][new_pos.x_axis])
-		player->dir = SOUTH;
-	else if (dir_set[WEST] == g->data.map.matrix[new_pos.y_axis][new_pos.x_axis])
-		player->dir = WEST;
+	if (dir_set[NORTH] == g->data.map.matrix[y][x])
+		update_dir(NORTH, &player->dir);
+	else if (dir_set[SOUTH] == g->data.map.matrix[y][x])
+		update_dir(SOUTH, &player->dir);
+	else if (dir_set[WEST] == g->data.map.matrix[y][x])
+		update_dir(WEST, &player->dir);
 	else
-		player->dir = EAST;
+		update_dir(EAST, &player->dir);
 	return (true);
+}
+
+static void	update_dir(t_directions dir, t_axis *dir_vector)
+{
+	if (dir == NORTH)
+	{
+		dir_vector->x = 0;
+		dir_vector->y = -1;
+	}
+	else if (dir == SOUTH)
+	{
+		dir_vector->x = 0;
+		dir_vector->y = 1;
+	}
+	else if (dir == WEST)
+	{
+		dir_vector->x = -1;
+		dir_vector->y = 0;
+	}
+	else
+	{
+		dir_vector->x = 1;
+		dir_vector->y = 0;
+	}
+}
+
+static void	update_pos(t_axis *pos, t_axis new_pos, int *x, int *y)
+{
+	pos->x = new_pos.x;
+	pos->y = new_pos.y;
+	*x = (int)new_pos.x;
+	*y = (int)new_pos.y;
 }

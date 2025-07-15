@@ -15,13 +15,12 @@ t_game *init_game(char *map_path)
 	}
 	game->data.map.map_path = map_path;
 	data_ctor(&game->data);
-
+	player_ctor(&game->player);
 	if (!init_data(game) || !init_player(game) || !check_map(game))
 	{
 		free_game(game);
 		return (NULL);
 	}
-  player_ctor(&game->player); // TODO: Combine with the init_player function (for struct unity)
 	return (game);
 }
 
@@ -40,16 +39,11 @@ static void	data_ctor(t_data *data)
 
 static void	player_ctor(t_player *player)
 {
-	player->x = 0.0f;
-	player->y = 0.0f;
-	player->direction = 0.0f;
-	// Already set to 0 by calloc
-	// player->mov_up = 0;
-	// player->mov_down = 0;
-	// player->mov_left = 0;
-	// player->mov_right = 0;
-	// player->rot_left = 0;
-	// player->rot_right = 0;
-	// player->mouse_x = 0;
-	// player->mouse_y = 0;
+	player->pos.x = NPOS;
+	player->pos.y = NPOS;
+	player->mov_speed = 0.5;
+	player->sens.x = 0.1;
+	player->sens.y = 0.1;
+	player->plane.x = 0;
+	player->plane.y = 0.66;
 }

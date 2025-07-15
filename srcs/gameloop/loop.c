@@ -15,7 +15,7 @@ int	gameloop(t_game *game)
 {
 	if (game->player.mov_up || game->player.mov_down ||
 		game->player.mov_left || game->player.mov_right ||
-		game->player.rot_left || game->player.rot_right)
+		game->player.rot.x || game->player.rot.y)
 	{
 		// Update player position and rotation based on input
 		update_player(game); // TODO: implement this function

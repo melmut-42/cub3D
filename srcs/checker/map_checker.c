@@ -19,7 +19,7 @@ static bool	check_accessability(t_game *game)
 	cpy = copy_matrix(game, game->data.map.matrix);
 	if (!cpy)
 		return (false);
-	flood_fill(game, cpy, game->player.pos.x_axis, game->player.pos.y_axis);
+	flood_fill(game, cpy, (int)game->player.pos.x, (int)game->player.pos.y);
 	i = 0;
 	while (cpy[i])
 	{
