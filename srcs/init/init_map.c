@@ -17,6 +17,12 @@ bool	process_map_data(t_game *game, t_map *map, int fd)
 			return (false);
 		line = get_next_line(fd);
 	}
+	if (!map->matrix)
+	{
+		display_error_message(EMPTY_MAP_ERR, false);
+		game->error_flag = true;
+		return (false);
+	}
 	return (true);
 }
 

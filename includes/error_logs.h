@@ -19,6 +19,6 @@
 # define DUP_DATA "Duplicate data found in the map file!"
 # define MULTI_USER "Multiple user found in the map!"
 # define MAP_ACCESS_ERR "Map accessability is incorrect!"
-
+# define EMPTY_MAP_ERR "Map does not exist in the file!"
 
 #endif
