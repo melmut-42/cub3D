@@ -10,6 +10,12 @@ bool	init_player(t_game *game)
 {
 	if (!set_player(game, &game->player))
 		return (false);
+	if (game->player.pos.x == NPOS || game->player.pos.y == NPOS)
+	{
+		display_error_message(PLAYER_NOT_EXIST_ERR, false);
+		game->error_flag = true;
+		return (false);
+	}
 	return (true);
 }
 
@@ -67,7 +73,7 @@ static bool	update_player(t_game *g, t_player *player, t_axis new_pos)
 	if (player->pos.x != NPOS || player->pos.y != NPOS
 		|| (player->dir.x != 0 || player->dir.y != 0))
 	{
-		display_error_message(MULTI_USER, false);
+		display_error_message(MULTI_PLAYER, false);
 		g->error_flag = true;
 		return (false);
 	}

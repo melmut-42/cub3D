@@ -17,8 +17,9 @@
 # define INV_MAP_ELEMENT "Invalid map element found in the map!"
 # define LACK_TEXTURE "Lack of texture data in the map file!"
 # define DUP_DATA "Duplicate data found in the map file!"
-# define MULTI_USER "Multiple user found in the map!"
 # define MAP_ACCESS_ERR "Map accessability is incorrect!"
 # define EMPTY_MAP_ERR "Map does not exist in the file!"
+# define MULTI_PLAYER "Multiple player found in the map!"
+# define PLAYER_NOT_EXIST_ERR "Player does not exist in the file"
 
 #endif
