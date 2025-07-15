@@ -51,7 +51,7 @@
 
 // ============= Enums =============
 
-// Defines the possible directions for map parsing
+// * Defines the possible directions for map parsing
 typedef enum	e_directions
 {
 	NORTH,
@@ -63,7 +63,7 @@ typedef enum	e_directions
 	NONE
 }					t_directions;
 
-// Defines errors for robust error handling
+// * Defines errors for robust error handling
 typedef enum	e_err_code
 {
 	MALLOC_ERR,
@@ -72,7 +72,19 @@ typedef enum	e_err_code
 
 // ============= Structures =============
 
-// Represents a texture with paths for different directions and RGB values for ceiling and floor
+// * Represents an image in memory with its properties
+typedef struct	s_img
+{
+	void		*img_ptr;		// pointer to image in memory
+	char		*addr;			// pointer to the image data
+	int			bpp;			// bits per pixel
+	int			endian;			// endianess of the image data
+	int			line_len;		// length of a line in bytes
+	int			width;			// width of the image
+	int			height;			// height of the image
+}				t_img;
+
+// * Represents a texture with paths for different directions and RGB values for ceiling and floor
 typedef struct s_texture
 {
 	char			*no_path;
@@ -81,9 +93,10 @@ typedef struct s_texture
 	char			*ea_path;
 	int				ceil_rgb[RGB_CONSTANT];
 	int				floor_rgb[RGB_CONSTANT];
+	t_img			textures[NUMBER_DIR];		// array of textures for different directions
 }					t_texture;
 
-// Represents a map with height, path to the map file, and a 2D matrix of characters
+// * Represents a map with height, path to the map file, and a 2D matrix of characters
 typedef struct s_map
 {
 	size_t			height;
@@ -91,14 +104,14 @@ typedef struct s_map
 	char			**matrix;
 }					t_map;
 
-// Represents a 2D axis with x and y coordinates
+// * Represents a 2D axis with x and y coordinates
 typedef struct s_axis
 {
 	double				x;
 	double				y;
 }					t_axis;
 
-// Holds direction, position, movement flags, and camera settings
+// * Holds direction, position, movement flags, and camera settings
 typedef struct	s_player
 {
 	int			mov_up;        	// move forward flag
@@ -121,6 +134,8 @@ typedef struct	t_mlx
 	char		*title;
 	int			width;
 	int			height;
+	t_img		frame_img;		// image structure for the frame (main screen buffer)
+	t_img		minimap_img;	// image structure for the minimap
 }				t_mlx;
 
 typedef	struct	s_data
