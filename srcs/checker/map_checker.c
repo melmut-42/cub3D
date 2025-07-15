@@ -65,11 +65,12 @@ static bool	check_invalid_element(t_game *game, char **matrix)
 
 static void	flood_fill(t_game *game, char **matrix, int x, int y)
 {
-	if (matrix[y][x] == WALL || matrix[y][x] == VISITED
-		|| game->error_flag)
-			return ;
-	if (x < 0 || y < 0 || y >= (int)game->data.map.height
-		|| x >= (int)ft_strlen(matrix[y]) || is_space(matrix[y][x]))
+	if (game->error_flag)
+		return ;
+	if (matrix[y][x] == WALL || matrix[y][x] == VISITED || game->error_flag)
+		return ;
+	if (is_space(matrix[y][x]) || x == 0 || matrix[y][x] == '\0' || y == 0
+		|| (size_t)y >= game->data.map.height - 1)
 	{
 		if (!game->error_flag)
 			display_error_message(MAP_ACCESS_ERR, false);
