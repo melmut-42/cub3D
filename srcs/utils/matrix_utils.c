@@ -13,7 +13,7 @@ char	**copy_matrix(t_game *game, char **matrix)
 		return (NULL);
 	}
 	i = 0;
-	while (game->data.map.matrix[i])
+	while (matrix[i])
 	{
 		copy[i] = ft_strdup(matrix[i]);
 		if (!copy[i])
