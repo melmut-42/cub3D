@@ -5,7 +5,6 @@ static void	update_pos(t_axis *pos, t_axis new_pos, int *x, int *y);
 static bool	set_player(t_game *game, t_player *player);
 static bool	update_player(t_game *g, t_player *player, t_axis new_pos);
 
-// TODO: Implement direction
 bool	init_player(t_game *game)
 {
 	if (!set_player(game, &game->player))

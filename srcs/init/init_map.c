@@ -73,6 +73,8 @@ static bool	matrix_realloc(t_game *game, t_map *map, char *line)
 	size_t	i;
 
 	map->height++;
+	if (ft_strlen(line) > map->width)
+		map->width = ft_strlen(line);
 	new_matrix = ft_calloc(map->height + 1, sizeof(char *));
 	if (!new_matrix)
 	{

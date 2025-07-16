@@ -6,6 +6,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
 
@@ -29,13 +30,19 @@ bool	does_texture_attr_completed(t_texture *texture);
 
 void	*setup_mlx(int width, int height, char *title, t_game *game);
 
-// ========================= Game Loop Functions =========================
+// ======================= Game Loop Functions =======================
 int		gameloop(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_close(t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
 int		handle_mouse(int x, int y, t_game *game);
 void	init_hooks(t_game *game);
+
+
+// =========================== Render Functions ===========================
+
+void cast_ray(t_game *game, t_ray *ray, int x);
+
 
 // ============================ Free Functions ============================
 
@@ -48,6 +55,13 @@ void	handle_error(t_err_code err_code, bool exit_program);
 
 bool	has_valid_cub_extension(const char *filename);
 bool	check_map(t_game *game);
+
+
+// ============================= Time Functions =============================
+
+t_ms	get_curr_time(t_game *game);
+bool	should_update(t_game *game);
+
 
 // ================================ Utils ================================
 

@@ -21,5 +21,6 @@
 # define EMPTY_MAP_ERR "Map does not exist in the file!"
 # define MULTI_PLAYER "Multiple player found in the map!"
 # define PLAYER_NOT_EXIST_ERR "Player does not exist in the file"
+# define GET_TIME_OF_DAY_ERR "gettimeofday() failed!"
 
 #endif

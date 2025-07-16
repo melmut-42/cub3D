@@ -23,6 +23,7 @@ static void	display_map(const t_map *m)
 
 	printf("Map:\n");
 	printf("  Height: %zu\n", m->height);
+	printf("  Width: %zu\n", m->width);
 	printf("  Path: %s\n", m->map_path);
 	printf("  Matrix:\n");
 	for (i = 0; i < m->height; i++)

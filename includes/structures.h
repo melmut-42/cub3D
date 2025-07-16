@@ -1,6 +1,10 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
+// ============= Includes =============
+
+# include <stdint.h>
+
 // ============= Constants =============
 
 # ifndef BUFFER_SIZE
@@ -10,6 +14,8 @@
 # define WIN_TITLE "Cub3D"
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
+
+#define TARGET_FPS 60
 
 # define NPOS -1
 
@@ -72,6 +78,8 @@ typedef enum	e_err_code
 
 // ============= Structures =============
 
+typedef uint64_t t_ms;
+
 // * Represents an image in memory with its properties
 typedef struct	s_img
 {
@@ -100,6 +108,7 @@ typedef struct s_texture
 typedef struct s_map
 {
 	size_t			height;
+	size_t			width;
 	char			*map_path;
 	char			**matrix;
 }					t_map;
@@ -127,6 +136,19 @@ typedef struct	s_player
 	t_axis		sens;			// sensitivity vector
 }				t_player;
 
+typedef struct s_ray
+{
+	t_axis	dir;				// ray direction
+	t_axis	map;				// which coordinates of the map we are in
+	t_axis	side_dist;			// length of ray from current pos to next x or y-side
+	t_axis	delta_dist;			// length of ray from one x or y-side to next x or y-side
+	double	perp_wall_dist;		// distance to wall (corrected)
+    int     step_x;      		// Direction to step in x: +1 (east) or –1 (west)
+    int     step_y;         	// Direction to step in y: +1 (south) or –1 (north)
+	bool	does_hit;			// was there a wall hit?
+	int		side;				// was a NS or EW wall hit? 0 = vertical (NS), 1 = horizontal (EW)
+}	t_ray;
+
 typedef struct	t_mlx
 {
 	void		*mlx_ptr;
@@ -151,6 +173,7 @@ typedef struct s_game
 	t_mlx		*mlx;
 	t_player	player;
 	bool		error_flag;
+	t_ms		last_update;
 }				t_game;
 
 #endif
