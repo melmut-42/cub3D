@@ -44,6 +44,4 @@ static void	player_ctor(t_player *player)
 	player->mov_speed = 0.5;
 	player->sens.x = 0.1;
 	player->sens.y = 0.1;
-	player->plane.x = 0;
-	player->plane.y = 0.66;
 }
