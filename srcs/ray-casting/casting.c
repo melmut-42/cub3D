@@ -20,10 +20,16 @@ static void	init_ray(t_game *g, t_player *p, t_ray *ray, int x)
 	camera_x = 2 * x / (double)g->mlx->width - 1;
 	ray->dir.x = p->dir.x + p->plane.x * camera_x;
 	ray->dir.y = p->dir.y + p->plane.y * camera_x;
-	ray->map.x = (int)g->player.pos.x;
-	ray->map.y = (int)g->player.pos.y;
-	ray->delta_dist.x = fabs(1.0 / ray->dir.x);
-	ray->delta_dist.y = fabs(1.0 / ray->dir.y);
+	ray->map.x = (int)p->pos.x;
+	ray->map.y = (int)p->pos.y;
+	if (ray->dir.x == 0)
+		ray->delta_dist.x = 1e30;
+	else
+		ray->delta_dist.x = fabs(1.0 / ray->dir.x);
+	if (ray->dir.y == 0)
+		ray->delta_dist.y = 1e30;
+	else
+		ray->delta_dist.y = fabs(1.0 / ray->dir.y);
 }
 
 static void	init_steps(t_player *p, t_ray *ray)
