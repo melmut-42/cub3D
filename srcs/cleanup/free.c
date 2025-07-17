@@ -65,6 +65,9 @@ void	free_game(t_game *game)
 	// Free all allocated textures
 	free_data(&game->data);
 
+	// Free game texture
+	free_textures(game);
+
 	// Free the mlx structure and its resources
 	destroy_img(game);
 

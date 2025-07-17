@@ -35,9 +35,11 @@ SRCS    	=	$(SRC_DIR)/main.c 					\
 				$(EVENTS_DIR)/hooks.c				\
 				$(EVENTS_DIR)/time.c				\
 				$(CLEANUP_DIR)/free.c				\
+				$(CLEANUP_DIR)/free_textures.c		\
 				$(CHECKER_DIR)/file_checker.c		\
 				$(CHECKER_DIR)/map_checker.c		\
 				$(RAYCAST_DIR)/casting.c			\
+				$(RAYCAST_DIR)/load_textures.c		\
 				$(UTIL_DIR)/display_message.c		\
 				$(UTIL_DIR)/str_utils.c				\
 				$(UTIL_DIR)/matrix_utils.c			\

@@ -1,10 +1,10 @@
 #include "game.h"
 
 // * Loads a texture from the specified path into the game structure
-int	__attribute__((unused)) load_texture(t_game *game, t_texture *tex, const char *path, t_directions dir)
+int	load_texture(t_game *game, t_texture *tex, const char *path, t_directions dir)
 {
 	// Define the texture paths based on the direction
-	tex->textures[dir].img_ptr = mlx_xpm_file_to_image(game->mlx->mlx_ptr, path,
+	tex->textures[dir].img_ptr = mlx_xpm_file_to_image(game->mlx->mlx_ptr, (char *)path,
 			&tex->textures[dir].width, &tex->textures[dir].height);
 
 	// Check if the texture was loaded successfully

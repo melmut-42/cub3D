@@ -1,7 +1,7 @@
 #include "game.h"
 
 // * Frees all texture images in the game
-void __attribute__((unused)) free_textures(t_game *game)
+void	free_textures(t_game *game)
 {
 	t_texture *tex;
 	int	i;

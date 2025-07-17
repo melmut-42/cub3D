@@ -25,6 +25,14 @@ static int	execube(char *map_file)
 		return (EXIT_FAILURE);
 	}
 
+	// Load textures after MLX initialization
+	if (!load_game_textures(game))
+	{
+		display_error_message("Failed to load textures", false);
+		free_game(game);
+		return (EXIT_FAILURE);
+	}
+
 	// Load textures and initialize the game data
 	display_game(game);
 
