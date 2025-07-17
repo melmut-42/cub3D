@@ -15,6 +15,9 @@ static void	destroy_img(t_game *game)
 {
 	if (game->mlx)
 	{
+		// Free all texture images and frame buffer
+		free_textures(game);
+		
 		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
 		{
 			mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);

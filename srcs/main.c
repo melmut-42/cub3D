@@ -25,6 +25,14 @@ static int	execube(char *map_file)
 		return (EXIT_FAILURE);
 	}
 
+	// Create the frame buffer image
+	if (!create_frame_image(game))
+	{
+		display_error_message("Failed to create frame image", false);
+		free_game(game);
+		return (EXIT_FAILURE);
+	}
+
 	// Load textures after MLX initialization
 	if (!load_game_textures(game))
 	{

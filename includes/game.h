@@ -27,6 +27,7 @@ bool	process_texture_data(t_game *game, t_texture *texture, int fd);
 void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data);
 bool	process_map_data(t_game *game, t_map *map, int fd);
 bool	does_texture_attr_completed(t_texture *texture);
+int		create_frame_image(t_game *game);
 
 // ========================= MLX Functions =========================
 
