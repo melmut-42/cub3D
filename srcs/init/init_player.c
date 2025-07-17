@@ -79,13 +79,13 @@ static bool	update_player(t_game *g, t_player *player, t_axis new_pos)
 	update_pos(&player->pos, new_pos, &x, &y);
 	dir_set = DIR_SET;
 	if (dir_set[NORTH] == g->data.map.matrix[y][x])
-		update_dir(NORTH, &player);
+		update_dir(NORTH, player);
 	else if (dir_set[SOUTH] == g->data.map.matrix[y][x])
-		update_dir(SOUTH, &player);
+		update_dir(SOUTH, player);
 	else if (dir_set[WEST] == g->data.map.matrix[y][x])
-		update_dir(WEST, &player);
+		update_dir(WEST, player);
 	else
-		update_dir(EAST, &player);
+		update_dir(EAST, player);
 	return (true);
 }
 
