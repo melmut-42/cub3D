@@ -61,3 +61,4 @@ int	create_frame_image(t_game *game)
 
 	return (1);
 }
+ 

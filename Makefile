@@ -39,9 +39,12 @@ SRCS    	=	$(SRC_DIR)/main.c 					\
 				$(CHECKER_DIR)/file_checker.c		\
 				$(CHECKER_DIR)/map_checker.c		\
 				$(RAYCAST_DIR)/casting.c			\
+				$(RAYCAST_DIR)/draw.c				\
+				$(RAYCAST_DIR)/draw_texture.c		\
 				$(RAYCAST_DIR)/load_textures.c		\
 				$(UTIL_DIR)/display_message.c		\
 				$(UTIL_DIR)/str_utils.c				\
+				$(UTIL_DIR)/img_utils.c				\
 				$(UTIL_DIR)/matrix_utils.c			\
 				$(UTIL_DIR)/debug.c					\
 				$(UTIL_DIR)/error_handling.c		\

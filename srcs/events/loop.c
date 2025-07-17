@@ -60,7 +60,11 @@ static void render_scene(t_game *game)
 	while (i < screenW)
 	{
 		cast_ray(game, &ray, i);
-        // draw_column(game, &ray, i); // TODO: Implement later
+        draw_column(game, &ray, i);
 		i++;
 	}
+    mlx_put_image_to_window(game->mlx->mlx_ptr,
+		game->mlx->win_ptr,
+		game->mlx->frame_img.img_ptr,
+		0, 0);
 }
