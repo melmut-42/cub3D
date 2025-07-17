@@ -11,7 +11,7 @@
 # include <fcntl.h>
 
 # include "../libs/libft/libft.h"
-# include "../libs/mlx/mlx.h"
+# include "mlx.h"
 
 # include "structures.h"
 # include "error_logs.h"

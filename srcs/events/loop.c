@@ -1,6 +1,8 @@
 #include "game.h"
 
 static void render_scene(t_game *game);
+static void	update_player(t_game *game);
+static void render_game(t_game *game);
 
 // * The main game loop function that updates the game state
 int gameloop(t_game *game)
@@ -61,5 +63,4 @@ static void render_scene(t_game *game)
         // draw_column(game, &ray, i); // TODO: Implement later
 		i++;
 	}
-
 }

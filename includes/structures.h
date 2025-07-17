@@ -57,7 +57,7 @@
 
 // ============= Enums =============
 
-// * Defines the possible directions for map parsing
+// * Defines the possible directions for map parsing and texture loading
 typedef enum	e_directions
 {
 	NORTH,
