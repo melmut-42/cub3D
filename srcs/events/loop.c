@@ -7,20 +7,6 @@
 static void render_scene(t_game *game);
 static void	update_player(t_player *player, t_map *map);
 static void render_game(t_game *game);
-static void	rotate_vector(t_axis *vec, double angle);
-
-static void	rotate_vector(t_axis *vec, double angle)
-{
-	double	old_x;
-	double	old_y;
-
-	old_x = vec->x;
-	old_y = vec->y;
-	
-	// Rotate the player's direction vector by a given angle
-	vec->x = old_x * cos(angle) - old_y * sin(angle);
-	vec->y = old_x * sin(angle) + old_y * cos(angle);
-}
 
 // * The main game loop function that updates the game state
 int gameloop(t_game *game)
@@ -39,7 +25,7 @@ int gameloop(t_game *game)
     return (0);
 }
 
-// TODO: Fix direction based error + speed
+// TODO: Fix direction based movement + speed
 // * Handles player movement
 static void	update_player(t_player *player, t_map *map)
 {
@@ -65,7 +51,9 @@ static void	update_player(t_player *player, t_map *map)
 		rotate_vector(&player->dir, player->rot.y * player->sens.y);
 	}
 
-	(void)map;	
+	// TODO: Implement collision detection with the map
+	// TODO: Check if the player is within the bounds of the map
+	(void)map;
 }
 
 static void render_game(t_game *game)
@@ -83,6 +71,7 @@ static void render_game(t_game *game)
 	//draw_elements(game);
 }
 
+// * Casts rays to render the scene
 static void render_scene(t_game *game)
 {
 	int		i;

@@ -47,7 +47,7 @@ void	init_hooks(t_game *game);
 void	cast_ray(t_game *game, t_ray *ray, int x);
 void	draw_texture(t_game *g, t_ray *ray, int x);
 void	draw_column(t_game *g, t_ray *ray, int x);
-
+void	rotate_vector(t_axis *vec, double angle);
 
 // ============================ Free Functions ============================
 
