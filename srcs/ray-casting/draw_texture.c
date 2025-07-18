@@ -82,6 +82,7 @@ static int	get_texture_x(t_game *g, t_ray *ray, t_img *tex)
 	return (tex_x);
 }
 
+// TODO: Fix segmentatoon fault
 static void	draw_texture_line(t_game *g, t_column *d)
 {
 	int		y;
@@ -92,6 +93,10 @@ static void	draw_texture_line(t_game *g, t_column *d)
 
 	step = 1.0 * d->texture->height / d->wall_height;
 	tex_pos = (d->pixel_bottom - g->mlx->height / 2 + d->wall_height / 2) * step;
+
+	// ! This fixes the segmentation fault but it might not be correct behavior
+	if (tex_pos < 0)
+		tex_pos *= -1;
 	y = d->pixel_bottom;
 	while (y <= d->pixel_top)
 	{
