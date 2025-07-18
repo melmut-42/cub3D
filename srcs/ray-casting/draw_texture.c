@@ -82,7 +82,7 @@ static int	get_texture_x(t_game *g, t_ray *ray, t_img *tex)
 	return (tex_x);
 }
 
-// TODO: Fix segmentatoon fault
+// * Draws a vertical line of texture pixels for the given column based on the ray's hit position
 static void	draw_texture_line(t_game *g, t_column *d)
 {
 	int		y;
@@ -94,19 +94,18 @@ static void	draw_texture_line(t_game *g, t_column *d)
 	step = 1.0 * d->texture->height / d->wall_height;
 	tex_pos = (d->pixel_bottom - g->mlx->height / 2 + d->wall_height / 2) * step;
 
-	// ! This fixes the segmentation fault but it might not be correct behavior
-	if (tex_pos < 0)
-		tex_pos *= -1;
 	y = d->pixel_bottom;
 	while (y <= d->pixel_top)
 	{
-		tex_y = (int)tex_pos % d->texture->height;
+		// Prevent out of bounds access
+		if (tex_pos >= 0 && tex_pos < d->texture->height)
+		{
+			tex_y = (int)tex_pos;
+			color = *(unsigned int *)(d->texture->addr
+					+ (tex_y * d->texture->line_len + d->texture_x * (d->texture->bpp / 8)));
+			ft_put_pixel(&g->mlx->frame_img, d->screen_x, y, color);
+		}
 		tex_pos += step;
-		color = *(unsigned int *)(d->texture->addr
-				+ (tex_y * d->texture->line_len + d->texture_x * (d->texture->bpp / 8)));
-		ft_put_pixel(&g->mlx->frame_img, d->screen_x, y, color);
 		y++;
 	}
 }
-
-
