@@ -28,6 +28,10 @@ int	handle_keypress(int keycode, t_game *game)
 
 	// TODO: Remove other keys
 
+	if (keycode == KEY_LEFT)
+		game->player.rot.x = -1;
+	if (keycode == KEY_RIGHT)
+		game->player.rot.x = 1;
 	return (0);
 }
 
@@ -51,6 +55,10 @@ int	handle_keyrelease(int keycode, t_game *game)
 
 	// TODO: Remove other keys
 
+	if (keycode == KEY_LEFT)
+		game->player.rot.x = 0;
+	if (keycode == KEY_RIGHT)
+		game->player.rot.x = 0;
 	return (0);
 }
 

@@ -56,6 +56,7 @@ static void	init_steps(t_player *p, t_ray *ray)
 	}
 }
 
+// TODO: add fog/shading
 static void	perform_dda(t_game *game, t_ray *ray)
 {
 	int	map_x;
