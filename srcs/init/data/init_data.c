@@ -1,12 +1,29 @@
 #include "game.h"
 
+static void	setup_trigonometry_table(t_data *data);
 static bool	process_file_data(t_game *game, const char *path);
 
 bool	init_data(t_game *game)
 {
 	if (!process_file_data(game, game->data.map.map_path))
 		return (false);
+	setup_trigonometry_table(&game->data);
 	return (true);
+}
+
+static void	setup_trigonometry_table(t_data *data)
+{
+	int		i;
+	double	radians;
+
+	i = 0;
+	while (i < NUM_OF_DEGREE)
+	{
+		radians = (i * M_PI) / 180.0;
+		data->cos_table[i] = cos(radians);
+		data->sin_table[i] = sin(radians);
+		i++;
+	}
 }
 
 static bool	process_file_data(t_game *game, const char *path)

@@ -5,7 +5,7 @@
 // TODO: fix segfault when lines are too small
 // TODO: write table for trigonometry
 static void render_scene(t_game *game);
-static void	update_player(t_player *player, t_map *map);
+static void	update_player(t_game *g, t_player *p, t_map *map);
 static void render_game(t_game *game);
 
 // * The main game loop function that updates the game state
@@ -18,7 +18,7 @@ int gameloop(t_game *game)
         game->player.rot.x    || game->player.rot.y)
     {
         // Update player position and rotation based on input
-        update_player(&game->player, &game->data.map);
+        update_player(game, &game->player, &game->data.map);
     }
     // Render the game state
     render_game(game);
@@ -27,7 +27,7 @@ int gameloop(t_game *game)
 
 // TODO: Fix direction based movement + speed
 // * Handles player movement
-static void	update_player(t_player *p, t_map *map)
+static void	update_player(t_game *g, t_player *p, t_map *map)
 {
 	t_axis	strafe;
 	double	angle;
@@ -59,8 +59,8 @@ static void	update_player(t_player *p, t_map *map)
 	if (p->rot.x)
 	{
 		angle = p->rot.x * p->sens.x;
-		rotate_vector(&p->dir, angle);
-		rotate_vector(&p->plane, angle);
+		rotate_vector(&g->data, &p->dir, angle);
+		rotate_vector(&g->data, &p->plane, angle);
 	}
 
 	// TODO: Implement collision detection with the map

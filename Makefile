@@ -17,6 +17,7 @@ RAYCAST_DIR		=	$(SRC_DIR)/ray-casting
 UTIL_DIR		=	$(SRC_DIR)/utils
 CLEANUP_DIR		=	$(SRC_DIR)/cleanup
 GNL_DIR			=	$(SRC_DIR)/gnl
+INIT_MLX_DIR	=	$(INIT_DIR)/mlx
 INIT_DATA_DIR	=	$(INIT_DIR)/data
 
 # Object directory
@@ -26,11 +27,12 @@ OBJ_DIR		=	objs
 SRCS    	=	$(SRC_DIR)/main.c 					\
 				$(INIT_DIR)/init_game.c				\
 				$(INIT_DIR)/init_player.c			\
-				$(INIT_DIR)/init_mlx.c				\
 				$(INIT_DATA_DIR)/init_data.c		\
 				$(INIT_DATA_DIR)/init_map.c			\
 				$(INIT_DATA_DIR)/init_rgb.c			\
 				$(INIT_DATA_DIR)/init_texture.c		\
+				$(INIT_MLX_DIR)/init_mlx.c			\
+				$(INIT_MLX_DIR)/load_textures.c		\
 				$(EVENTS_DIR)/loop.c				\
 				$(EVENTS_DIR)/input.c				\
 				$(EVENTS_DIR)/hooks.c				\
@@ -40,9 +42,8 @@ SRCS    	=	$(SRC_DIR)/main.c 					\
 				$(CHECKER_DIR)/file_checker.c		\
 				$(CHECKER_DIR)/map_checker.c		\
 				$(RAYCAST_DIR)/casting.c			\
-				$(RAYCAST_DIR)/draw.c				\
+				$(RAYCAST_DIR)/rotation.c			\
 				$(RAYCAST_DIR)/draw_texture.c		\
-				$(RAYCAST_DIR)/load_textures.c		\
 				$(UTIL_DIR)/display_message.c		\
 				$(UTIL_DIR)/str_utils.c				\
 				$(UTIL_DIR)/img_utils.c				\
@@ -50,7 +51,7 @@ SRCS    	=	$(SRC_DIR)/main.c 					\
 				$(UTIL_DIR)/debug.c					\
 				$(UTIL_DIR)/error_handling.c		\
 				$(GNL_DIR)/get_next_line.c			\
-				$(GNL_DIR)/get_next_line_utils.c	\
+				$(GNL_DIR)/get_next_line_utils.c	
 
 # ! debug.c is for debugging purposes and shall be removed later
 
