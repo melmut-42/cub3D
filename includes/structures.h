@@ -182,11 +182,11 @@ typedef	struct	s_data
 typedef struct s_game
 {
 	char		*name;
-	t_data		data;
-	t_mlx		*mlx;
-	t_player	player;
 	bool		error_flag;
 	t_ms		last_update;
+	t_mlx		*mlx;
+	t_data		data;
+	t_player	player;
 }				t_game;
 
 #endif

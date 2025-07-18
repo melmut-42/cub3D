@@ -3,9 +3,6 @@
 
 #include "game.h"
 
-// Load all textures from their paths
-int	load_texture(t_game *game, t_texture *tex, const char *path, t_directions dir);
-
 // Free all loaded texture images
 void	free_textures(t_game *game);
 

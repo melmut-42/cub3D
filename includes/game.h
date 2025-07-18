@@ -11,7 +11,7 @@
 # include <fcntl.h>
 
 # include "../libs/libft/libft.h"
-# include "mlx.h"
+# include "../libs/mlx/mlx.h"
 
 # include "structures.h"
 # include "error_logs.h"
@@ -22,16 +22,16 @@
 t_game	*init_game(char *map_path);
 bool	init_data(t_game *game);
 bool	init_player(t_game *game);
-int		load_game_textures(t_game *game);
 bool	process_texture_data(t_game *game, t_texture *texture, int fd);
 void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data);
 bool	process_map_data(t_game *game, t_map *map, int fd);
 bool	does_texture_attr_completed(t_texture *texture);
-int		create_frame_image(t_game *game);
 
 // ========================= MLX Functions =========================
 
-void	*setup_mlx(int width, int height, char *title, t_game *game);
+bool	init_mlx(t_game *game, int width, int height, char *title);
+bool	init_frame_image(t_game *game);
+bool	load_game_textures(t_game *game);
 
 // ======================= Game Loop Functions =======================
 int		gameloop(t_game *game);

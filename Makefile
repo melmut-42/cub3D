@@ -9,14 +9,15 @@ NAME    	=	cub3d
 SRC_DIR 	=	srcs
 
 # Subdirectories
-INIT_DIR	=	$(SRC_DIR)/init
-CHECKER_DIR	=	$(SRC_DIR)/checker
-MLX_SRC_DIR	=	$(SRC_DIR)/mlx
-EVENTS_DIR	=	$(SRC_DIR)/events
-RAYCAST_DIR	=	$(SRC_DIR)/ray-casting
-UTIL_DIR	=	$(SRC_DIR)/utils
-CLEANUP_DIR	=	$(SRC_DIR)/cleanup
-GNL_DIR		=	$(SRC_DIR)/gnl
+INIT_DIR		=	$(SRC_DIR)/init
+CHECKER_DIR		=	$(SRC_DIR)/checker
+MLX_SRC_DIR		=	$(SRC_DIR)/mlx
+EVENTS_DIR		=	$(SRC_DIR)/events
+RAYCAST_DIR		=	$(SRC_DIR)/ray-casting
+UTIL_DIR		=	$(SRC_DIR)/utils
+CLEANUP_DIR		=	$(SRC_DIR)/cleanup
+GNL_DIR			=	$(SRC_DIR)/gnl
+INIT_DATA_DIR	=	$(INIT_DIR)/data
 
 # Object directory
 OBJ_DIR		=	objs
@@ -24,12 +25,12 @@ OBJ_DIR		=	objs
 # Source files
 SRCS    	=	$(SRC_DIR)/main.c 					\
 				$(INIT_DIR)/init_game.c				\
-				$(INIT_DIR)/init_data.c				\
-				$(INIT_DIR)/init_rgb.c				\
-				$(INIT_DIR)/init_texture.c			\
-				$(INIT_DIR)/init_map.c				\
 				$(INIT_DIR)/init_player.c			\
-				$(INIT_DIR)/init_window.c			\
+				$(INIT_DIR)/init_mlx.c				\
+				$(INIT_DATA_DIR)/init_data.c		\
+				$(INIT_DATA_DIR)/init_map.c			\
+				$(INIT_DATA_DIR)/init_rgb.c			\
+				$(INIT_DATA_DIR)/init_texture.c		\
 				$(EVENTS_DIR)/loop.c				\
 				$(EVENTS_DIR)/input.c				\
 				$(EVENTS_DIR)/hooks.c				\
@@ -94,6 +95,8 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(MLX_DIR) fclean
+
 
 re: fclean all
 
