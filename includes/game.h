@@ -6,36 +6,48 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
 
 # include "../libs/libft/libft.h"
-# include "../libs/mlx/mlx.h"
+# include "mlx.h"
 
 # include "structures.h"
 # include "error_logs.h"
+# include "textures.h"
 
 // ========================= Initialization Functions =========================
 
 t_game	*init_game(char *map_path);
 bool	init_data(t_game *game);
 bool	init_player(t_game *game);
+int		load_game_textures(t_game *game);
 bool	process_texture_data(t_game *game, t_texture *texture, int fd);
 void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data);
 bool	process_map_data(t_game *game, t_map *map, int fd);
 bool	does_texture_attr_completed(t_texture *texture);
+int		create_frame_image(t_game *game);
 
 // ========================= MLX Functions =========================
 
 void	*setup_mlx(int width, int height, char *title, t_game *game);
 
-// ========================= Game Loop Functions =========================
+// ======================= Game Loop Functions =======================
 int		gameloop(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_close(t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
 int		handle_mouse(int x, int y, t_game *game);
 void	init_hooks(t_game *game);
+
+
+// =========================== Render Functions ===========================
+
+void	cast_ray(t_game *game, t_ray *ray, int x);
+void	draw_texture(t_game *g, t_ray *ray, int x);
+void	draw_column(t_game *g, t_ray *ray, int x);
+void	rotate_vector(t_axis *vec, double angle);
 
 // ============================ Free Functions ============================
 
@@ -48,6 +60,13 @@ void	handle_error(t_err_code err_code, bool exit_program);
 
 bool	has_valid_cub_extension(const char *filename);
 bool	check_map(t_game *game);
+
+
+// ============================= Time Functions =============================
+
+t_ms	get_curr_time(t_game *game);
+bool	should_update(t_game *game);
+
 
 // ================================ Utils ================================
 

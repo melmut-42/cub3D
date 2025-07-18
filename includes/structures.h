@@ -1,6 +1,10 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
+// ============= Includes =============
+
+# include <stdint.h>
+
 // ============= Constants =============
 
 # ifndef BUFFER_SIZE
@@ -10,6 +14,8 @@
 # define WIN_TITLE "Cub3D"
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
+
+#define TARGET_FPS 60
 
 # define NPOS -1
 
@@ -51,7 +57,7 @@
 
 // ============= Enums =============
 
-// * Defines the possible directions for map parsing
+// * Defines the possible directions for map parsing and texture loading
 typedef enum	e_directions
 {
 	NORTH,
@@ -72,17 +78,19 @@ typedef enum	e_err_code
 
 // ============= Structures =============
 
+typedef uint64_t t_ms;
+
 // * Represents an image in memory with its properties
 typedef struct	s_img
 {
-	void		*img_ptr;		// pointer to image in memory
-	char		*addr;			// pointer to the image data
-	int			bpp;			// bits per pixel
-	int			endian;			// endianess of the image data
-	int			line_len;		// length of a line in bytes
-	int			width;			// width of the image
-	int			height;			// height of the image
-}				t_img;
+	void			*img_ptr;		// pointer to image in memory
+	char			*addr;			// pointer to the image data
+	int				bpp;			// bits per pixel
+	int				endian;			// endianess of the image data
+	int				line_len;		// length of a line in bytes
+	int				width;			// width of the image
+	int				height;			// height of the image
+}					t_img;
 
 // * Represents a texture with paths for different directions and RGB values for ceiling and floor
 typedef struct s_texture
@@ -96,10 +104,22 @@ typedef struct s_texture
 	t_img			textures[NUMBER_DIR];		// array of textures for different directions
 }					t_texture;
 
+typedef struct s_column
+{
+	t_img			*texture;       // Texture to sample from
+	int				screen_x;       // Screen column (X) being rendered
+	int				pixel_top;      // Start of the wall slice on screen
+	int				pixel_bottom;   // End of the wall slice on screen
+	int				texture_x;      // X coordinate in the texture
+	int				wall_height;    // Projected height of the wall
+}					t_column;
+
+
 // * Represents a map with height, path to the map file, and a 2D matrix of characters
 typedef struct s_map
 {
 	size_t			height;
+	size_t			width;
 	char			*map_path;
 	char			**matrix;
 }					t_map;
@@ -127,6 +147,19 @@ typedef struct	s_player
 	t_axis		sens;			// sensitivity vector
 }				t_player;
 
+typedef struct s_ray
+{
+	t_axis			dir;				// ray direction
+	t_axis			map;				// which coordinates of the map we are in
+	t_axis			side_dist;			// length of ray from current pos to next x or y-side
+	t_axis			delta_dist;			// length of ray from one x or y-side to next x or y-side
+	double			perp_wall_dist;		// distance to wall (corrected)
+    int     		step_x;      		// Direction to step in x: +1 (east) or –1 (west)
+    int     		step_y;         	// Direction to step in y: +1 (south) or –1 (north)
+	bool			does_hit;			// was there a wall hit?
+	int				side;				// was a NS or EW wall hit? 0 = vertical (NS), 1 = horizontal (EW)
+}					t_ray;
+
 typedef struct	t_mlx
 {
 	void		*mlx_ptr;
@@ -151,6 +184,7 @@ typedef struct s_game
 	t_mlx		*mlx;
 	t_player	player;
 	bool		error_flag;
+	t_ms		last_update;
 }				t_game;
 
 #endif

@@ -1,11 +1,10 @@
 #include "game.h"
 
-static void	update_dir(t_directions dir, t_axis *dir_vector);
+static void	update_dir(t_directions dir, t_player *p);
 static void	update_pos(t_axis *pos, t_axis new_pos, int *x, int *y);
 static bool	set_player(t_game *game, t_player *player);
 static bool	update_player(t_game *g, t_player *player, t_axis new_pos);
 
-// TODO: Implement direction
 bool	init_player(t_game *game)
 {
 	if (!set_player(game, &game->player))
@@ -80,37 +79,39 @@ static bool	update_player(t_game *g, t_player *player, t_axis new_pos)
 	update_pos(&player->pos, new_pos, &x, &y);
 	dir_set = DIR_SET;
 	if (dir_set[NORTH] == g->data.map.matrix[y][x])
-		update_dir(NORTH, &player->dir);
+		update_dir(NORTH, player);
 	else if (dir_set[SOUTH] == g->data.map.matrix[y][x])
-		update_dir(SOUTH, &player->dir);
+		update_dir(SOUTH, player);
 	else if (dir_set[WEST] == g->data.map.matrix[y][x])
-		update_dir(WEST, &player->dir);
+		update_dir(WEST, player);
 	else
-		update_dir(EAST, &player->dir);
+		update_dir(EAST, player);
 	return (true);
 }
 
-static void	update_dir(t_directions dir, t_axis *dir_vector)
+static void	update_dir(t_directions dir, t_player *p)
 {
+	p->dir.x = (dir == WEST) * -1 + (dir == EAST);
+	p->dir.y = (dir == NORTH) * -1 + (dir == SOUTH);
 	if (dir == NORTH)
 	{
-		dir_vector->x = 0;
-		dir_vector->y = -1;
+		p->plane.x = 0.66;
+		p->plane.y = 0;
 	}
 	else if (dir == SOUTH)
 	{
-		dir_vector->x = 0;
-		dir_vector->y = 1;
+		p->plane.x = -0.66;
+		p->plane.y = 0;
 	}
 	else if (dir == WEST)
 	{
-		dir_vector->x = -1;
-		dir_vector->y = 0;
+		p->plane.x = 0;
+		p->plane.y = -0.66;
 	}
-	else
+	else if (dir == EAST)
 	{
-		dir_vector->x = 1;
-		dir_vector->y = 0;
+		p->plane.x = 0;
+		p->plane.y = 0.66;
 	}
 }
 
