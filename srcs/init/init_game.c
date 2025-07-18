@@ -45,9 +45,9 @@ static void	player_ctor(t_player *player)
 {
 	player->pos.x = NPOS;
 	player->pos.y = NPOS;
-	player->mov_speed = 0.5;
-	player->sens.x = 0.1;
-	player->sens.y = 0.1;
+	player->mov_speed = 0.05;
+	player->sens.x = 0.25;
+	player->sens.y = 0.33;
 }
 
 // * Loads the texture images after MLX initialization

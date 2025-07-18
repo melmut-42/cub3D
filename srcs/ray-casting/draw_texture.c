@@ -10,17 +10,23 @@ void	draw_column(t_game *g, t_ray *ray, int x)
 	int			ceiling_color;
 	int			floor_color;
 	int			y;
+	int			pitch;
 
 	c.wall_height = (int)(g->mlx->height / ray->perp_wall_dist);
-	c.pixel_top = (g->mlx->height - c.wall_height) / 2;
+
+	// ! Apply vertical pitch offset
+	pitch = (int)(g->player.pitch_angle);
+	c.pixel_top = (g->mlx->height - c.wall_height) / 2 + pitch;
 	if (c.pixel_top < 0)
 		c.pixel_top = 0;
-	c.pixel_bottom = (g->mlx->height + c.wall_height) / 2;
+	c.pixel_bottom = (g->mlx->height + c.wall_height) / 2 + pitch;
 	if (c.pixel_bottom >= g->mlx->height)
 		c.pixel_bottom = g->mlx->height - 1;
+
 	c.texture = get_wall_texture(g, ray);
 	c.texture_x = get_texture_x(g, ray, c.texture);
 	c.screen_x = x;
+
 	ceiling_color = rgb_to_int(
 		g->data.texture.ceil_rgb[0],
 		g->data.texture.ceil_rgb[1],
@@ -29,10 +35,13 @@ void	draw_column(t_game *g, t_ray *ray, int x)
 		g->data.texture.floor_rgb[0],
 		g->data.texture.floor_rgb[1],
 		g->data.texture.floor_rgb[2]);
+
 	y = 0;
 	while (y < c.pixel_top)
 		ft_put_pixel(&g->mlx->frame_img, x, y++, ceiling_color);
+
 	draw_texture(g, ray, x);
+
 	y = c.pixel_bottom + 1;
 	while (y < g->mlx->height)
 		ft_put_pixel(&g->mlx->frame_img, x, y++, floor_color);
@@ -41,17 +50,23 @@ void	draw_column(t_game *g, t_ray *ray, int x)
 void	draw_texture(t_game *g, t_ray *ray, int x)
 {
 	t_column	col;
+	int			pitch;
 
 	col.wall_height = (int)(g->mlx->height / ray->perp_wall_dist);
-	col.pixel_bottom = (g->mlx->height - col.wall_height) / 2;
+
+	// ! Apply vertical pitch offset
+	pitch = (int)(g->player.pitch_angle);
+	col.pixel_bottom = (g->mlx->height - col.wall_height) / 2 + pitch;
 	if (col.pixel_bottom < 0)
 		col.pixel_bottom = 0;
-	col.pixel_top = (g->mlx->height + col.wall_height) / 2;
+	col.pixel_top = (g->mlx->height + col.wall_height) / 2 + pitch;
 	if (col.pixel_top >= g->mlx->height)
 		col.pixel_top = g->mlx->height - 1;
+
 	col.texture = get_wall_texture(g, ray);
 	col.texture_x = get_texture_x(g, ray, col.texture);
 	col.screen_x = x;
+
 	draw_texture_line(g, &col);
 }
 
@@ -82,7 +97,6 @@ static int	get_texture_x(t_game *g, t_ray *ray, t_img *tex)
 	return (tex_x);
 }
 
-// * Draws a vertical line of texture pixels for the given column based on the ray's hit position
 static void	draw_texture_line(t_game *g, t_column *d)
 {
 	int		y;
@@ -90,14 +104,17 @@ static void	draw_texture_line(t_game *g, t_column *d)
 	double	tex_pos;
 	int		tex_y;
 	int		color;
+	int		center;
 
 	step = 1.0 * d->texture->height / d->wall_height;
-	tex_pos = (d->pixel_bottom - g->mlx->height / 2 + d->wall_height / 2) * step;
+
+	// ! Use pitch-adjusted screen center
+	center = g->mlx->height / 2 + (int)(g->player.pitch_angle);
+	tex_pos = (d->pixel_bottom - center + d->wall_height / 2) * step;
 
 	y = d->pixel_bottom;
 	while (y <= d->pixel_top)
 	{
-		// Prevent out of bounds access
 		if (tex_pos >= 0 && tex_pos < d->texture->height)
 		{
 			tex_y = (int)tex_pos;

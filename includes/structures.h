@@ -11,49 +11,51 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# define WIN_TITLE "Cub3D"
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+# define WIN_TITLE	"Cub3D"
+# define WIN_WIDTH	1024
+# define WIN_HEIGHT	768
 
-#define TARGET_FPS 60
+#define TARGET_FPS	60
 
-# define NPOS -1
+# define NPOS	-1
 
-# define NUMBER_DIR 4
+# define NUMBER_DIR	4
 
-# define RGB_CONSTANT 3
-# define RGB_MIN_VAL 0
-# define RGB_MAX_VAL 255
+# define RGB_CONSTANT	3
+# define RGB_MIN_VAL	0
+# define RGB_MAX_VAL	255
 
-# define MAP_FILE_EXTENSION ".cub"
+# define MAP_FILE_EXTENSION	".cub"
+# define COMMA				','
 
-# define COMMA ','
+# define NORTH_ABB		"NO"
+# define SOUTH_ABB		"SO"
+# define WEST_ABB		"WE"
+# define EAST_ABB		"EA"
+# define FLOOR_ABB		"F"
+# define CEILING_ABB	"C"
 
-# define NORTH_ABB "NO"
-# define SOUTH_ABB "SO"
-# define WEST_ABB "WE"
-# define EAST_ABB "EA"
-# define FLOOR_ABB "F"
-# define CEILING_ABB "C"
-
-# define GROUND '0'
-# define WALL '1'
-# define VISITED 'X'
+# define GROUND		'0'
+# define WALL		'1'
+# define VISITED	'X'
 
 
-# define DIR_SET "NSWE"
-# define SPACE_SET " \n\t\v\f\r"
+# define DIR_SET	"NSWE"
+# define SPACE_SET	" \n\t\v\f\r"
 
 
 // ============= Key Codes =============
 
-# define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
+# define KEY_ESC	65307
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
+# define KEY_SHIFT	65505
+# define KEY_UP		65364
+# define KEY_DOWN	65362
 
 // ============= Enums =============
 

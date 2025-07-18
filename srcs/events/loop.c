@@ -27,28 +27,40 @@ int gameloop(t_game *game)
 
 // TODO: Fix direction based movement + speed
 // * Handles player movement
-static void	update_player(t_player *player, t_map *map)
+static void	update_player(t_player *p, t_map *map)
 {
-	// Update player position based on movement flags
-	if (player->mov_up)
-		player->pos.x += player->dir.x * player->mov_speed;
-	if (player->mov_down)
-		player->pos.x -= player->dir.x * player->mov_speed;
-	if (player->mov_left)
-		player->pos.y -= player->dir.y * player->mov_speed;
-	if (player->mov_right)
-		player->pos.y += player->dir.y * player->mov_speed;
+	t_axis	strafe;
+	double	angle;
 
-	// Update player rotation based on rotation flags
-	if (player->rot.x)
+	// Calculate strafe direction based on player direction
+	strafe.x = -p->dir.y;
+	strafe.y = p->dir.x;
+
+	if (p->mov_up)
 	{
-		rotate_vector(&player->plane, player->rot.x * player->sens.x);
-		rotate_vector(&player->dir, player->rot.x * player->sens.x);
+		p->pos.x += p->dir.x * p->mov_speed;
+		p->pos.y += p->dir.y * p->mov_speed;
 	}
-	if (player->rot.y)
+	if (p->mov_down)
 	{
-		rotate_vector(&player->plane, player->rot.y * player->sens.y);
-		rotate_vector(&player->dir, player->rot.y * player->sens.y);
+		p->pos.x -= p->dir.x * p->mov_speed;
+		p->pos.y -= p->dir.y * p->mov_speed;
+	}
+	if (p->mov_right)
+	{
+		p->pos.x += strafe.x * p->mov_speed;
+		p->pos.y += strafe.y * p->mov_speed;
+	}
+	if (p->mov_left)
+	{
+		p->pos.x -= strafe.x * p->mov_speed;
+		p->pos.y -= strafe.y * p->mov_speed;
+	}
+	if (p->rot.x)
+	{
+		angle = p->rot.x * p->sens.x;
+		rotate_vector(&p->dir, angle);
+		rotate_vector(&p->plane, angle);
 	}
 
 	// TODO: Implement collision detection with the map
