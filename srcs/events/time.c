@@ -10,7 +10,6 @@ t_ms	get_curr_time(t_game *game)
 		display_error_message(GET_TIME_OF_DAY_ERR, true);
 		free_game(game);
 		exit(EXIT_FAILURE);
-        return (0);
     }
 	return (t_ms)now.tv_sec * 1000ULL + (t_ms)(now.tv_usec / 1000);
 }
