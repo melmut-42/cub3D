@@ -18,8 +18,8 @@ static void	rotate_vector(t_axis *vec, double angle)
 	old_y = vec->y;
 	
 	// Rotate the player's direction vector by a given angle
-	vec->x = vec->x * cos(angle) - vec->y * sin(angle);
-	vec->y = vec->x * sin(angle) + vec->y * cos(angle);
+	vec->x = old_x * cos(angle) - old_y * sin(angle);
+	vec->y = old_x * sin(angle) + old_y * cos(angle);
 }
 
 // * The main game loop function that updates the game state
@@ -55,32 +55,17 @@ static void	update_player(t_player *player, t_map *map)
 
 	// Update player rotation based on rotation flags
 	if (player->rot.x)
-		rotate_vector(&player->dir, player->rot.x * player->sens.x); // TODO: Implement rotate_vector function
-	if (player->rot.y)
-		rotate_vector(&player->dir, player->rot.y * player->sens.y); // TODO: lol above
-	
-	// Ensure player stays within map bounds
-	if (player->pos.x < 0)
-		player->pos.x = 0;
-	if (player->pos.x >= map->width)
-		player->pos.x = map->height - 1;
-	if (player->pos.y < 0)
-		player->pos.y = 0;
-	if (player->pos.y >= map->height)
-		player->pos.y = map->height - 1;
-	if (player->dir.x < -1.0f)
-		player->dir.x = -1.0f;
-	if (player->dir.x > 1.0f)
-		player->dir.x = 1.0f;
-	if (player->dir.y < -1.0f)
-		player->dir.y = -1.0f;
-	if (player->dir.y > 1.0f)
-		player->dir.y = 1.0f;
-	if (player->dir.x == 0 && player->dir.y == 0)
 	{
-		player->dir.x = 1.0f; // Default direction if no movement
-		player->dir.y = 0.0f;
+		rotate_vector(&player->plane, player->rot.x * player->sens.x);
+		rotate_vector(&player->dir, player->rot.x * player->sens.x);
 	}
+	if (player->rot.y)
+	{
+		rotate_vector(&player->plane, player->rot.y * player->sens.y);
+		rotate_vector(&player->dir, player->rot.y * player->sens.y);
+	}
+
+	(void)map;	
 }
 
 static void render_game(t_game *game)
@@ -93,6 +78,9 @@ static void render_game(t_game *game)
 
 	// TODO: Render HUD elements
 	//draw_hud(game);
+
+	// TODO: Render other game elements
+	//draw_elements(game);
 }
 
 static void render_scene(t_game *game)
