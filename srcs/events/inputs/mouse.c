@@ -5,13 +5,26 @@ static void	update_rot_angles(t_player *player, int delta_x, int delta_y);
 // * Handles mouse events within the game window
 int handle_mouse(int x, int y, t_game *game)
 {
-    int cx = game->mlx->width  / 2;
-    int cy = game->mlx->height / 2;
-    int dx = x - cx;
-    int dy = y - cy;
+    static int  cur_x = NPOS;
+    static int  cur_y = NPOS;
+    int dx;
+    int dy;
+
+    if (cur_x == NPOS || cur_y == NPOS)
+    {
+       cur_x = x;
+       cur_y = y;
+       return (0);
+    }
+
+    dx = x - cur_x;
+    dy = y - cur_y;
 
     // update dirs and angles by basing on rotation angles
     update_rot_angles(&game->player, dx, dy);
+
+    cur_x = x;
+    cur_y = y;
 
     return (0);
 }

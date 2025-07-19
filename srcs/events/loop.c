@@ -21,10 +21,7 @@ int gameloop(t_game *game)
 	// Render the game state
 	render_game(game);
 
-	mlx_mouse_move(game->mlx->mlx_ptr,
-                   game->mlx->win_ptr,
-                   MID_POINT_X, MID_POINT_Y);
-	// ! mlx_mouse_hide(game->mlx->mlx_ptr, game->mlx->win_ptr);
+	mlx_mouse_hide(game->mlx->mlx_ptr, game->mlx->win_ptr);
 	return (0);
 }
 
