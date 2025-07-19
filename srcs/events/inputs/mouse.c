@@ -10,6 +10,7 @@ int handle_mouse(int x, int y, t_game *game)
     int dx;
     int dy;
 
+    // Update mouse position for the first time
     if (cur_x == NPOS || cur_y == NPOS)
     {
        cur_x = x;
