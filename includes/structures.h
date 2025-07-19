@@ -21,6 +21,8 @@
 
 # define NUMBER_DIR	4
 
+# define NUM_OF_DEGREE	360
+
 # define RGB_CONSTANT	3
 # define RGB_MIN_VAL	0
 # define RGB_MAX_VAL	255
@@ -177,6 +179,8 @@ typedef	struct	s_data
 {
 	t_map			map;
 	t_texture		texture;
+	double			cos_table[NUM_OF_DEGREE];
+	double			sin_table[NUM_OF_DEGREE];
 }					t_data;
 
 typedef struct s_game

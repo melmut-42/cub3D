@@ -69,8 +69,7 @@ static bool	update_player(t_game *g, t_player *player, t_axis new_pos)
 	int		y;
 	int		x;
 
-	if (player->pos.x != NPOS || player->pos.y != NPOS
-		|| (player->dir.x != 0 || player->dir.y != 0))
+	if (player->pos.x != NPOS && player->pos.y != NPOS)
 	{
 		display_error_message(MULTI_PLAYER, false);
 		g->error_flag = true;
