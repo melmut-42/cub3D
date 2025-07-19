@@ -47,6 +47,7 @@ SRCS    	=	$(SRC_DIR)/main.c 					\
 				$(UTIL_DIR)/display_message.c		\
 				$(UTIL_DIR)/str_utils.c				\
 				$(UTIL_DIR)/img_utils.c				\
+				$(UTIL_DIR)/move_utils.c			\
 				$(UTIL_DIR)/matrix_utils.c			\
 				$(UTIL_DIR)/debug.c					\
 				$(UTIL_DIR)/error_handling.c		\

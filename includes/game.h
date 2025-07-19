@@ -79,6 +79,8 @@ bool	does_fully_include_spaces(char *str);
 bool	is_number(char *str);
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set);
 char	**copy_matrix(t_game *game, char **matrix);
+int		can_move(t_map *map, double x, double y);
+void	attempt_move(t_map *map, t_axis *pos, double dx, double dy);
 
 // =============================== GNL Utils ===============================
 
