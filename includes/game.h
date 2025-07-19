@@ -41,6 +41,7 @@ int		handle_keyrelease(int keycode, t_game *game);
 int		handle_mouse(int x, int y, t_game *game);
 void	init_hooks(t_game *game);
 void 	update_player_movement(t_game *g, t_player *p, t_map *map);
+void 	update_player_vertical(t_player *p, double dt);
 
 // =========================== Render Functions ===========================
 

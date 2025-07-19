@@ -6,20 +6,26 @@ int	handle_keypress(int keycode, t_game *game)
 	if (keycode == KEY_ESC)
 		handle_close(game);
 
-	if (keycode == KEY_W)
+	if (keycode == KEY_W && !game->player.vertical.in_air)
 		game->player.mov_up = 1;
 
-	if (keycode == KEY_S)
+	if (keycode == KEY_S && !game->player.vertical.in_air)
 		game->player.mov_down = 1;
 
-	if (keycode == KEY_A)
+	if (keycode == KEY_A && !game->player.vertical.in_air)
 		game->player.mov_left = 1;
 
-	if (keycode == KEY_D)
+	if (keycode == KEY_D && !game->player.vertical.in_air )
 		game->player.mov_right = 1;
 
-	if (keycode == KEY_SHIFT)
+	if (keycode == KEY_SHIFT && !game->player.vertical.in_air)
 		game->player.mov_speed += game->player.mov_speed / 4;
+
+	if (keycode == KEY_SPACE && !game->player.vertical.in_air)
+	{
+        game->player.vertical.vertical_vel = JUMP_VELOCITY;
+        game->player.vertical.in_air = true;
+    }
 
 	// TODO: Remove other keys
 

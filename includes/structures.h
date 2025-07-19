@@ -1,15 +1,19 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-// ============= Includes =============
+// ========================== Includes ==========================
 
 # include <stdint.h>
 
-// ============= Constants =============
+// ========================== Constants ==========================
+
+// ============= GNL Constant =============
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
+
+// ============= Window Constants =============
 
 # define WIN_TITLE	"Cub3D"
 # define WIN_WIDTH	1024
@@ -20,22 +24,29 @@
 
 #define TARGET_FPS	100
 
-# define NPOS	-1
-
-# define NUMBER_DIR		4
+// ============= Rotation Constants =============
 
 # define NUM_OF_DEGREE	360
-
-# define RGB_CONSTANT	3
-# define RGB_MIN_VAL	0
-# define RGB_MAX_VAL	255
 
 #define MAX_PITCH	500.0
 #define MIN_PITCH	-500.0
 #define MAX_VERTICAL_DELTA	50
 
-# define MAP_FILE_EXTENSION	".cub"
-# define COMMA				','
+// ============= Vertical Constants =============
+
+# define GRAVITY        90.0
+# define JUMP_VELOCITY  60.0
+# define JUMP_SCALE     5 
+
+// ============= Map Elements =============
+
+# define NPOS	-1
+
+# define NUMBER_DIR	4
+
+# define RGB_CONSTANT	3
+# define RGB_MIN_VAL	0
+# define RGB_MAX_VAL	255
 
 # define NORTH_ABB		"NO"
 # define SOUTH_ABB		"SO"
@@ -48,6 +59,8 @@
 # define WALL		'1'
 # define VISITED	'X'
 
+# define COMMA	','
+# define MAP_FILE_EXTENSION	".cub"
 
 # define DIR_SET	"NSWE"
 # define SPACE_SET	" \n\t\v\f\r"
@@ -65,8 +78,9 @@
 # define KEY_SHIFT	65505
 # define KEY_UP		65364
 # define KEY_DOWN	65362
+# define KEY_SPACE 32
 
-// ============= Enums =============
+// ======================================= Enums =======================================
 
 // * Defines the possible directions for map parsing and texture loading
 typedef enum	e_directions
@@ -80,7 +94,7 @@ typedef enum	e_directions
 	NONE
 }					t_directions;
 
-// ============= Structures =============
+// ======================================= Structures =======================================
 
 typedef uint64_t t_ms;
 
@@ -96,6 +110,16 @@ typedef struct	s_img
 	int				height;			// height of the image
 }					t_img;
 
+typedef struct s_column
+{
+	t_img			*texture;       // Texture to sample from
+	int				screen_x;       // Screen column (X) being rendered
+	int				pixel_top;      // Start of the wall slice on screen
+	int				pixel_bottom;   // End of the wall slice on screen
+	int				texture_x;      // X coordinate in the texture
+	int				wall_height;    // Projected height of the wall
+}					t_column;
+
 // * Represents a texture with paths for different directions and RGB values for ceiling and floor
 typedef struct s_texture
 {
@@ -107,16 +131,6 @@ typedef struct s_texture
 	int				floor_rgb[RGB_CONSTANT];
 	t_img			textures[NUMBER_DIR];		// array of textures for different directions
 }					t_texture;
-
-typedef struct s_column
-{
-	t_img			*texture;       // Texture to sample from
-	int				screen_x;       // Screen column (X) being rendered
-	int				pixel_top;      // Start of the wall slice on screen
-	int				pixel_bottom;   // End of the wall slice on screen
-	int				texture_x;      // X coordinate in the texture
-	int				wall_height;    // Projected height of the wall
-}					t_column;
 
 
 // * Represents a map with height, path to the map file, and a 2D matrix of characters
@@ -135,6 +149,15 @@ typedef struct s_axis
 	double				y;
 }					t_axis;
 
+typedef struct		s_vertical
+{
+	bool	in_air;
+	double  jump_offset;
+	double	vertical_pos;
+	double	vertical_vel;
+}					t_vertical;
+
+
 // * Holds direction, position, movement flags, and camera settings
 typedef struct	s_player
 {
@@ -149,6 +172,7 @@ typedef struct	s_player
 	t_axis		pos;			// player position in the map
 	t_axis		rot;			// rotation vector
 	t_axis		sens;			// sensitivity vector
+	t_vertical	vertical;			// vertical attributes
 }				t_player;
 
 typedef struct s_ray

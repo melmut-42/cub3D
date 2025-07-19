@@ -55,4 +55,7 @@ static void player_ctor(t_player *player)
 	player->dir.y = 0;
 	player->plane.x = 0;
 	player->plane.y = 0;
+	player->vertical.in_air = false;
+	player->vertical.vertical_pos = 0.0;
+	player->vertical.vertical_vel = 0.0;
 }

@@ -50,3 +50,21 @@ static void	pitch(t_player *player)
         player->rot.y = 0;
     }
 }
+
+
+void update_player_vertical(t_player *p, double dt)
+{
+    if (p->vertical.in_air)
+    {
+        p->vertical.vertical_vel -= GRAVITY * dt;
+        p->vertical.vertical_pos += p->vertical.vertical_vel * dt;
+        if (p->vertical.vertical_pos <= 0.0)
+        {
+            p->vertical.vertical_pos = 0.0;
+            p->vertical.vertical_vel = 0.0;
+            p->vertical.in_air = false;
+        }
+    }
+    // convert world-units to pixel-offset for camera
+    p->vertical.jump_offset = p->vertical.vertical_pos * JUMP_SCALE;
+}

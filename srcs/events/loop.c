@@ -13,15 +13,16 @@ int gameloop(t_game *game)
 	// Update player position and rotation based on input
 	if (game->player.mov_up   || game->player.mov_down  ||
 		game->player.mov_left || game->player.mov_right ||
-		game->player.rot.x    || game->player.rot.y)
+		game->player.rot.x    || game->player.rot.y ||
+		game->player.vertical.in_air)
 	{
 		update_player_movement(game, &game->player, &game->data.map);
 	}
-
+	
+	update_player_vertical(&game->player, 0.016);
 	// Render the game state
 	render_game(game);
 
-	mlx_mouse_hide(game->mlx->mlx_ptr, game->mlx->win_ptr);
 	return (0);
 }
 

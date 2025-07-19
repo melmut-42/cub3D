@@ -37,7 +37,7 @@ static void init_column(t_column *col, t_game *g, t_ray *ray, int x)
     win_h = g->mlx->height;
     col->wall_height = (int)(win_h / ray->perp_wall_dist);
 	// ! Use pitch-adjusted screen center
-    pitch = (int)g->player.pitch_angle;
+    pitch = (int)(g->player.pitch_angle + g->player.vertical.jump_offset);
     col->pixel_top = (win_h - col->wall_height) / 2 + pitch;
     if (col->pixel_top < 0)
         col->pixel_top = 0;
@@ -72,31 +72,34 @@ static void draw_floor(t_game *g, t_column *col, int color)
 static void draw_wall(t_game *g, t_column *col)
 {
     int     y;
+    int     center;
     double  step;
     double  tex_pos;
     int     tex_y;
-    int     color;
 
-    step = (double)col->texture->height / col->wall_height;
-    tex_pos = (col->pixel_top
-               - (g->mlx->height / 2 + (int)g->player.pitch_angle)
-               + col->wall_height / 2)
-              * step;
+    center = g->mlx->height / 2
+           + (int)g->player.pitch_angle
+           + (int)g->player.vertical.jump_offset;
+    step    = (double)col->texture->height / col->wall_height;
+    tex_pos = (col->pixel_top - center + col->wall_height / 2) * step;
     y = col->pixel_top;
     while (y <= col->pixel_bottom)
     {
         if (tex_pos >= 0 && tex_pos < col->texture->height)
         {
             tex_y = (int)tex_pos;
-            color = *(unsigned int *)(col->texture->addr
-                + tex_y * col->texture->line_len
-                + col->texture_x * (col->texture->bpp / 8));
-            ft_put_pixel(&g->mlx->frame_img, col->screen_x, y, color);
+            ft_put_pixel(&g->mlx->frame_img,
+                         col->screen_x,
+                         y,
+                         *(unsigned int *)(col->texture->addr
+                           + tex_y * col->texture->line_len
+                           + col->texture_x * (col->texture->bpp / 8)));
         }
         tex_pos += step;
         y++;
     }
 }
+
 
 void draw_column(t_game *g, t_ray *ray, int x)
 {
