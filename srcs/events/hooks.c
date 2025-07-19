@@ -16,3 +16,11 @@ void	init_hooks(t_game *game)
     // Set up the continuous game loop
     mlx_loop_hook(game->mlx->mlx_ptr, gameloop, game);
 }
+
+// * Handles the close event of the game window
+int	handle_close(t_game *game)
+{
+	free_game(game);
+	exit(EXIT_SUCCESS);
+	return (0);
+}

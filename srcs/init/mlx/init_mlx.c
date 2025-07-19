@@ -1,5 +1,7 @@
 #include "game.h"
 
+
+
 static void	setup_mlx_dimensions(t_mlx *mlx, int w, int h, char *title);
 
 // * Sets up the mlx structure and creates a new window
@@ -30,9 +32,7 @@ bool	init_mlx(t_game *game, int width, int height, char *title)
 		display_error_message(MLX_ERR, true);
 		return (false);
 	}
-
 	setup_mlx_dimensions(mlx, width, height, title);
-
 	game->mlx = mlx;
 	return (true);
 }

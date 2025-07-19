@@ -2,7 +2,6 @@
 
 // TODO: fix segfault when lines are too small
 static void render_scene(t_game *game);
-static void	update_player(t_game *g, t_player *p, t_map *map);
 static void render_game(t_game *game);
 
 // * The main game loop function that updates the game state
@@ -16,11 +15,16 @@ int gameloop(t_game *game)
 		game->player.mov_left || game->player.mov_right ||
 		game->player.rot.x    || game->player.rot.y)
 	{
-		update_player(game, &game->player, &game->data.map);
+		update_player_movement(game, &game->player, &game->data.map);
 	}
 
 	// Render the game state
 	render_game(game);
+
+	mlx_mouse_move(game->mlx->mlx_ptr,
+                   game->mlx->win_ptr,
+                   MID_POINT_X, MID_POINT_Y);
+	// ! mlx_mouse_hide(game->mlx->mlx_ptr, game->mlx->win_ptr);
 	return (0);
 }
 
@@ -37,31 +41,6 @@ static void render_game(t_game *game)
 
 	// TODO: Render other game elements
 	//draw_elements(game);
-}
-
-// * Handles player movement and rotation
-static void	update_player(t_game *g, t_player *p, t_map *map)
-{
-	t_axis strafe;
-	double angle;
-
-	strafe.x = -p->dir.y;
-	strafe.y = p->dir.x;
-
-	if (p->mov_up)
-		attempt_move(map, &p->pos, p->dir.x * p->mov_speed, p->dir.y * p->mov_speed);
-	if (p->mov_down)
-		attempt_move(map, &p->pos, -p->dir.x * p->mov_speed, -p->dir.y * p->mov_speed);
-	if (p->mov_right)
-		attempt_move(map, &p->pos, strafe.x * p->mov_speed, strafe.y * p->mov_speed);
-	if (p->mov_left)
-		attempt_move(map, &p->pos, -strafe.x * p->mov_speed, -strafe.y * p->mov_speed);
-	if (p->rot.x)
-	{
-		angle = p->rot.x * p->sens.x;
-		rotate_vector(&g->data, &p->dir, angle);
-		rotate_vector(&g->data, &p->plane, angle);
-	}
 }
 
 // * Casts rays to render the scene

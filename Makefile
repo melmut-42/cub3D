@@ -19,6 +19,7 @@ CLEANUP_DIR		=	$(SRC_DIR)/cleanup
 GNL_DIR			=	$(SRC_DIR)/gnl
 INIT_MLX_DIR	=	$(INIT_DIR)/mlx
 INIT_DATA_DIR	=	$(INIT_DIR)/data
+EVENT_INPUT_DIR	=	$(EVENTS_DIR)/inputs
 
 # Object directory
 OBJ_DIR			=	objs
@@ -33,10 +34,12 @@ SRCS    		=	$(SRC_DIR)/main.c 					\
 					$(INIT_DATA_DIR)/init_texture.c		\
 					$(INIT_MLX_DIR)/init_mlx.c			\
 					$(INIT_MLX_DIR)/load_textures.c		\
-					$(EVENTS_DIR)/loop.c				\
-					$(EVENTS_DIR)/input.c				\
-					$(EVENTS_DIR)/hooks.c				\
 					$(EVENTS_DIR)/time.c				\
+					$(EVENTS_DIR)/loop.c				\
+					$(EVENTS_DIR)/hooks.c				\
+					$(EVENTS_DIR)/player.c				\
+					$(EVENT_INPUT_DIR)/keys.c			\
+					$(EVENT_INPUT_DIR)/mouse.c			\
 					$(CLEANUP_DIR)/free.c				\
 					$(CLEANUP_DIR)/free_textures.c		\
 					$(CHECKER_DIR)/file_checker.c		\
@@ -50,7 +53,6 @@ SRCS    		=	$(SRC_DIR)/main.c 					\
 					$(UTIL_DIR)/move_utils.c			\
 					$(UTIL_DIR)/matrix_utils.c			\
 					$(UTIL_DIR)/debug.c					\
-					$(UTIL_DIR)/error_handling.c		\
 					$(GNL_DIR)/get_next_line.c			\
 					$(GNL_DIR)/get_next_line_utils.c	
 

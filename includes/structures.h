@@ -15,17 +15,24 @@
 # define WIN_WIDTH	1024
 # define WIN_HEIGHT	768
 
-#define TARGET_FPS	60
+# define MID_POINT_X	512
+# define MID_POINT_Y	384
+
+#define TARGET_FPS	100
 
 # define NPOS	-1
 
-# define NUMBER_DIR	4
+# define NUMBER_DIR		4
 
 # define NUM_OF_DEGREE	360
 
 # define RGB_CONSTANT	3
 # define RGB_MIN_VAL	0
 # define RGB_MAX_VAL	255
+
+#define MAX_PITCH	500.0
+#define MIN_PITCH	-500.0
+#define MAX_VERTICAL_DELTA	50
 
 # define MAP_FILE_EXTENSION	".cub"
 # define COMMA				','
@@ -72,13 +79,6 @@ typedef enum	e_directions
 	CEILING,
 	NONE
 }					t_directions;
-
-// * Defines errors for robust error handling
-typedef enum	e_err_code
-{
-	MALLOC_ERR,
-	RENDER_ERR
-}				t_err_code;
 
 // ============= Structures =============
 

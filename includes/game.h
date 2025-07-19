@@ -40,7 +40,7 @@ int		handle_close(t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
 int		handle_mouse(int x, int y, t_game *game);
 void	init_hooks(t_game *game);
-
+void 	update_player_movement(t_game *g, t_player *p, t_map *map);
 
 // =========================== Render Functions ===========================
 
@@ -54,7 +54,6 @@ void	rotate_vector(t_data *data, t_axis *vec, double angle);
 void	free_game(t_game *game);
 void	free_tab(char **state);
 void	ft_free(void **ptr);
-void	handle_error(t_err_code err_code, bool exit_program);
 
 // =========================== Checker Functions ===========================
 
@@ -79,7 +78,7 @@ bool	does_fully_include_spaces(char *str);
 bool	is_number(char *str);
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set);
 char	**copy_matrix(t_game *game, char **matrix);
-int		can_move(t_map *map, double x, double y);
+bool	can_move(t_map *map, double x, double y);
 void	attempt_move(t_map *map, t_axis *pos, double dx, double dy);
 
 // =============================== GNL Utils ===============================

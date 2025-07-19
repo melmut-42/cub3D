@@ -1,7 +1,7 @@
 #include "game.h"
 
 // * Helper that checks if a position is inside map and not a wall
-int	can_move(t_map *map, double x, double y)
+bool	can_move(t_map *map, double x, double y)
 {
 	int mx;
 	int my;
@@ -9,12 +9,12 @@ int	can_move(t_map *map, double x, double y)
 	mx = (int)x;
 	my = (int)y;
 	if (mx < 0 || mx >= (int)map->width)
-		return (0);
+		return (false);
 	if (my < 0 || my >= (int)map->height)
-		return (0);
-	if (map->matrix[my][mx] == '1')
-		return (0);
-	return (1);
+		return (false);
+	if (map->matrix[my][mx] == WALL)
+		return (false);
+	return (true);
 }
 
 // * Helper to attempt movement in a direction
