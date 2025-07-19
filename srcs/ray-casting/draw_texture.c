@@ -37,7 +37,9 @@ static void init_column(t_column *col, t_game *g, t_ray *ray, int x)
     win_h = g->mlx->height;
     col->wall_height = (int)(win_h / ray->perp_wall_dist);
 	// ! Use pitch-adjusted screen center
-    pitch = (int)(g->player.pitch_angle + g->player.vertical.jump_offset);
+    pitch = (int)(g->player.pitch_angle
+                    + g->player.vertical.jump_offset
+                    - g->player.vertical.crouch_offset);
     col->pixel_top = (win_h - col->wall_height) / 2 + pitch;
     if (col->pixel_top < 0)
         col->pixel_top = 0;
@@ -71,21 +73,24 @@ static void draw_floor(t_game *g, t_column *col, int color)
 
 static void draw_wall(t_game *g, t_column *col)
 {
-    int     y;
-    int     center;
-    double  step;
-    double  tex_pos;
-    int     tex_y;
+    int           y;
+    int           center;
+    double        step;
+    double        tex_pos;
+    int           tex_y;
 
+    /* combine camera look, jump rise and crouch drop */
     center = g->mlx->height / 2
            + (int)g->player.pitch_angle
-           + (int)g->player.vertical.jump_offset;
+           + (int)g->player.vertical.jump_offset   /* upward shift */
+           - (int)g->player.vertical.crouch_offset;/* downward shift */
+
     step    = (double)col->texture->height / col->wall_height;
     tex_pos = (col->pixel_top - center + col->wall_height / 2) * step;
-    y = col->pixel_top;
+    y       = col->pixel_top;
     while (y <= col->pixel_bottom)
     {
-        if (tex_pos >= 0 && tex_pos < col->texture->height)
+        if (tex_pos >= 0.0 && tex_pos < col->texture->height)
         {
             tex_y = (int)tex_pos;
             ft_put_pixel(&g->mlx->frame_img,
@@ -99,6 +104,7 @@ static void draw_wall(t_game *g, t_column *col)
         y++;
     }
 }
+
 
 
 void draw_column(t_game *g, t_ray *ray, int x)

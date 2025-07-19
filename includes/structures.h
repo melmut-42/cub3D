@@ -36,7 +36,10 @@
 
 # define GRAVITY        90.0
 # define JUMP_VELOCITY  60.0
-# define JUMP_SCALE     5 
+# define JUMP_SCALE     5
+
+# define CROUCH_SCALE   40.0
+# define CROUCH_OUT_SPEED  150.0
 
 // ============= Map Elements =============
 
@@ -73,12 +76,14 @@
 # define KEY_A		97
 # define KEY_S		115
 # define KEY_D		100
+# define KEY_SPACE	32
 # define KEY_LEFT	65361
 # define KEY_RIGHT	65363
 # define KEY_SHIFT	65505
 # define KEY_UP		65364
 # define KEY_DOWN	65362
-# define KEY_SPACE 32
+# define KEY_CTRL_L	65507
+# define KEY_CTRL_R	65508
 
 // ======================================= Enums =======================================
 
@@ -152,7 +157,10 @@ typedef struct s_axis
 typedef struct		s_vertical
 {
 	bool	in_air;
+	bool	in_crouch;
 	double  jump_offset;
+	double  crouch_offset;
+	double  crouch_target;
 	double	vertical_pos;
 	double	vertical_vel;
 }					t_vertical;
@@ -172,7 +180,7 @@ typedef struct	s_player
 	t_axis		pos;			// player position in the map
 	t_axis		rot;			// rotation vector
 	t_axis		sens;			// sensitivity vector
-	t_vertical	vertical;			// vertical attributes
+	t_vertical	vertical;		// vertical attributes
 }				t_player;
 
 typedef struct s_ray

@@ -20,6 +20,7 @@ int gameloop(t_game *game)
 	}
 	
 	update_player_vertical(&game->player, 0.016);
+	update_player_rise(&game->player, 0.016);
 	// Render the game state
 	render_game(game);
 

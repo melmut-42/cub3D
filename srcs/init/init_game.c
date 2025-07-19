@@ -44,6 +44,7 @@ static void data_ctor(t_data *data)
 }
 
 // * Player constructor to initialize player position, speed, sensitivity, and camera plane
+// TODO: Simplified maybe?
 static void player_ctor(t_player *player)
 {
 	player->pos.x = NPOS;
@@ -56,6 +57,9 @@ static void player_ctor(t_player *player)
 	player->plane.x = 0;
 	player->plane.y = 0;
 	player->vertical.in_air = false;
+	player->vertical.in_crouch = false;
+	player->vertical.jump_offset = 0.0;
+	player->vertical.crouch_offset = 0.0;
 	player->vertical.vertical_pos = 0.0;
 	player->vertical.vertical_vel = 0.0;
 }
