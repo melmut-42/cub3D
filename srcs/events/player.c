@@ -27,6 +27,7 @@ void update_player_movement(t_game *g, t_player *p, t_map *map)
 	yaw(g, p);
 }
 
+// TODO: Implement bunny mechanics?
 void update_player_vertical(t_player *p, double dt)
 {
     if (p->vertical.in_air)
@@ -37,6 +38,7 @@ void update_player_vertical(t_player *p, double dt)
         {
             p->vertical.vertical_pos = 0.0;
             p->vertical.vertical_vel = 0.0;
+			p->mov_speed = INITIAL_SPEED;
             p->vertical.in_air = false;
         }
     }

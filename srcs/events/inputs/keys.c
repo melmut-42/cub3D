@@ -17,12 +17,12 @@ int	handle_keypress(int keycode, t_game *game)
 	if (keycode == KEY_A && !game->player.vertical.in_air)
 		game->player.mov_left = 1;
 
-	if (keycode == KEY_D && !game->player.vertical.in_air )
+	if (keycode == KEY_D && !game->player.vertical.in_air)
 		game->player.mov_right = 1;
 
 	if (keycode == KEY_SHIFT && !game->player.vertical.in_air &&
 			!game->player.vertical.in_crouch)
-		game->player.mov_speed += game->player.mov_speed / 4;
+		game->player.mov_speed = game->player.mov_speed + (INITIAL_SPEED / 4);
 
 	if (keycode == KEY_SPACE && !game->player.vertical.in_air)
 	{
@@ -59,10 +59,10 @@ int	handle_keyrelease(int keycode, t_game *game)
 	if (keycode == KEY_D)
 		game->player.mov_right = 0;
 
-	if (keycode == KEY_SHIFT)
-		game->player.mov_speed -= game->player.mov_speed / 4;
+	if (keycode == KEY_SHIFT && !game->player.vertical.in_air)
+		game->player.mov_speed = game->player.mov_speed - (INITIAL_SPEED / 4);
 
-	if (keycode == KEY_CTRL_L || keycode == KEY_CTRL_R)
+	if (keycode == KEY_CTRL_L)
 		game->player.vertical.crouch_target = 0.0;
 
 

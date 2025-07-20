@@ -22,7 +22,14 @@
 # define MID_POINT_X	512
 # define MID_POINT_Y	384
 
-#define TARGET_FPS	100
+# define TARGET_FPS	100
+
+// ============= Game Physics Constants =============
+
+# define SENS_X	0.2
+# define SENS_Y	0.6
+
+# define INITIAL_SPEED	0.04
 
 // ============= Rotation Constants =============
 
