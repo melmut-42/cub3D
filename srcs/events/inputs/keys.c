@@ -1,6 +1,6 @@
 #include "game.h"
 
-static void	exec_keypress_rotation(t_game *game, int keycode);
+static void	exec_key_rotation(t_game *game, int keycode, int mode);
 
 // * Handles keypress events for player movement and rotation
 int	handle_keypress(int keycode, t_game *game)
@@ -9,20 +9,20 @@ int	handle_keypress(int keycode, t_game *game)
 		handle_close(game);
 
 	if (keycode == KEY_W && !game->player.vertical.in_air)
-		game->player.mov_up = 1;
+		game->player.movement[W] = 1;
 
 	if (keycode == KEY_S && !game->player.vertical.in_air)
-		game->player.mov_down = 1;
+		game->player.movement[S] = 1;
 
 	if (keycode == KEY_A && !game->player.vertical.in_air)
-		game->player.mov_left = 1;
+		game->player.movement[A] = 1;
 
 	if (keycode == KEY_D && !game->player.vertical.in_air)
-		game->player.mov_right = 1;
+		game->player.movement[D] = 1;
 
 	if (keycode == KEY_SHIFT && !game->player.vertical.in_air &&
 			!game->player.vertical.in_crouch)
-		game->player.mov_speed = game->player.mov_speed + (INITIAL_SPEED / 4);
+		game->player.mov_speed += game->player.mov_speed / 4;
 
 	if (keycode == KEY_SPACE && !game->player.vertical.in_air)
 	{
@@ -30,13 +30,13 @@ int	handle_keypress(int keycode, t_game *game)
         game->player.vertical.in_air = true;
     }
 
-	if (keycode == KEY_CTRL_L || keycode == KEY_CTRL_R)
+	if (keycode == KEY_CTRL_L)
     {
         game->player.vertical.crouch_offset = CROUCH_SCALE;
         game->player.vertical.crouch_target = CROUCH_SCALE;
     }
 	
-	exec_keypress_rotation(game, keycode);
+	exec_key_rotation(game, keycode, 0);
 
 	return (0);
 }
@@ -48,45 +48,45 @@ int	handle_keyrelease(int keycode, t_game *game)
 		handle_close(game);
 
 	if (keycode == KEY_W)
-		game->player.mov_up = 0;
+		game->player.movement[W] = 0;
 
 	if (keycode == KEY_S)
-		game->player.mov_down = 0;
+		game->player.movement[S] = 0;
 
 	if (keycode == KEY_A)
-		game->player.mov_left = 0;
+		game->player.movement[A] = 0;
 
 	if (keycode == KEY_D)
-		game->player.mov_right = 0;
+		game->player.movement[D] = 0;
 
-	if (keycode == KEY_SHIFT && !game->player.vertical.in_air)
-		game->player.mov_speed = game->player.mov_speed - (INITIAL_SPEED / 4);
+	if (keycode == KEY_SHIFT)
+		game->player.mov_speed -= game->player.mov_speed / 4;
 
 	if (keycode == KEY_CTRL_L)
 		game->player.vertical.crouch_target = 0.0;
 
-
 	// TODO: Remove other keys
 
-	if (keycode == KEY_LEFT)
-	{
-		game->player.rot.x = 0;
-	}
-	if (keycode == KEY_RIGHT)
-	{
-
-		game->player.rot.x = 0;
-	}
+	exec_key_rotation(game, keycode, 1);
 
 	return (0);
 }
 
 // * provides rotation by using keys
 // TODO: Impelement release mode
-static void	exec_keypress_rotation(t_game *game, int keycode)
+static void	exec_key_rotation(t_game *game, int keycode, int mode)
 {
 	// TODO: Remove other keys
-	// TODO: Implement constant macros
+	// TODO: Implement constant macro
+	if (mode == 1)
+	{
+		if (keycode == KEY_LEFT)
+			game->player.rot.x = 0;
+		if (keycode == KEY_RIGHT)
+			game->player.rot.x = 0;
+		return ;
+	}
+
 	if (keycode == KEY_LEFT)
 		game->player.rot.x = -0.42;
 	if (keycode == KEY_RIGHT)

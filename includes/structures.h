@@ -26,6 +26,11 @@
 
 // ============= Game Physics Constants =============
 
+# define W	0
+# define S	1
+# define D	2
+# define A	3
+
 # define SENS_X	0.2
 # define SENS_Y	0.6
 
@@ -35,9 +40,9 @@
 
 # define NUM_OF_DEGREE	360
 
-#define MAX_PITCH	500.0
-#define MIN_PITCH	-500.0
-#define MAX_VERTICAL_DELTA	50
+# define MAX_PITCH	500.0
+# define MIN_PITCH	-500.0
+# define MAX_VERTICAL_DELTA	50
 
 // ============= Vertical Constants =============
 
@@ -45,8 +50,8 @@
 # define JUMP_VELOCITY  60.0
 # define JUMP_SCALE     5
 
-# define CROUCH_SCALE   40.0
-# define CROUCH_OUT_SPEED  150.0
+# define CROUCH_SCALE		40.0
+# define CROUCH_OUT_SPEED	150.0
 
 // ============= Map Elements =============
 
@@ -91,6 +96,7 @@
 # define KEY_DOWN	65362
 # define KEY_CTRL_L	65507
 # define KEY_CTRL_R	65508
+
 
 // ======================================= Enums =======================================
 
@@ -176,10 +182,7 @@ typedef struct		s_vertical
 // * Holds direction, position, movement flags, and camera settings
 typedef struct	s_player
 {
-	int			mov_up;        	// move forward flag
-	int			mov_down;      	// move backward flag
-	int			mov_left;      	// move left flag (strafe)
-	int			mov_right;     	// move right flag (strafe)
+	int			movement[NUMBER_DIR];
 	double		mov_speed;		// movement speed
 	double		pitch_angle;	// vertical look angle (up/down)
 	t_axis		dir;			// camera direction vector

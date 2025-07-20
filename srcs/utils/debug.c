@@ -75,7 +75,7 @@ static void	display_player(const t_player *p)
 	printf("  Pitch       : %.2f\n", p->pitch_angle);
 	printf("  Move Speed  : %.2f\n", p->mov_speed);
 	printf("  Move Flags  : W[%d] A[%d] S[%d] D[%d]\n",
-		p->mov_up, p->mov_left, p->mov_down, p->mov_right);
+		p->movement[W], p->movement[A], p->movement[S], p->movement[D]);
 }
 
 static void	display_mlx(const t_mlx *mlx)

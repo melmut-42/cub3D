@@ -11,9 +11,9 @@ int gameloop(t_game *game)
 		return (0);
 
 	// Update player position and rotation based on input
-	if (game->player.mov_up   || game->player.mov_down  ||
-		game->player.mov_left || game->player.mov_right ||
-		game->player.rot.x    || game->player.rot.y ||
+	if (game->player.movement[W]   || game->player.movement[S]  ||
+		game->player.movement[A] || game->player.movement[D] ||
+		game->player.rot.x || game->player.rot.y ||
 		game->player.vertical.in_air)
 	{
 		update_player_movement(game, &game->player, &game->data.map);

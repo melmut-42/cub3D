@@ -11,13 +11,13 @@ void update_player_movement(t_game *g, t_player *p, t_map *map)
     strafe.x = -p->dir.y;
     strafe.y =  p->dir.x;
 
-    if (p->mov_up)
+    if (p->movement[W])
         attempt_move(map, &p->pos, p->dir.x * p->mov_speed,  p->dir.y * p->mov_speed);
-    if (p->mov_down)
+    if (p->movement[S])
         attempt_move(map, &p->pos, -p->dir.x * p->mov_speed, -p->dir.y * p->mov_speed);
-    if (p->mov_right)
+    if (p->movement[D])
         attempt_move(map, &p->pos, strafe.x * p->mov_speed,  strafe.y * p->mov_speed);
-    if (p->mov_left)
+    if (p->movement[A])
 	{
 		attempt_move(map, &p->pos, -strafe.x * p->mov_speed, -strafe.y * p->mov_speed);
 	}
