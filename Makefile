@@ -105,6 +105,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(GNL_DIR) fclean
 
 
 re: fclean all
