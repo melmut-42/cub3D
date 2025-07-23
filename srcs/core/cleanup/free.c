@@ -15,6 +15,8 @@ void	free_game(t_game *game)
 	// Free the mlx structure and its resources (includes textures)
 	destroy_img(game);
 
+
+
 	// Free the game structure itself
 	ft_free((void **)&game);
 }
@@ -52,6 +54,8 @@ static void	destroy_img(t_game *game)
 	{
 		// Free all texture images and frame buffer
 		free_textures(game);
+
+		mlx_mouse_show(game->mlx->mlx_ptr, game->mlx->win_ptr);
 		
 		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
 		{

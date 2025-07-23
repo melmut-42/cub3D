@@ -1,6 +1,6 @@
 # Compiler and flags
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g
 
 # Project name
 NAME    		=	cub3d
@@ -9,16 +9,18 @@ NAME    		=	cub3d
 SRC_DIR 		=	srcs
 
 # Subdirectories
-INIT_DIR		=	$(SRC_DIR)/init
-CHECKER_DIR		=	$(SRC_DIR)/checker
-MLX_SRC_DIR		=	$(SRC_DIR)/mlx
-EVENTS_DIR		=	$(SRC_DIR)/events
-RAYCAST_DIR		=	$(SRC_DIR)/ray-casting
+CORE_DIR		=	$(SRC_DIR)/core
 UTIL_DIR		=	$(SRC_DIR)/utils
-CLEANUP_DIR		=	$(SRC_DIR)/cleanup
 GNL_DIR			=	$(SRC_DIR)/gnl
+INIT_DIR		=	$(CORE_DIR)/init
+CHECKER_DIR		=	$(CORE_DIR)/checker
+EVENTS_DIR		=	$(CORE_DIR)/events
+RAYCAST_DIR		=	$(CORE_DIR)/ray-casting
+CLEANUP_DIR		=	$(CORE_DIR)/cleanup
+
 INIT_MLX_DIR	=	$(INIT_DIR)/mlx
 INIT_DATA_DIR	=	$(INIT_DIR)/data
+
 EVENT_INPUT_DIR	=	$(EVENTS_DIR)/inputs
 
 # Object directory
