@@ -1,6 +1,5 @@
 #include "game.h"
 
-// TODO: fix segfault when lines are too small
 static void render_scene(t_game *game);
 static void render_game(t_game *game);
 
@@ -19,8 +18,9 @@ int gameloop(t_game *game)
 		update_player_movement(game, &game->player, &game->data.map);
 	}
 	
-	update_player_vertical(&game->player, 0.016);
-	update_player_rise(&game->player, 0.016);
+	jump_event(&game->player, 0.016);
+	stand_up(&game->player, 0.016);
+
 	// Render the game state
 	render_game(game);
 	return (0);

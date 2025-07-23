@@ -1,5 +1,4 @@
-#include "game.h"
-#include "unistd.h"
+#include "get_next_line.h"
 
 int	ft_set_d(char **data)
 {

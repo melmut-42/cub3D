@@ -1,17 +1,8 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-// ========================== Includes ==========================
-
-# include <stdint.h>
-
-// ========================== Constants ==========================
-
-// ============= GNL Constant =============
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
+# include <stdint.h> 
+# include <stddef.h>
 
 // ============= Window Constants =============
 
@@ -110,7 +101,7 @@ typedef enum	e_directions
 	FLOOR,
 	CEILING,
 	NONE
-}					t_directions;
+}					t_dir;
 
 // ======================================= Structures =======================================
 
@@ -128,6 +119,7 @@ typedef struct	s_img
 	int				height;			// height of the image
 }					t_img;
 
+// * Represents a column of pixels in the 3D rendering
 typedef struct s_column
 {
 	t_img			*texture;       // Texture to sample from
@@ -150,7 +142,6 @@ typedef struct s_texture
 	t_img			textures[NUMBER_DIR];		// array of textures for different directions
 }					t_texture;
 
-
 // * Represents a map with height, path to the map file, and a 2D matrix of characters
 typedef struct s_map
 {
@@ -167,17 +158,17 @@ typedef struct s_axis
 	double				y;
 }					t_axis;
 
+// * Represents the vertical state of the player
 typedef struct		s_vertical
 {
 	bool	in_air;
 	bool	in_crouch;
-	double  jump_offset;
-	double  crouch_offset;
+	double  jump_off;
+	double  crouch_off;
 	double  crouch_target;
 	double	vertical_pos;
 	double	vertical_vel;
 }					t_vertical;
-
 
 // * Holds direction, position, movement flags, and camera settings
 typedef struct	s_player
@@ -193,6 +184,7 @@ typedef struct	s_player
 	t_vertical	vertical;		// vertical attributes
 }				t_player;
 
+// * Ray structure for raycasting
 typedef struct s_ray
 {
 	t_axis			dir;				// ray direction
@@ -206,6 +198,7 @@ typedef struct s_ray
 	int				side;				// was a NS or EW wall hit? 0 = vertical (NS), 1 = horizontal (EW)
 }					t_ray;
 
+// * Main structure for the MLX window and images
 typedef struct	t_mlx
 {
 	void		*mlx_ptr;
@@ -217,6 +210,7 @@ typedef struct	t_mlx
 	t_img		minimap_img;	// image structure for the minimap
 }				t_mlx;
 
+// * Main game data structure regarding textures and tables
 typedef	struct	s_data
 {
 	t_map			map;
@@ -225,6 +219,7 @@ typedef	struct	s_data
 	double			sin_table[NUM_OF_DEGREE];
 }					t_data;
 
+// * Main game structure that holds all game-related data
 typedef struct s_game
 {
 	char		*name;

@@ -1,5 +1,7 @@
 #include "game.h"
 
+// ! Norm compliance doesn't matter, this file is for debugging only and will be removed in production.
+
 static void	display_axis(const char *label, const t_axis *a)
 {
 	printf("  %-12s: (%.2f, %.2f)\n", label, a->x, a->y);

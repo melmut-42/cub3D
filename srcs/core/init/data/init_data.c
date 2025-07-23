@@ -1,17 +1,20 @@
 #include "game.h"
 
-static void	setup_trigonometry_table(t_data *data);
+static void	setup_trig_table(t_data *data);
 static bool	process_file_data(t_game *game, const char *path);
 
+// * Initializes the game data structure and sets up the trigonometry tables
 bool	init_data(t_game *game)
 {
 	if (!process_file_data(game, game->data.map.map_path))
 		return (false);
-	setup_trigonometry_table(&game->data);
+
+	setup_trig_table(&game->data);
 	return (true);
 }
 
-static void	setup_trigonometry_table(t_data *data)
+// * Initializes the trigonometry tables for fast sine and cosine calculations
+static void	setup_trig_table(t_data *data)
 {
 	int		i;
 	double	radians;
@@ -26,6 +29,7 @@ static void	setup_trigonometry_table(t_data *data)
 	}
 }
 
+// * Processes the texture data and map data from the file
 static bool	process_file_data(t_game *game, const char *path)
 {
 	int		fd;
@@ -33,9 +37,11 @@ static bool	process_file_data(t_game *game, const char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		display_error_message(FILE_ERR, true);
+		display_error_message(ERR_FILE, true);
 		return (false);
 	}
+
+	// Initialize texture and map data
 	if (!process_texture_data(game, &game->data.texture, fd)
 		|| !process_map_data(game, &game->data.map, fd))
 	{
@@ -47,17 +53,20 @@ static bool	process_file_data(t_game *game, const char *path)
 	return (true);
 }
 
-bool	does_texture_attr_completed(t_texture *texture)
+// * Processes the texture data from the file
+bool	is_texture_valid(t_texture *texture)
 {
 	int	i;
 
 	i = 0;
-	while (i < RGB_CONSTANT)
+	while (i < RGB_CONSTANT) // Check if all RGB values are set
 	{
 		if (texture->ceil_rgb[i] == -1 || texture->floor_rgb[i] == -1)
 			return (false);
 		i++;
 	}
+
+	// Check if all texture paths are set
 	if (texture->ea_path == NULL || texture->we_path == NULL
 			|| texture->no_path == NULL || texture->so_path == NULL)
 	{

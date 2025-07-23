@@ -14,6 +14,7 @@ void	ft_put_pixel(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+// * Function to convert RGB values to a single integer
 int	rgb_to_int(int r, int g, int b)
 {
 	return ((r << 16) | (g << 8) | b);

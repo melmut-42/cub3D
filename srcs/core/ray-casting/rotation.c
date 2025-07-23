@@ -9,6 +9,7 @@ void rotate_vector(t_data *data, t_axis *vec, double angle)
 	double	old_y;
 	int		index;
 
+	// Get the index of the angle in the cosine and sine tables
 	index = get_angle_index(angle);
 	old_x = vec->x;
 	old_y = vec->y;
@@ -16,13 +17,18 @@ void rotate_vector(t_data *data, t_axis *vec, double angle)
 	vec->y = old_x * data->sin_table[index] + old_y * data->cos_table[index];
 }
 
+// * Calculates the angle between two vectors
 static int get_angle_index(double angle)
 {
 	int index;
 
-	angle = fmod(angle, 2 * M_PI);
+	// Normalize angle to [0, 2π)
+	angle = fmod(angle, 2 * M_PI); // TODO: Set M_PI in header
 	if (angle < 0)
 		angle += 2 * M_PI;
+
+	// Convert angle to degrees and normalize to [0, 360)
 	index = (int)(angle * (180.0 / M_PI)) % NUM_OF_DEGREE;
+
 	return (index);
 }

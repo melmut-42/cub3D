@@ -28,3 +28,28 @@ void	free_textures(t_game *game)
 		game->mlx->frame_img.img_ptr = NULL;
 	}
 }
+
+// * Destroy mlx window and display properly
+void	destroy_img(t_game *game)
+{
+	if (game->mlx)
+	{
+		// Free all texture images and frame buffer
+		free_textures(game);
+
+		mlx_mouse_show(game->mlx->mlx_ptr, game->mlx->win_ptr);
+		
+		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
+		{
+			mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);
+			game->mlx->win_ptr = NULL;
+		}
+		if (game->mlx->mlx_ptr)
+		{
+			mlx_destroy_display(game->mlx->mlx_ptr);
+			free(game->mlx->mlx_ptr);
+			game->mlx->mlx_ptr = NULL;
+		}
+	}
+	free(game->mlx);
+}

@@ -8,12 +8,16 @@ bool	can_move(t_map *map, double x, double y)
 
 	mx = (int)x;
 	my = (int)y;
+
 	if (mx < 0 || mx >= (int)map->width)
 		return (false);
+
 	if (my < 0 || my >= (int)map->height)
 		return (false);
+
 	if (map->matrix[my][mx] == WALL)
 		return (false);
+
 	return (true);
 }
 
@@ -25,8 +29,10 @@ void	attempt_move(t_map *map, t_axis *pos, double dx, double dy)
 
 	nx = pos->x + dx;
 	ny = pos->y + dy;
+
 	if (can_move(map, nx, pos->y))
 		pos->x = nx;
+
 	if (can_move(map, pos->x, ny))
 		pos->y = ny;
 }

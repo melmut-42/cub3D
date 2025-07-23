@@ -11,7 +11,7 @@ t_game *init_game(char *map_path)
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
 	{
-		display_error_message(GAME_ERR, true);
+		display_error_message(ERR_GAME, true);
 		return (NULL);
 	}
 	game->data.map.map_path = map_path;
@@ -26,6 +26,7 @@ t_game *init_game(char *map_path)
 		free_game(game);
 		return (NULL);
 	}
+
 	return (game);
 }
 
@@ -58,8 +59,8 @@ static void player_ctor(t_player *player)
 	player->plane.y = 0;
 	player->vertical.in_air = false;
 	player->vertical.in_crouch = false;
-	player->vertical.jump_offset = 0.0;
-	player->vertical.crouch_offset = 0.0;
+	player->vertical.jump_off = 0.0;
+	player->vertical.crouch_off = 0.0;
 	player->vertical.vertical_pos = 0.0;
 	player->vertical.vertical_vel = 0.0;
 }

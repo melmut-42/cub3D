@@ -18,7 +18,7 @@ bool	is_number(char *str)
 
 	if (!str)
 		return (false);
-	if (does_fully_include_spaces(str))
+	if (is_fully_space(str))
 		return (false);
 	i = 0;
 	while (str[i])
@@ -50,7 +50,7 @@ bool	is_space(char c)
 }
 
 // * Returns true if the given string contains only space characters
-bool	does_fully_include_spaces(char *str)
+bool	is_fully_space(char *str) // better func name: is_fully_space
 {
 	int	i;
 
@@ -77,7 +77,7 @@ char	*ultimate_trim(t_game *game, char *raw, char *trim_set)
 	if (!trimmed)
 	{
 		game->error_flag = false;
-		display_error_message(GAME_ERR, true);
+		display_error_message(ERR_GAME, true);
 		return (NULL);
 	}
 	return (trimmed);

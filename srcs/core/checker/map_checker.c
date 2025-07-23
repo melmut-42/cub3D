@@ -52,7 +52,7 @@ static bool	check_invalid_element(t_game *game, char **matrix)
 			if (!(is_space(matrix[i][j]) || matrix[i][j] == WALL
 					|| matrix[i][j] == GROUND || is_player(matrix[i][j])))
 			{
-				display_error_message(INV_MAP_ELEMENT, false);
+				display_error_message(ERR_ELEM, false);
 				game->error_flag = true;
 				return (false);
 			}
@@ -73,7 +73,7 @@ static void	flood_fill(t_game *game, char **matrix, int x, int y)
 		|| (size_t)y >= game->data.map.height - 1)
 	{
 		if (!game->error_flag)
-			display_error_message(MAP_ACCESS_ERR, false);
+			display_error_message(ERR_ACCESS, false);
 		game->error_flag = true;
 		return ;
 	}

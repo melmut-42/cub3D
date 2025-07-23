@@ -32,7 +32,7 @@ int	handle_keypress(int keycode, t_game *game)
 
 	if (keycode == KEY_CTRL_L)
     {
-        game->player.vertical.crouch_offset = CROUCH_SCALE;
+        game->player.vertical.crouch_off = CROUCH_SCALE;
         game->player.vertical.crouch_target = CROUCH_SCALE;
     }
 	
@@ -72,36 +72,37 @@ int	handle_keyrelease(int keycode, t_game *game)
 	return (0);
 }
 
-// * provides rotation by using keys
-// TODO: Impelement release mode
+// * Provides rotation by using keys
 static void	exec_key_rotation(t_game *game, int keycode, int mode)
 {
-	// TODO: Remove other keys
-	// TODO: Implement constant macro
+	// Handles release of rotation keys
 	if (mode == 1)
 	{
 		if (keycode == KEY_LEFT)
 			game->player.rot.x = 0;
+
 		if (keycode == KEY_RIGHT)
 			game->player.rot.x = 0;
+
 		return ;
 	}
 
 	if (keycode == KEY_LEFT)
 		game->player.rot.x = -0.42;
+
 	if (keycode == KEY_RIGHT)
 		game->player.rot.x = +0.42;
 	
 	if (keycode == KEY_UP)
 		game->player.pitch_angle -= MAX_PITCH / (double) 10; // look up
+
 	if (keycode == KEY_DOWN)
 		game->player.pitch_angle += MAX_PITCH / (double) 10; // look down
-
-	// TODO: Handle pitch with mouse instead + make it smoother
 
 	// Clamp pitch
 	if (game->player.pitch_angle > MAX_PITCH)
 		game->player.pitch_angle = MAX_PITCH;
+
 	if (game->player.pitch_angle < MIN_PITCH)
 		game->player.pitch_angle = MIN_PITCH;
 }

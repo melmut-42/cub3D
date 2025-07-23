@@ -1,4 +1,4 @@
-#include "../includes/game.h"
+#include "../includes/core/game.h"
 
 // * Main function to initialize and run the game
 static int	execube(t_game *game)
@@ -12,7 +12,7 @@ static int	execube(t_game *game)
 	// Start the mlx event loop
 	mlx_loop(game->mlx->mlx_ptr);
 
-	// Cleanup and free game resources // TODO: Make sure implementation works
+	// Cleanup and free game resources
 	free_game(game);
 
 	return (EXIT_SUCCESS);
@@ -28,15 +28,18 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Usage: ./cub3d <map_file.cub>", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
+
 	// Check if the map file has a valid .cub extension
 	if (!has_valid_cub_extension(argv[1]))
 	{
-		display_error_message(INV_EXT, false);
+		display_error_message(ERR_EXT, false);
 		return (EXIT_FAILURE);
 	}
+
 	// Initialize the game structure and load the map
 	game = init_game(argv[1]);
 	if (!game)
 		return (EXIT_FAILURE);
+
 	return (execube(game)); // handle_error returns null
 }

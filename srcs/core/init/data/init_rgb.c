@@ -1,37 +1,43 @@
 #include "game.h"
 
-static bool	are_rgb_valid(t_game *game, char **rgb);
-static char	**get_splitted_rgb(t_game *game, char *data);
-static bool	has_rgb_already_processed(t_game *game, int rgb[RGB_CONSTANT]);
+static bool	validate_rgb(t_game *game, char **rgb);
+static char	**get_rgb_segments(t_game *game, char *data);
+static bool	rgb_already_set(t_game *game, int rgb[RGB_CONSTANT]);
 
+// * Processes RGB values from the given data string and updates the game structure
 void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data)
 {
-	char	**splitted_rgb;
+	char	**rgb_segments;
 	int		i;
 
-	if (game->error_flag || has_rgb_already_processed(game, rgb))
+	if (game->error_flag || rgb_already_set(game, rgb))
 	{
 		free(data);
 		return ;
 	}
-	splitted_rgb = get_splitted_rgb(game, data);
-	if (!splitted_rgb)
+
+	rgb_segments = get_rgb_segments(game, data);
+	if (!rgb_segments)
 		return ;
-	if (!are_rgb_valid(game, splitted_rgb))
+
+	if (!validate_rgb(game, rgb_segments))
 	{
-		free_tab(splitted_rgb);
+		free_tab(rgb_segments);
 		return ;
 	}
+
 	i = 0;
 	while (i < RGB_CONSTANT)
 	{
-		rgb[i] = ft_atoi(splitted_rgb[i]);
+		rgb[i] = ft_atoi(rgb_segments[i]);
 		i++;
 	}
-	free_tab(splitted_rgb);
+
+	free_tab(rgb_segments);
 }
 
-static bool	has_rgb_already_processed(t_game *game, int rgb[RGB_CONSTANT])
+// * Checks if RGB values have already been processed
+static bool	rgb_already_set(t_game *game, int rgb[RGB_CONSTANT])
 {
 	int	i;
 
@@ -42,12 +48,15 @@ static bool	has_rgb_already_processed(t_game *game, int rgb[RGB_CONSTANT])
 			return (false);
 		i++;
 	}
-	display_error_message(DUP_DATA, false);
+	
+	display_error_message(ERR_DUP, false);
 	game->error_flag = true;
+
 	return (true);
 }
 
-static bool	are_rgb_valid(t_game *game, char **rgb)
+// * Checks if the RGB values are valid
+static bool	validate_rgb(t_game *game, char **rgb)
 {
 	int	i;
 
@@ -55,43 +64,52 @@ static bool	are_rgb_valid(t_game *game, char **rgb)
 	while (rgb[i] && i < RGB_CONSTANT)
 	{
 		rgb[i] = ultimate_trim(game, rgb[i], SPACE_SET);
+
 		if (!rgb[i])
 			return (false);
+
 		if (ft_strlen(rgb[i]) >= 4 || !is_number(rgb[i])
 			|| ft_atoi(rgb[i]) < RGB_MIN_VAL || ft_atoi(rgb[i]) > RGB_MAX_VAL)
 		{
+			// Invalid RGB value
 			game->error_flag = true;
-			display_error_message(INV_RGB_VAL, false);
+			display_error_message(ERR_RGB, false);
 			return (false);
 		}
 		i++;
 	}
+
+	// Check if we have exactly RGB_CONSTANT values
 	if (i != RGB_CONSTANT || rgb[i])
 	{
 		game->error_flag = true;
 		return (false);
 	}
+
 	return (true);
 }
 
-static char	**get_splitted_rgb(t_game *game, char *data)
+// Gets the RGB segments from the data string
+static char	**get_rgb_segments(t_game *game, char *data)
 {
-	char	**splitted;
+	char	**segments;
 
 	if (data[ft_strlen(data) - 1] == COMMA)
 	{
 		free(data);
-		display_error_message(INV_RGB_VAL, false);
+		display_error_message(ERR_RGB, false);
 		game->error_flag = true;
 		return (NULL);
 	}
-	splitted = ft_split(data, COMMA);
+
+	segments = ft_split(data, COMMA);
 	free(data);
-	if (!splitted)
+	if (!segments)
 	{
-		display_error_message(GAME_ERR, true);
+		display_error_message(ERR_GAME, true);
 		game->error_flag = true;
 		return (NULL);
 	}
-	return (splitted);
+
+	return (segments);
 }

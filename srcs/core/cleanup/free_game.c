@@ -1,7 +1,6 @@
 #include "game.h"
 
 static void	free_data(t_data *data);
-static void	destroy_img(t_game *game);
 
 // * Frees the entire game structure including its data
 void	free_game(t_game *game)
@@ -45,31 +44,6 @@ void	free_tab(char **state)
 		i++;
 	}
 	ft_free((void **)&state);
-}
-
-// * Destroy mlx window and display properly
-static void	destroy_img(t_game *game)
-{
-	if (game->mlx)
-	{
-		// Free all texture images and frame buffer
-		free_textures(game);
-
-		mlx_mouse_show(game->mlx->mlx_ptr, game->mlx->win_ptr);
-		
-		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
-		{
-			mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);
-			game->mlx->win_ptr = NULL;
-		}
-		if (game->mlx->mlx_ptr)
-		{
-			mlx_destroy_display(game->mlx->mlx_ptr);
-			free(game->mlx->mlx_ptr);
-			game->mlx->mlx_ptr = NULL;
-		}
-	}
-	free(game->mlx);
 }
 
 // * Helper function to free allocated texture paths and map matrix

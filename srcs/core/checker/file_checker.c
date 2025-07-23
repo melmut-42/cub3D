@@ -1,4 +1,4 @@
-#include "../../includes/game.h"
+#include "game.h"
 
 // * Checks if the file name has a valid ".cub" extension
 bool has_valid_cub_extension(const char *filename)

@@ -1,3 +1,6 @@
+# !!!
+# TODO: MAKE SURE THAT THE WILDCARD FOR OBJ FILES IS FINE BY 42NORM
+
 # Compiler and flags
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror -g
@@ -11,7 +14,6 @@ SRC_DIR 		=	srcs
 # Subdirectories
 CORE_DIR		=	$(SRC_DIR)/core
 UTIL_DIR		=	$(SRC_DIR)/utils
-GNL_DIR			=	$(SRC_DIR)/gnl
 INIT_DIR		=	$(CORE_DIR)/init
 CHECKER_DIR		=	$(CORE_DIR)/checker
 EVENTS_DIR		=	$(CORE_DIR)/events
@@ -27,7 +29,7 @@ EVENT_INPUT_DIR	=	$(EVENTS_DIR)/inputs
 OBJ_DIR			=	objs
 
 # Source files
-SRCS    		=	$(SRC_DIR)/main.c 					\
+SRCS			=	$(SRC_DIR)/main.c 					\
 					$(INIT_DIR)/init_game.c				\
 					$(INIT_DIR)/init_player.c			\
 					$(INIT_DATA_DIR)/init_data.c		\
@@ -42,21 +44,19 @@ SRCS    		=	$(SRC_DIR)/main.c 					\
 					$(EVENTS_DIR)/player.c				\
 					$(EVENT_INPUT_DIR)/keys.c			\
 					$(EVENT_INPUT_DIR)/mouse.c			\
-					$(CLEANUP_DIR)/free.c				\
-					$(CLEANUP_DIR)/free_textures.c		\
+					$(CLEANUP_DIR)/free_game.c			\
+					$(CLEANUP_DIR)/free_mlx.c			\
 					$(CHECKER_DIR)/file_checker.c		\
 					$(CHECKER_DIR)/map_checker.c		\
 					$(RAYCAST_DIR)/casting.c			\
 					$(RAYCAST_DIR)/rotation.c			\
 					$(RAYCAST_DIR)/draw_texture.c		\
-					$(UTIL_DIR)/display_message.c		\
-					$(UTIL_DIR)/str_utils.c				\
-					$(UTIL_DIR)/img_utils.c				\
-					$(UTIL_DIR)/move_utils.c			\
-					$(UTIL_DIR)/matrix_utils.c			\
 					$(UTIL_DIR)/debug.c					\
-					$(GNL_DIR)/get_next_line.c			\
-					$(GNL_DIR)/get_next_line_utils.c	
+					$(UTIL_DIR)/error_utils.c			\
+					$(UTIL_DIR)/image_utils.c			\
+					$(UTIL_DIR)/matrix_utils.c			\
+					$(UTIL_DIR)/move_utils.c			\
+					$(UTIL_DIR)/string_utils.c
 
 # ! debug.c is for debugging purposes and shall be removed later
 
@@ -64,13 +64,15 @@ SRCS    		=	$(SRC_DIR)/main.c 					\
 OBJS    		=	$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Libraries directories
-LIBFT_DIR		=	libs/libft
 MLX_DIR 		=	libs/mlx
+LIBFT_DIR		=	libs/libft
+GNL_DIR			=	libs/gnl
 
 # Libraries
-LIBFT			=	$(LIBFT_DIR)/libft.a
 MLX				=	$(MLX_DIR)/libmlx_Linux.a
-LIBS			=	$(MLX) $(LIBFT) -lXext -lX11 -lm
+LIBFT			=	$(LIBFT_DIR)/libft.a
+GNL				=	$(GNL_DIR)/libgnl.a
+LIBS			=	$(MLX) $(GNL) $(LIBFT) -lXext -lX11 -lm
 
 # Build rules
 all: $(NAME)
@@ -80,10 +82,13 @@ $(NAME): $(OBJS) $(LIBFT) $(MLX)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(MLX)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -Iincludes -I$(LIBFT_DIR) -I$(MLX_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -Iincludes/core -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR) -c $< -o $@
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
+
+$(GNL):
+	@$(MAKE) -C $(GNL_DIR)
 
 $(MLX):
 	@if [ ! -d $(MLX_DIR) ]; then \
