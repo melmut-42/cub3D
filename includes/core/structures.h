@@ -10,8 +10,10 @@
 # define WIN_WIDTH	1024
 # define WIN_HEIGHT	768
 
-# define MID_POINT_X	512
-# define MID_POINT_Y	384
+// TODO: Check whether this is a macro or not (forbidden)
+# define MID_POINT_X	WIN_WIDTH / 2
+# define MID_POINT_Y	WIN_HEIGHT / 2
+# define PLAYER_MARGIN 0.25
 
 # define TARGET_FPS	100
 
@@ -22,7 +24,7 @@
 # define D	2
 # define A	3
 
-# define SENS_X	0.2
+# define SENS_X	0.05
 # define SENS_Y	0.6
 
 # define INITIAL_SPEED	0.04

@@ -3,19 +3,30 @@
 // * Helper that checks if a position is inside map and not a wall
 bool	can_move(t_map *map, double x, double y)
 {
-	int mx;
-	int my;
+	int	tile_left;
+	int	tile_right;
+	int	tile_top;
+	int	tile_bottom;
 
-	mx = (int)x;
-	my = (int)y;
-
-	if (mx < 0 || mx >= (int)map->width)
+	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
 		return (false);
 
-	if (my < 0 || my >= (int)map->height)
+	// Compute tile positions around the player considering the margin
+	tile_left = (int)(x - PLAYER_MARGIN);
+	tile_right = (int)(x + PLAYER_MARGIN);
+	tile_top = (int)(y - PLAYER_MARGIN);
+	tile_bottom = (int)(y + PLAYER_MARGIN);
+
+	// Reject if margin-check positions are outside the map
+	if (tile_left < 0 || tile_right >= (int)map->width
+		|| tile_top < 0 || tile_bottom >= (int)map->height)
 		return (false);
 
-	if (map->matrix[my][mx] == WALL)
+	// Check if there is a wall in the surrounding tiles
+	if (map->matrix[tile_top][tile_left] == WALL
+		|| map->matrix[tile_top][tile_right] == WALL
+		|| map->matrix[tile_bottom][tile_left] == WALL
+		|| map->matrix[tile_bottom][tile_right] == WALL)
 		return (false);
 
 	return (true);
