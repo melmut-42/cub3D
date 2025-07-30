@@ -1,6 +1,9 @@
+# !!!
+# TODO: MAKE SURE THAT THE WILDCARD FOR OBJ FILES IS FINE BY 42NORM
+
 # Compiler and flags
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g
 
 # Project name
 NAME    		=	cub3d
@@ -9,22 +12,24 @@ NAME    		=	cub3d
 SRC_DIR 		=	srcs
 
 # Subdirectories
-INIT_DIR		=	$(SRC_DIR)/init
-CHECKER_DIR		=	$(SRC_DIR)/checker
-MLX_SRC_DIR		=	$(SRC_DIR)/mlx
-EVENTS_DIR		=	$(SRC_DIR)/events
-RAYCAST_DIR		=	$(SRC_DIR)/ray-casting
+CORE_DIR		=	$(SRC_DIR)/core
 UTIL_DIR		=	$(SRC_DIR)/utils
-CLEANUP_DIR		=	$(SRC_DIR)/cleanup
-GNL_DIR			=	$(SRC_DIR)/gnl
+INIT_DIR		=	$(CORE_DIR)/init
+CHECKER_DIR		=	$(CORE_DIR)/checker
+EVENTS_DIR		=	$(CORE_DIR)/events
+RAYCAST_DIR		=	$(CORE_DIR)/ray-casting
+CLEANUP_DIR		=	$(CORE_DIR)/cleanup
+
 INIT_MLX_DIR	=	$(INIT_DIR)/mlx
 INIT_DATA_DIR	=	$(INIT_DIR)/data
+
+EVENT_INPUT_DIR	=	$(EVENTS_DIR)/inputs
 
 # Object directory
 OBJ_DIR			=	objs
 
 # Source files
-SRCS    		=	$(SRC_DIR)/main.c 					\
+SRCS			=	$(SRC_DIR)/main.c 					\
 					$(INIT_DIR)/init_game.c				\
 					$(INIT_DIR)/init_player.c			\
 					$(INIT_DATA_DIR)/init_data.c		\
@@ -33,26 +38,25 @@ SRCS    		=	$(SRC_DIR)/main.c 					\
 					$(INIT_DATA_DIR)/init_texture.c		\
 					$(INIT_MLX_DIR)/init_mlx.c			\
 					$(INIT_MLX_DIR)/load_textures.c		\
-					$(EVENTS_DIR)/loop.c				\
-					$(EVENTS_DIR)/input.c				\
-					$(EVENTS_DIR)/hooks.c				\
 					$(EVENTS_DIR)/time.c				\
-					$(CLEANUP_DIR)/free.c				\
-					$(CLEANUP_DIR)/free_textures.c		\
+					$(EVENTS_DIR)/loop.c				\
+					$(EVENTS_DIR)/hooks.c				\
+					$(EVENTS_DIR)/player.c				\
+					$(EVENT_INPUT_DIR)/keys.c			\
+					$(EVENT_INPUT_DIR)/mouse.c			\
+					$(CLEANUP_DIR)/free_game.c			\
+					$(CLEANUP_DIR)/free_mlx.c			\
 					$(CHECKER_DIR)/file_checker.c		\
 					$(CHECKER_DIR)/map_checker.c		\
 					$(RAYCAST_DIR)/casting.c			\
 					$(RAYCAST_DIR)/rotation.c			\
 					$(RAYCAST_DIR)/draw_texture.c		\
-					$(UTIL_DIR)/display_message.c		\
-					$(UTIL_DIR)/str_utils.c				\
-					$(UTIL_DIR)/img_utils.c				\
-					$(UTIL_DIR)/move_utils.c			\
-					$(UTIL_DIR)/matrix_utils.c			\
 					$(UTIL_DIR)/debug.c					\
-					$(UTIL_DIR)/error_handling.c		\
-					$(GNL_DIR)/get_next_line.c			\
-					$(GNL_DIR)/get_next_line_utils.c	
+					$(UTIL_DIR)/error_utils.c			\
+					$(UTIL_DIR)/image_utils.c			\
+					$(UTIL_DIR)/matrix_utils.c			\
+					$(UTIL_DIR)/move_utils.c			\
+					$(UTIL_DIR)/string_utils.c
 
 # ! debug.c is for debugging purposes and shall be removed later
 
@@ -60,26 +64,33 @@ SRCS    		=	$(SRC_DIR)/main.c 					\
 OBJS    		=	$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Libraries directories
-LIBFT_DIR		=	libs/libft
 MLX_DIR 		=	libs/mlx
+LIBFT_DIR		=	libs/libft
+GNL_DIR			=	libs/gnl
 
 # Libraries
-LIBFT			=	$(LIBFT_DIR)/libft.a
 MLX				=	$(MLX_DIR)/libmlx_Linux.a
-LIBS			=	$(MLX) $(LIBFT) -lXext -lX11 -lm
+LIBFT			=	$(LIBFT_DIR)/libft.a
+GNL				=	$(GNL_DIR)/libgnl.a
+LIBS			=	$(MLX) $(GNL) $(LIBFT) -lXext -lX11 -lm
 
 # Build rules
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
+$(NAME): $(OBJS) $(LIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(MLX)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -Iincludes -I$(LIBFT_DIR) -I$(MLX_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -Iincludes/core -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR) -c $< -o $@
+
+$(LIBS): $(LIBFT) $(MLX) $(GNL)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
+
+$(GNL):
+	@$(MAKE) -C $(GNL_DIR)
 
 $(MLX):
 	@if [ ! -d $(MLX_DIR) ]; then \
@@ -96,6 +107,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(GNL_DIR) fclean
 
 
 re: fclean all
