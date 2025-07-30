@@ -34,7 +34,7 @@ static void render_game(t_game *game)
 	// TODO: check game_tick speed and render elements/minimap/HUD based on that to increase efficiency
 
 	// TODO: Render minimap overlay
-	//draw_minimap(game);
+	draw_minimap(game);
 
 	// TODO: Render HUD elements
 	//draw_hud(game);

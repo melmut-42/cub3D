@@ -47,7 +47,6 @@ static void init_column(t_column *col, t_game *g, t_ray *ray, int x)
 	win_h = g->mlx->height;
 	col->wall_height = (int)(win_h / ray->perp_wall_dist);
 
-	// ! Use pitch-adjusted screen center
 	pitch = (int)(g->player.pitch_angle
 					+ g->player.vertical.jump_off
 					- g->player.vertical.crouch_off);
