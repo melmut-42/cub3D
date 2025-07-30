@@ -30,33 +30,33 @@ OBJ_DIR				=	objs
 OBJ_BONUS_DIR		=	bonus_objs
 
 # Source files
-SRCS				=	$(SRC_DIR)/main.c 					\
-						$(INIT_DIR)/init_game.c				\
-						$(INIT_DIR)/init_player.c			\
-						$(INIT_DATA_DIR)/init_data.c		\
-						$(INIT_DATA_DIR)/init_map.c			\
-						$(INIT_DATA_DIR)/init_rgb.c			\
-						$(INIT_DATA_DIR)/init_texture.c		\
-						$(INIT_MLX_DIR)/init_mlx.c			\
-						$(INIT_MLX_DIR)/load_textures.c		\
-						$(EVENTS_DIR)/time.c				\
-						$(EVENTS_DIR)/loop.c				\
-						$(EVENTS_DIR)/hooks.c				\
-						$(EVENTS_DIR)/player.c				\
-						$(EVENT_INPUT_DIR)/keys.c			\
-						$(EVENT_INPUT_DIR)/mouse.c			\
-						$(CLEANUP_DIR)/free_game.c			\
-						$(CLEANUP_DIR)/free_mlx.c			\
-						$(CHECKER_DIR)/file_checker.c		\
-						$(CHECKER_DIR)/map_checker.c		\
-						$(RAYCAST_DIR)/casting.c			\
-						$(RAYCAST_DIR)/rotation.c			\
-						$(RAYCAST_DIR)/draw_texture.c		\
-						$(UTIL_DIR)/debug.c					\
-						$(UTIL_DIR)/error_utils.c			\
-						$(UTIL_DIR)/image_utils.c			\
-						$(UTIL_DIR)/matrix_utils.c			\
-						$(UTIL_DIR)/move_utils.c			\
+SRCS				=	$(SRC_DIR)/main.c 							\
+						$(INIT_DIR)/init_game.c						\
+						$(INIT_DIR)/init_player.c					\
+						$(INIT_DATA_DIR)/init_data.c				\
+						$(INIT_DATA_DIR)/init_map.c					\
+						$(INIT_DATA_DIR)/init_rgb.c					\
+						$(INIT_DATA_DIR)/init_texture.c				\
+						$(INIT_MLX_DIR)/init_mlx.c					\
+						$(INIT_MLX_DIR)/load_textures.c				\
+						$(EVENTS_DIR)/time.c						\
+						$(EVENTS_DIR)/loop.c						\
+						$(EVENTS_DIR)/hooks.c						\
+						$(EVENTS_DIR)/player.c						\
+						$(EVENT_INPUT_DIR)/keys.c					\
+						$(EVENT_INPUT_DIR)/mouse.c					\
+						$(CLEANUP_DIR)/free_game.c					\
+						$(CLEANUP_DIR)/free_mlx.c					\
+						$(CHECKER_DIR)/file_checker.c				\
+						$(CHECKER_DIR)/map_checker.c				\
+						$(RAYCAST_DIR)/casting.c					\
+						$(RAYCAST_DIR)/rotation.c					\
+						$(RAYCAST_DIR)/draw_texture.c				\
+						$(UTIL_DIR)/debug.c							\
+						$(UTIL_DIR)/error_utils.c					\
+						$(UTIL_DIR)/image_utils.c					\
+						$(UTIL_DIR)/matrix_utils.c					\
+						$(UTIL_DIR)/move_utils.c					\
 						$(UTIL_DIR)/string_utils.c
 
 # Bonus subdirectories
@@ -72,34 +72,34 @@ B_INIT_DATA_DIR  	= $(BONUS_DIR)/core/init/data
 B_EVENT_INPUT_DIR	= $(BONUS_DIR)/core/events/inputs
 
 # Bonus source files
-BONUS_SRCS			=	$(BONUS_DIR)/main.c					\
-						$(B_INIT_DIR)/init_game.c			\
-						$(B_INIT_DIR)/init_player.c			\
-						$(B_INIT_DATA_DIR)/init_data.c		\
-						$(B_INIT_DATA_DIR)/init_map.c		\
-						$(B_INIT_DATA_DIR)/init_rgb.c		\
-						$(B_INIT_DATA_DIR)/init_texture.c	\
-						$(B_INIT_MLX_DIR)/init_mlx.c		\
-						$(B_INIT_MLX_DIR)/load_textures.c	\
-						$(B_EVENTS_DIR)/time.c				\
-						$(B_EVENTS_DIR)/loop.c				\
-						$(B_EVENTS_DIR)/hooks.c				\
-						$(B_EVENTS_DIR)/player.c			\
-						$(B_EVENT_INPUT_DIR)/keys.c			\
-						$(B_EVENT_INPUT_DIR)/mouse.c		\
-						$(B_CLEANUP_DIR)/free_game.c		\
-						$(B_CLEANUP_DIR)/free_mlx.c			\
-						$(B_CHECKER_DIR)/file_checker.c		\
-						$(B_CHECKER_DIR)/map_checker.c		\
-						$(B_RAYCAST_DIR)/casting.c			\
-						$(B_RAYCAST_DIR)/rotation.c			\
-						$(B_RAYCAST_DIR)/draw_texture.c		\
-						$(B_UTIL_DIR)/debug.c				\
-						$(B_UTIL_DIR)/error_utils.c			\
-						$(B_UTIL_DIR)/image_utils.c			\
-						$(B_UTIL_DIR)/matrix_utils.c		\
-						$(B_UTIL_DIR)/move_utils.c			\
-						$(B_UTIL_DIR)/string_utils.c
+BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
+						$(B_INIT_DIR)/init_game_bonus.c				\
+						$(B_INIT_DIR)/init_player_bonus.c			\
+						$(B_INIT_DATA_DIR)/init_data_bonus.c		\
+						$(B_INIT_DATA_DIR)/init_map_bonus.c			\
+						$(B_INIT_DATA_DIR)/init_rgb_bonus.c			\
+						$(B_INIT_DATA_DIR)/init_texture_bonus.c		\
+						$(B_INIT_MLX_DIR)/init_mlx_bonus.c			\
+						$(B_INIT_MLX_DIR)/load_textures_bonus.c		\
+						$(B_EVENTS_DIR)/time_bonus.c				\
+						$(B_EVENTS_DIR)/loop_bonus.c				\
+						$(B_EVENTS_DIR)/hooks_bonus.c				\
+						$(B_EVENTS_DIR)/player_bonus.c				\
+						$(B_EVENT_INPUT_DIR)/keys_bonus.c			\
+						$(B_EVENT_INPUT_DIR)/mouse_bonus.c			\
+						$(B_CLEANUP_DIR)/free_game_bonus.c			\
+						$(B_CLEANUP_DIR)/free_mlx_bonus.c			\
+						$(B_CHECKER_DIR)/file_checker_bonus.c		\
+						$(B_CHECKER_DIR)/map_checker_bonus.c		\
+						$(B_RAYCAST_DIR)/casting_bonus.c			\
+						$(B_RAYCAST_DIR)/rotation_bonus.c			\
+						$(B_RAYCAST_DIR)/draw_texture_bonus.c		\
+						$(B_UTIL_DIR)/debug_bonus.c					\
+						$(B_UTIL_DIR)/error_utils_bonus.c			\
+						$(B_UTIL_DIR)/image_utils_bonus.c			\
+						$(B_UTIL_DIR)/matrix_utils_bonus.c			\
+						$(B_UTIL_DIR)/move_utils_bonus.c			\
+						$(B_UTIL_DIR)/string_utils_bonus.c
 
 # ! debug.c is for debugging purposes and shall be removed later
 
