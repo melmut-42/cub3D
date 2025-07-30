@@ -77,12 +77,14 @@ LIBS			=	$(MLX) $(GNL) $(LIBFT) -lXext -lX11 -lm
 # Build rules
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
+$(NAME): $(OBJS) $(LIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(MLX)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -Iincludes/core -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR) -c $< -o $@
+
+$(LIBS): $(LIBFT) $(MLX) $(GNL)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
