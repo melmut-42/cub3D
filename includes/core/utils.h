@@ -9,7 +9,7 @@ char	*ultimate_trim(t_game *game, char *raw, char *trim_set);
 
 // =============================== Trigonometry ===============================
 
-double	deg_to_rad(double deg)
+double	deg_to_rad(double deg);
 
 // =============================== Checks ===============================
 bool	is_space(char c);

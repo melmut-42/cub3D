@@ -20,16 +20,13 @@ int get_angle_index(double angle)
 {
 	int index;
 
-	// Normalize angle to [0, 2π)
-	angle = fmod(angle, 2 * M_PI); // TODO: Set M_PI in header
+	angle = fmod(angle, 2 * M_PI);
 	if (angle < 0)
 		angle += 2 * M_PI;
-
-	// Convert angle to degrees and normalize to [0, 360)
-	index = (int)(deg_to_rad(angle)) % NUM_OF_DEGREE;
-
+	index = (int)(angle * NUM_OF_DEGREE / (2 * M_PI));
 	return (index);
 }
+
 
 double	deg_to_rad(double deg)
 {

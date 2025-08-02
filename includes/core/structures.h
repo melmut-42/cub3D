@@ -92,7 +92,7 @@
 
 // ================= Minimap Constants =================
 
-#define MINIMAP_RADIUS     50
+#define MINIMAP_RADIUS     70
 #define MINIMAP_SCALE      0.2
 #define MINIMAP_FOV        90
 #define RAY_COUNT          120
