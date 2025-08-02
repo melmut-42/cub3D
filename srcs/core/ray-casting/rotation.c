@@ -1,7 +1,5 @@
 #include "game.h"
 
-static int get_angle_index(double angle);
-
 // * Rotates a vector by a given angle
 void rotate_vector(t_data *data, t_axis *vec, double angle)
 {
@@ -18,7 +16,7 @@ void rotate_vector(t_data *data, t_axis *vec, double angle)
 }
 
 // * Calculates the angle between two vectors
-static int get_angle_index(double angle)
+int get_angle_index(double angle)
 {
 	int index;
 
@@ -28,7 +26,13 @@ static int get_angle_index(double angle)
 		angle += 2 * M_PI;
 
 	// Convert angle to degrees and normalize to [0, 360)
-	index = (int)(angle * (180.0 / M_PI)) % NUM_OF_DEGREE;
+	index = (int)(deg_to_rad(angle)) % NUM_OF_DEGREE;
 
 	return (index);
 }
+
+double	deg_to_rad(double deg)
+{
+	return (deg * M_PI / 180.0);
+}
+

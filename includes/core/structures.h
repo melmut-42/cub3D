@@ -169,6 +169,13 @@ typedef struct s_axis
 	double				y;
 }					t_axis;
 
+// * Represents a 2D axis with x and y coordinates as integer
+typedef struct s_axis_int
+{
+	int				x;
+	int				y;
+}					t_axis_int;
+
 // * Represents the vertical state of the player
 typedef struct		s_vertical
 {

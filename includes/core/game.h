@@ -36,6 +36,5 @@ int		handle_close(t_game *game);
 void	free_game(t_game *game);
 
 
-void	draw_minimap(t_game *game);
 
 #endif

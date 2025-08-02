@@ -7,6 +7,10 @@
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ultimate_trim(t_game *game, char *raw, char *trim_set);
 
+// =============================== Trigonometry ===============================
+
+double	deg_to_rad(double deg)
+
 // =============================== Checks ===============================
 bool	is_space(char c);
 bool	is_player(char player);
