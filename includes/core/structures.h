@@ -228,6 +228,7 @@ typedef struct	t_mlx
 	int			width;
 	int			height;
 	t_img		frame_img;		// image structure for the frame (main screen buffer)
+	t_img		weapon_img;		// image structure for the weapon overlay
 }				t_mlx;
 
 // * Main game data structure regarding textures and tables

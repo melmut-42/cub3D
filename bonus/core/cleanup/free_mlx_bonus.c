@@ -27,6 +27,13 @@ void	free_textures(t_game *game)
 		mlx_destroy_image(game->mlx->mlx_ptr, game->mlx->frame_img.img_ptr);
 		game->mlx->frame_img.img_ptr = NULL;
 	}
+
+	// TODO: Fix leak :(
+	// if (game->mlx->weapon_img.img_ptr)
+	// {
+	// 	mlx_destroy_image(game->mlx->mlx_ptr, game->mlx->weapon_img.img_ptr);
+	// 	game->mlx->weapon_img.img_ptr = NULL;
+	// }
 }
 
 // * Destroy mlx window and display properly
