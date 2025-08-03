@@ -15,7 +15,7 @@
 # define MID_POINT_Y	WIN_HEIGHT / 2
 # define PLAYER_MARGIN 0.25
 
-# define TARGET_FPS	100
+# define TARGET_FPS	100 // TODO: remove cap later (for both bonus and mandatory)
 
 // ============= Game Physics Constants =============
 
