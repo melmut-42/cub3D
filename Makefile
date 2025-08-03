@@ -173,9 +173,13 @@ fclean: clean
 
 re: fclean all
 
-# Usage: make valgrind MAP=path/to/map.cub
+# Usage: make valgrind MAP=path/to/map.cub FLAGS=-b
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d $(MAP)
+	@if echo "$(FLAGS)" | grep -q "\-b"; then \
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d_bonus $(MAP); \
+	else \
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d $(MAP); \
+	fi
 
 mlx: $(MLX)
 
