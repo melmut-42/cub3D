@@ -90,6 +90,18 @@
 # define KEY_CTRL_L	65507
 # define KEY_CTRL_R	65508
 
+// ================= Minimap Constants =================
+
+#define MINIMAP_RADIUS     100
+#define MINIMAP_SCALE      0.2
+#define MINIMAP_FOV        90
+#define RAY_COUNT          120
+#define RAY_MAX_LEN        5.0
+#define RAY_STEP_SIZE      0.05
+
+#define MINIMAP_TILE_SIZE 4
+#define MINIMAP_PLAYER_SIZE 7
+
 
 // ======================================= Enums =======================================
 
@@ -159,6 +171,13 @@ typedef struct s_axis
 	double				x;
 	double				y;
 }					t_axis;
+
+// * Represents a 2D axis with x and y coordinates as integer
+typedef struct s_axis_int
+{
+	int				x;
+	int				y;
+}					t_axis_int;
 
 // * Represents the vertical state of the player
 typedef struct		s_vertical

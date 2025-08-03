@@ -27,12 +27,12 @@
 # include "../engine/player.h"
 # include "../core/utils.h"
 
-// TODO: add GNL lib
-
 // =========================== Core Game Functions ============================
 t_game	*init_game(char *map_path);
 int		gameloop(t_game *game);
 int		handle_close(t_game *game);
 void	free_game(t_game *game);
+
+
 
 #endif

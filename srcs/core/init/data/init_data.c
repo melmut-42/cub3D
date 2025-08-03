@@ -22,7 +22,7 @@ static void	setup_trig_table(t_data *data)
 	i = 0;
 	while (i < NUM_OF_DEGREE)
 	{
-		radians = (i * M_PI) / 180.0;
+		radians = deg_to_rad(i);
 		data->cos_table[i] = cos(radians);
 		data->sin_table[i] = sin(radians);
 		i++;

@@ -1,5 +1,7 @@
 #include "game.h"
+#include "../../includes/bonus/minimap_bonus.h" // TODO: implement into the bonus.h
 #include "bonus.h"
+
 
 static void render_scene(t_game *game);
 static void render_game(t_game *game);
@@ -35,7 +37,7 @@ static void render_game(t_game *game)
 	// TODO: check game_tick speed and render elements/minimap/HUD based on that to increase efficiency
 
 	// TODO: Render minimap overlay
-	//draw_minimap(game);
+	draw_minimap(game);
 
 	// TODO: Render HUD elements
 	draw_hud(game);
