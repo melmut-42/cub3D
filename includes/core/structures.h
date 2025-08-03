@@ -228,7 +228,6 @@ typedef struct	t_mlx
 	int			width;
 	int			height;
 	t_img		frame_img;		// image structure for the frame (main screen buffer)
-	t_img		minimap_img;	// image structure for the minimap
 }				t_mlx;
 
 // * Main game data structure regarding textures and tables
