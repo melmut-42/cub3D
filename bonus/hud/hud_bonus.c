@@ -1,19 +1,19 @@
 #include "game.h"
+#include "bonus.h"
 
 // * Renders the FPS counter on the game window
 static void render_fps(t_game *game, int x, int y, int color)
 {
-	// TODO: Find a way to avoid norm violation with static variables and inline definitions
-	static t_ms last_time = 0;
-	static int frame_count = 0;
-	static int fps = 0;
-	char buffer[16];
-	t_ms now;
+	static t_ms	last_time = 0;
+	static int	frame_count = 0;
+	static int	fps = 0;
+	char		buffer[16];
+	t_ms		now;
 
-	// Get the current timestamp and calculate FPS
 	now = get_timestamp(game);
 	frame_count++;
 
+	// Update the FPS counter every second
 	if (now - last_time >= 1000)
 	{
 		fps = frame_count;
@@ -21,25 +21,24 @@ static void render_fps(t_game *game, int x, int y, int color)
 		last_time = now;
 	}
 
-	// Format the FPS value into a string and render it
+	// Format the FPS value into a string
 	sprintf(buffer, "FPS: %d", fps);
-	mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y, color, buffer);
+	mlx_out_txt(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y, color, buffer);
 }
 
 // * Renders the player's current position coordinates on the game window
 static void render_coordinates(t_game *game, int x, int y, int color)
 {
-	char buffer[32];
+	char	buffer[32];
 
 	// Format the player's position into a string
 	sprintf(buffer, "Pos: (%d, %d)", (int)game->player.pos.x, (int)game->player.pos.y);
-	mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y, color, buffer);
+	mlx_out_txt(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y, color, buffer);
 }
 
 // * Calculates the compass direction based on the player's angle
 static const char *get_compass_dir(double angle)
 {
-	// Normalize the angle to [0, 360) range
 	angle = fmod(angle, 360.0);
 	if (angle < 0)
 		angle += 360.0;
@@ -70,19 +69,18 @@ static void	render_compass(t_game *game, int x, int y, int color)
 	double		display_angle;
 	const char	*dir;
 
-	// Calculate the angle based on the player's direction vector
+	// Calculate the angle in degrees
 	angle = atan2(game->player.dir.y, game->player.dir.x) * 180.0 / M_PI;
 	if (angle < 0)
 		display_angle = angle + 360;
 	else
 		display_angle = angle;
 
-	// Get the compass direction and format it into a string
+	// Get the compass direction and format the output
 	dir = get_compass_dir(angle);
 	sprintf(buffer, "Dir: %s (%.1f%c)", dir, display_angle, 176);
-	mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y, color, buffer);
+	mlx_out_txt(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y, color, buffer);
 }
-
 
 // * Draws the HUD elements on the game window
 void draw_hud(t_game *game)
