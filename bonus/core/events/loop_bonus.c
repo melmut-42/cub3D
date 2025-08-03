@@ -1,7 +1,5 @@
 #include "game.h"
-#include "../../includes/bonus/minimap_bonus.h" // TODO: implement into the bonus.h
 #include "bonus.h"
-
 
 static void render_scene(t_game *game);
 static void render_game(t_game *game);
