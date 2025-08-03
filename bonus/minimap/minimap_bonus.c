@@ -1,5 +1,5 @@
 #include "game.h"
-#include "../../includes/bonus/minimap_bonus.h"
+#include "bonus.h"
 
 static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta, t_axis_int offset);
 static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset);
