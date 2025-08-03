@@ -1,4 +1,5 @@
 #include "game.h"
+#include "bonus.h"
 
 static void render_scene(t_game *game);
 static void render_game(t_game *game);
@@ -37,7 +38,7 @@ static void render_game(t_game *game)
 	//draw_minimap(game);
 
 	// TODO: Render HUD elements
-	//draw_hud(game);
+	draw_hud(game);
 
 	// TODO: Render other game elements
 	//draw_elements(game);

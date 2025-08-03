@@ -55,12 +55,14 @@ SRCS				=	$(SRC_DIR)/main.c 							\
 						$(UTIL_DIR)/debug.c							\
 						$(UTIL_DIR)/error_utils.c					\
 						$(UTIL_DIR)/image_utils.c					\
+						$(UTIL_DIR)/texture_utils.c					\
 						$(UTIL_DIR)/matrix_utils.c					\
 						$(UTIL_DIR)/move_utils.c					\
 						$(UTIL_DIR)/string_utils.c
 
 # Bonus subdirectories
 B_CORE_DIR       	= $(BONUS_DIR)/core
+B_HUD_DIR			= $(BONUS_DIR)/hud
 B_UTIL_DIR       	= $(BONUS_DIR)/utils
 B_INIT_DIR       	= $(BONUS_DIR)/core/init
 B_CHECKER_DIR    	= $(BONUS_DIR)/core/checker
@@ -94,9 +96,12 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_RAYCAST_DIR)/casting_bonus.c			\
 						$(B_RAYCAST_DIR)/rotation_bonus.c			\
 						$(B_RAYCAST_DIR)/draw_texture_bonus.c		\
+						$(B_HUD_DIR)/hud_bonus.c					\
+						$(B_HUD_DIR)/hud_utils_bonus.c				\
 						$(B_UTIL_DIR)/debug_bonus.c					\
 						$(B_UTIL_DIR)/error_utils_bonus.c			\
 						$(B_UTIL_DIR)/image_utils_bonus.c			\
+						$(B_UTIL_DIR)/texture_utils_bonus.c			\
 						$(B_UTIL_DIR)/matrix_utils_bonus.c			\
 						$(B_UTIL_DIR)/move_utils_bonus.c			\
 						$(B_UTIL_DIR)/string_utils_bonus.c
