@@ -93,7 +93,6 @@ static void	display_mlx(const t_mlx *mlx)
 	printf("  MLX ptr : %p\n", mlx->mlx_ptr);
 	printf("  WIN ptr : %p\n", mlx->win_ptr);
 	display_img("  Frame Img", &mlx->frame_img);
-	display_img("  Weapon Img", &mlx->weapon_img);
 }
 
 void	display_game(const t_game *g)
