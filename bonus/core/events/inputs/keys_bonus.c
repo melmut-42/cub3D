@@ -107,3 +107,14 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 	if (game->player.pitch_angle < MIN_PITCH)
 		game->player.pitch_angle = MIN_PITCH;
 }
+
+// * Ignores mouse click events
+int	handle_mouse_click(int button, int x, int y, t_game *game)
+{
+	(void)button;
+	(void)x;
+	(void)y;
+	(void)game;
+
+	return (0);
+}

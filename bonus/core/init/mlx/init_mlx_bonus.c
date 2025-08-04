@@ -32,7 +32,7 @@ bool	init_mlx(t_game *game, int width, int height, char *title)
 	}
 	setup_mlx_dimensions(mlx, width, height, title);
 	// ! CAUSES LEAK, LIKE BRO MLX YOU OK?
-	// mlx_mouse_hide(mlx->mlx_ptr, mlx->win_ptr);
+	mlx_mouse_hide(mlx->mlx_ptr, mlx->win_ptr); // TODO: Remove this later lol
 	game->mlx = mlx;
 
 	return (true);
@@ -66,32 +66,6 @@ bool	init_frame_image(t_game *game)
 
 	return (true);
 }
-
-// #define WEAPON_WIDTH 900
-// #define WEAPON_HEIGHT 400
-
-// bool init_weapon_image(t_game *game)
-// {
-// 	t_img *weapon_img = &game->mlx->weapon_img;
-
-// 	weapon_img->img_ptr = mlx_new_image(game->mlx->mlx_ptr, WEAPON_WIDTH, WEAPON_HEIGHT);
-// 	if (!weapon_img->img_ptr)
-// 	{
-// 		display_error_message(ERR_MLX, true);
-// 		return (false);
-// 	}
-
-// 	weapon_img->addr = mlx_get_data_addr(weapon_img->img_ptr, &weapon_img->bpp, &weapon_img->line_len, &weapon_img->endian);
-// 	if (!weapon_img->addr)
-// 	{
-// 		display_error_message(ERR_MLX, true);
-// 		return (false);
-// 	}
-
-// 	weapon_img->width = WEAPON_WIDTH;
-// 	weapon_img->height = WEAPON_HEIGHT;
-// 	return (true);
-// }
 
 // * Store dimensions and title
 static void	setup_mlx_dimensions(t_mlx *mlx, int w, int h, char *title)

@@ -13,5 +13,6 @@ t_img	*xpm_to_img(void *mlx, char *path);
 bool	is_moving(t_game *game);
 bool	is_jumping(t_game *game);
 void	weapon_ctor(t_weapon *weapon);
+int		handle_mouse_click(int button, int x, int y, t_game *game);
 
 #endif
