@@ -13,7 +13,7 @@
 // TODO: Check whether this is a macro or not (forbidden)
 # define MID_POINT_X	WIN_WIDTH / 2
 # define MID_POINT_Y	WIN_HEIGHT / 2
-# define PLAYER_MARGIN 0.25
+# define PLAYER_MARGIN	0.25
 
 # define TARGET_FPS	100 // TODO: remove cap later (for both bonus and mandatory)
 
@@ -24,8 +24,8 @@
 # define D	2
 # define A	3
 
-# define SENS_X	0.05
-# define SENS_Y	0.6
+# define SENS_X	0.05/2
+# define SENS_Y	0.6/2
 
 # define INITIAL_SPEED	0.04
 
@@ -205,6 +205,19 @@ typedef struct	s_player
 	t_vertical	vertical;		// vertical attributes
 }				t_player;
 
+typedef struct	s_weapon
+{
+	t_img   *weapon_img;
+    int     frame_count;
+    int     jump_frame;
+    int     shake_offset_x;
+    int     shake_offset_y;
+    int     shake_direction_x;
+    int     shake_direction_y;
+    int     weapon_base_y;
+    bool    load_attempted;
+}				t_weapon;
+
 // * Ray structure for raycasting
 typedef struct s_ray
 {
@@ -228,7 +241,7 @@ typedef struct	t_mlx
 	int			width;
 	int			height;
 	t_img		frame_img;		// image structure for the frame (main screen buffer)
-	t_img		weapon_img;		// image structure for the weapon overlay
+	// t_img		weapon_img;		// image structure for the weapon overlay
 }				t_mlx;
 
 // * Main game data structure regarding textures and tables
@@ -249,6 +262,7 @@ typedef struct s_game
 	t_mlx		*mlx;
 	t_data		data;
 	t_player	player;
+	t_weapon	weapon;
 }				t_game;
 
 #endif

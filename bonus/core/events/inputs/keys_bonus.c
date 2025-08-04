@@ -90,6 +90,7 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 	if (keycode == KEY_LEFT)
 		game->player.rot.x = -0.42;
 
+	// TODO: Doesn't work after weapon shake was added for some reason (FIX IT)
 	if (keycode == KEY_RIGHT)
 		game->player.rot.x = +0.42;
 	

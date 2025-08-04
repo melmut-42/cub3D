@@ -47,3 +47,14 @@ void	attempt_move(t_map *map, t_axis *pos, double dx, double dy)
 	if (can_move(map, pos->x, ny))
 		pos->y = ny;
 }
+
+bool	is_moving(t_game *game)
+{
+	return (game->player.movement[W] || game->player.movement[S]
+		|| game->player.movement[A] || game->player.movement[D]);
+}
+
+bool	is_jumping(t_game *game)
+{
+	return (game->player.vertical.in_air && game->player.vertical.vertical_vel > 0);
+}
