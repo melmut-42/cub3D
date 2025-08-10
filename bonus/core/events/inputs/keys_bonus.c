@@ -90,6 +90,7 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 	if (keycode == KEY_LEFT)
 		game->player.rot.x = -0.42;
 
+	// TODO: Doesn't work after weapon shake was added for some reason (FIX IT)
 	if (keycode == KEY_RIGHT)
 		game->player.rot.x = +0.42;
 	
@@ -105,4 +106,15 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 
 	if (game->player.pitch_angle < MIN_PITCH)
 		game->player.pitch_angle = MIN_PITCH;
+}
+
+// * Ignores mouse click events
+int	handle_mouse_click(int button, int x, int y, t_game *game)
+{
+	(void)button;
+	(void)x;
+	(void)y;
+	(void)game;
+
+	return (0);
 }

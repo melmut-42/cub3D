@@ -1,4 +1,5 @@
 #include "game.h"
+#include "bonus.h"
 
 static void data_ctor(t_data *data);
 static void player_ctor(t_player *player);
@@ -17,6 +18,7 @@ t_game *init_game(char *map_path)
 	game->data.map.map_path = map_path;
 	data_ctor(&game->data);
 	player_ctor(&game->player);
+	weapon_ctor(&game->weapon);
 	game->name = WIN_TITLE;
 	if (!init_data(game) || !init_player(game) ||
 		!check_map(game) ||

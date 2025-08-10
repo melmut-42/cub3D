@@ -40,6 +40,9 @@ static void render_game(t_game *game)
 	// TODO: Render HUD elements
 	draw_hud(game);
 
+	// TODO: Render weapon overlay
+	draw_weapon(game);
+
 	// TODO: Render other game elements
 	//draw_elements(game);
 }

@@ -79,6 +79,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(BONUS_DIR)/minimap/ray_bonus.c			\
 						$(B_INIT_DIR)/init_game_bonus.c				\
 						$(B_INIT_DIR)/init_player_bonus.c			\
+						$(B_INIT_DIR)/init_weapon_bonus.c			\
 						$(B_INIT_DATA_DIR)/init_data_bonus.c		\
 						$(B_INIT_DATA_DIR)/init_map_bonus.c			\
 						$(B_INIT_DATA_DIR)/init_rgb_bonus.c			\
@@ -100,6 +101,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_RAYCAST_DIR)/draw_texture_bonus.c		\
 						$(B_HUD_DIR)/hud_bonus.c					\
 						$(B_HUD_DIR)/hud_utils_bonus.c				\
+						$(B_HUD_DIR)/weapon_bonus.c					\
 						$(B_UTIL_DIR)/debug_bonus.c					\
 						$(B_UTIL_DIR)/error_utils_bonus.c			\
 						$(B_UTIL_DIR)/image_utils_bonus.c			\
