@@ -90,15 +90,14 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 	if (keycode == KEY_LEFT)
 		game->player.rot.x = -0.42;
 
-	// TODO: Doesn't work after weapon shake was added for some reason (FIX IT)
 	if (keycode == KEY_RIGHT)
-		game->player.rot.x = +0.42;
+		game->player.rot.x = +0.92;
 	
 	if (keycode == KEY_UP)
-		game->player.pitch_angle -= MAX_PITCH / (double) 10; // look up
+		game->player.pitch_angle -= MAX_PITCH / (double) 20; // look up
 
 	if (keycode == KEY_DOWN)
-		game->player.pitch_angle += MAX_PITCH / (double) 10; // look down
+		game->player.pitch_angle += MAX_PITCH / (double) 20; // look down
 
 	// Clamp pitch
 	if (game->player.pitch_angle > MAX_PITCH)
