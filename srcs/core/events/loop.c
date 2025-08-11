@@ -1,7 +1,6 @@
 #include "game.h"
 
 static void render_scene(t_game *game);
-static void render_game(t_game *game);
 
 // * The main game loop function that updates the game state
 int gameloop(t_game *game)
@@ -12,35 +11,14 @@ int gameloop(t_game *game)
 	// Update player position and rotation based on input
 	if (game->player.movement[W]   || game->player.movement[S]  ||
 		game->player.movement[A] || game->player.movement[D] ||
-		game->player.rot.x || game->player.rot.y ||
-		game->player.vertical.in_air)
+		game->player.rot.x || game->player.rot.y)
 	{
 		update_player_movement(game, &game->player, &game->data.map);
 	}
-	
-	jump_event(&game->player, 0.016);
-	stand_up(&game->player, 0.016);
 
 	// Render the game state
-	render_game(game);
-	return (0);
-}
-
-static void render_game(t_game *game)
-{
-	// Render main 3D scene
 	render_scene(game);
-
-	// TODO: check game_tick speed and render elements/minimap/HUD based on that to increase efficiency
-
-	// TODO: Render minimap overlay
-	//draw_minimap(game);
-
-	// TODO: Render HUD elements
-	//draw_hud(game);
-
-	// TODO: Render other game elements
-	//draw_elements(game);
+	return (0);
 }
 
 // * Casts rays to render the scene

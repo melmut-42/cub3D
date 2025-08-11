@@ -23,7 +23,6 @@ RAYCAST_DIR			=	$(CORE_DIR)/ray-casting
 CLEANUP_DIR			=	$(CORE_DIR)/cleanup
 INIT_MLX_DIR		=	$(INIT_DIR)/mlx
 INIT_DATA_DIR		=	$(INIT_DIR)/data
-EVENT_INPUT_DIR		=	$(EVENTS_DIR)/inputs
 
 # Object directory
 OBJ_DIR				=	objs
@@ -43,8 +42,7 @@ SRCS				=	$(SRC_DIR)/main.c 							\
 						$(EVENTS_DIR)/loop.c						\
 						$(EVENTS_DIR)/hooks.c						\
 						$(EVENTS_DIR)/player.c						\
-						$(EVENT_INPUT_DIR)/keys.c					\
-						$(EVENT_INPUT_DIR)/mouse.c					\
+						$(EVENTS_DIR)/keys.c						\
 						$(CLEANUP_DIR)/free_game.c					\
 						$(CLEANUP_DIR)/free_mlx.c					\
 						$(CHECKER_DIR)/file_checker.c				\

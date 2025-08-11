@@ -65,8 +65,6 @@ int	handle_keyrelease(int keycode, t_game *game)
 	if (keycode == KEY_CTRL_L)
 		game->player.vertical.crouch_target = 0.0;
 
-	// TODO: Remove other keys
-
 	exec_key_rotation(game, keycode, 1);
 
 	return (0);
@@ -88,10 +86,10 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 	}
 
 	if (keycode == KEY_LEFT)
-		game->player.rot.x = -0.42;
+		game->player.rot.x = -3.42;
 
 	if (keycode == KEY_RIGHT)
-		game->player.rot.x = +0.92;
+		game->player.rot.x = +3.42;
 	
 	if (keycode == KEY_UP)
 		game->player.pitch_angle -= MAX_PITCH / (double) 20; // look up
