@@ -5,8 +5,9 @@ static void	update_rot_angles(t_player *player, int delta_x, int delta_y);
 // * Handles mouse events within the game window
 int handle_mouse(int x, int y, t_game *game)
 {
-    static int last_x = MID_POINT_X;
-    static int last_y = MID_POINT_Y;
+	// ! Changed from static to a more dynamic approach
+    int last_x = MID_POINT_X;
+    int last_y = MID_POINT_Y;
 
     int dx = x - last_x;
     int dy = y - last_y;
@@ -19,7 +20,6 @@ int handle_mouse(int x, int y, t_game *game)
 
     return (0);
 }
-
 
 // * Update rotations and angles by using particular restrictions base on deltas
 static void	update_rot_angles(t_player *player, int delta_x, int delta_y)

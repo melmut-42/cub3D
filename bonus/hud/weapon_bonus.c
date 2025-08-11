@@ -1,7 +1,6 @@
 #include "game.h"
 #include "bonus.h"
 
-// TODO: Consider moving this to a math utility file
 // Lerping is a common technique to smoothly interpolate between two values
 // * Function linearly interpolates between start and end based on t (0.0 to 1.0)
 static float lerp(float start, float end, float t)
@@ -100,7 +99,6 @@ void draw_weapon(t_game *game)
 {
 	t_weapon *weapon = &game->weapon;
 
-	// TODO: Init this as something else? // DO I EVEN nEED THIS?????????
 	if (!weapon->weapon_img && !weapon->load_attempted)
 	{
 		weapon->load_attempted = true;

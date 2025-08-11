@@ -27,7 +27,6 @@ void update_player_movement(t_game *g, t_player *p, t_map *map)
 	yaw(g, p);
 }
 
-// TODO: Implement bunny mechanics?
 // * Updates player for jump movement
 void jump_event(t_player *p, double dt)
 {

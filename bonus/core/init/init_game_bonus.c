@@ -47,7 +47,6 @@ static void data_ctor(t_data *data)
 }
 
 // * Player constructor to initialize player position, speed, sensitivity, and camera plane
-// TODO: Simplified maybe?
 static void player_ctor(t_player *player)
 {
 	player->pos.x = NPOS;

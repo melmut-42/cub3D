@@ -11,12 +11,11 @@
 # define WIN_WIDTH	1024
 # define WIN_HEIGHT	768
 
-// TODO: Check whether this is a macro or not (forbidden)
-# define MID_POINT_X	WIN_WIDTH / 2
-# define MID_POINT_Y	WIN_HEIGHT / 2
+# define MID_POINT_X	512
+# define MID_POINT_Y	384
 # define PLAYER_MARGIN	0.25
 
-# define TARGET_FPS	100 // TODO: remove cap later (for both bonus and mandatory)
+# define TARGET_FPS	100
 
 // ============= Game Physics Constants =============
 
@@ -34,8 +33,8 @@
 
 # define NUM_OF_DEGREE	360
 
-# define MAX_PITCH	500.0
-# define MIN_PITCH	-500.0
+# define MIN_PITCH			-500.0
+# define MAX_PITCH			500.0
 # define MAX_VERTICAL_DELTA	50
 
 // ============= Vertical Constants =============

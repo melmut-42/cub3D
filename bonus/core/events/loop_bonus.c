@@ -32,18 +32,16 @@ static void render_game(t_game *game)
 	// Render main 3D scene
 	render_scene(game);
 
-	// TODO: check game_tick speed and render elements/minimap/HUD based on that to increase efficiency
-
-	// TODO: Render minimap overlay
+	// Render minimap with rays
 	draw_minimap(game);
 
-	// TODO: Render HUD elements
+	// Render FPS counter, coordinates, and direction
 	draw_hud(game);
 
-	// TODO: Render weapon overlay
+	// Render the weapon with shaking effect
 	draw_weapon(game);
 
-	// TODO: Render other game elements
+	// TODO: Render other game elements (like doors)
 	//draw_elements(game);
 }
 

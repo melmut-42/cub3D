@@ -21,7 +21,7 @@ int get_angle_index(double angle)
 	int index;
 
 	// Normalize angle to [0, 2π)
-	angle = fmod(angle, 2 * M_PI); // TODO: Set M_PI in header
+	angle = fmod(angle, 2 * M_PI);
 	if (angle < 0)
 		angle += 2 * M_PI;
 

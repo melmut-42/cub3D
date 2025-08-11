@@ -4,7 +4,7 @@
 // ============================ Standard Libraries ============================
 # include <stdbool.h>
 # include <stdio.h>
-# include <stdlib.h>
+# include <stdlib.h> // TODO: Check for duplicate includes from other headers like libft's
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -12,7 +12,7 @@
 // ============================= Project Structures ===========================
 # include "../core/structures.h"
 
-// ========================= External Libraries (TODO) ========================
+// ========================= External Libraries ========================
 # include "mlx.h"
 # include "libft.h"
 # include "get_next_line.h"

@@ -1,8 +1,7 @@
 #include <sys/time.h>
-#include <stdlib.h>
 #include "game.h"
 
-// Gets the current timestamp in milliseconds
+// * Gets the current timestamp in milliseconds
 t_ms	get_timestamp(t_game *game)
 {
 	struct timeval	now;
@@ -16,8 +15,7 @@ t_ms	get_timestamp(t_game *game)
 	return ((t_ms)now.tv_sec * 1000ULL + (t_ms)(now.tv_usec / 1000));
 }
 
-// TODO: Potentially remove
-// Determines if the game should update based on the target FPS
+// * Determines if the game should update based on the target FPS
 bool	should_update(t_game *game)
 {
 	t_ms	now;
