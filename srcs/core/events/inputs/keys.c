@@ -91,7 +91,7 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 		game->player.rot.x = -0.42;
 
 	if (keycode == KEY_RIGHT)
-		game->player.rot.x = +0.42;
+		game->player.rot.x = +1.00;
 	
 	if (keycode == KEY_UP)
 		game->player.pitch_angle -= MAX_PITCH / (double) 10; // look up

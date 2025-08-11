@@ -26,7 +26,8 @@ int get_angle_index(double angle)
 		angle += 2 * M_PI;
 
 	// Convert angle to degrees and normalize to [0, 360)
-	index = (int)(deg_to_rad(angle)) % NUM_OF_DEGREE;
+
+	index = (int)(angle * (180.0 / M_PI)) % NUM_OF_DEGREE;
 
 	return (index);
 }
