@@ -64,4 +64,3 @@ static bool	load_door_texture(t_game *game, t_texture *tex)
 	tex->door = img;
 	return (true);
 }
-
