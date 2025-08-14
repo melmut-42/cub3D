@@ -1,19 +1,15 @@
 # !!!
 # TODO: MAKE SURE THAT THE WILDCARD FOR OBJ FILES IS FINE BY 42NORM
 
-# Compiler and flags
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror -g
 
-# Project name
 NAME    			=	cub3d
 NAME_BONUS			=	cub3d_bonus
 
-# Directories
 SRC_DIR 			=	srcs
 BONUS_DIR			=	bonus
 
-# Subdirectories
 CORE_DIR			=	$(SRC_DIR)/core
 UTIL_DIR			=	$(SRC_DIR)/utils
 INIT_DIR			=	$(CORE_DIR)/init
@@ -24,11 +20,9 @@ CLEANUP_DIR			=	$(CORE_DIR)/cleanup
 INIT_MLX_DIR		=	$(INIT_DIR)/mlx
 INIT_DATA_DIR		=	$(INIT_DIR)/data
 
-# Object directory
 OBJ_DIR				=	objs
 OBJ_BONUS_DIR		=	bonus_objs
 
-# Source files
 SRCS				=	$(SRC_DIR)/main.c 							\
 						$(INIT_DIR)/init_game.c						\
 						$(INIT_DIR)/init_player.c					\
@@ -50,15 +44,14 @@ SRCS				=	$(SRC_DIR)/main.c 							\
 						$(RAYCAST_DIR)/casting.c					\
 						$(RAYCAST_DIR)/rotation.c					\
 						$(RAYCAST_DIR)/draw_texture.c				\
-						$(UTIL_DIR)/debug.c							\
 						$(UTIL_DIR)/error_utils.c					\
 						$(UTIL_DIR)/image_utils.c					\
 						$(UTIL_DIR)/texture_utils.c					\
 						$(UTIL_DIR)/matrix_utils.c					\
 						$(UTIL_DIR)/move_utils.c					\
+						$(UTIL_DIR)/player_utils.c					\
 						$(UTIL_DIR)/string_utils.c
 
-# Bonus subdirectories
 B_CORE_DIR       	= $(BONUS_DIR)/core
 B_HUD_DIR			= $(BONUS_DIR)/hud
 B_UTIL_DIR       	= $(BONUS_DIR)/utils
@@ -71,7 +64,6 @@ B_INIT_MLX_DIR   	= $(BONUS_DIR)/core/init/mlx
 B_INIT_DATA_DIR  	= $(BONUS_DIR)/core/init/data
 B_EVENT_INPUT_DIR	= $(BONUS_DIR)/core/events/inputs
 
-# Bonus source files
 BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(BONUS_DIR)/minimap/minimap_bonus.c		\
 						$(BONUS_DIR)/minimap/ray_bonus.c			\
@@ -100,32 +92,26 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_HUD_DIR)/hud_bonus.c					\
 						$(B_HUD_DIR)/hud_utils_bonus.c				\
 						$(B_HUD_DIR)/weapon_bonus.c					\
-						$(B_UTIL_DIR)/debug_bonus.c					\
 						$(B_UTIL_DIR)/error_utils_bonus.c			\
 						$(B_UTIL_DIR)/image_utils_bonus.c			\
 						$(B_UTIL_DIR)/texture_utils_bonus.c			\
 						$(B_UTIL_DIR)/matrix_utils_bonus.c			\
 						$(B_UTIL_DIR)/move_utils_bonus.c			\
+						$(B_UTIL_DIR)/player_utils_bonus.c			\
 						$(B_UTIL_DIR)/string_utils_bonus.c
 
-# ! debug.c is for debugging purposes and shall be removed later
-
-# Object files
 OBJS				= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 BONUS_OBJS			= $(BONUS_SRCS:$(BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
 
-# Libraries directories
 MLX_DIR 			=	libs/mlx
 LIBFT_DIR			=	libs/libft
 GNL_DIR				=	libs/gnl
 
-# Libraries
 MLX					=	$(MLX_DIR)/libmlx_Linux.a
 LIBFT				=	$(LIBFT_DIR)/libft.a
 GNL					=	$(GNL_DIR)/libgnl.a
 LIBS				=	$(MLX) $(GNL) $(LIBFT) -lXext -lX11 -lm
 
-# Build rules
 all: $(NAME)
 
 bonus: $(NAME_BONUS)
@@ -173,7 +159,7 @@ fclean: clean
 
 re: fclean all
 
-# Usage: make valgrind MAP=path/to/map.cub FLAGS=-b
+# Usage: make valgrind MAP=path/to/map.cub FLAGS=-b # ! DELETE COMMENT, REMOVE ANYWAY LOL # TODO: REMOVE
 valgrind:
 	@if echo "$(FLAGS)" | grep -q "\-b"; then \
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d_bonus $(MAP); \
@@ -183,6 +169,7 @@ valgrind:
 
 mlx: $(MLX)
 
+# TODO: REMOVE
 rem_comments:
 	@echo "Stripping comments with Python..."
 	@/usr/bin/env python3 rem_comments.py

@@ -7,7 +7,7 @@ void	cast_ray(t_game *game, t_ray *ray, int x);
 void	draw_texture(t_game *game, t_ray *ray, int x);
 void	draw_column(t_game *game, t_ray *ray, int x);
 void	rotate_vector(t_data *data, t_axis *vec, double angle);
-int     get_angle_index(double angle);
+int		get_angle_index(double angle);
 void	update_player_movement(t_game *game, t_player *p, t_map *map);
 
 #endif

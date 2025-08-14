@@ -1,6 +1,5 @@
 #include "game.h"
 
-// * Helper that checks if a position is inside map and not a wall
 bool	can_move(t_map *map, double x, double y)
 {
 	int	tile_left;
@@ -10,51 +9,42 @@ bool	can_move(t_map *map, double x, double y)
 
 	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
 		return (false);
-
-	// Compute tile positions around the player considering the margin
 	tile_left = (int)(x - PLAYER_MARGIN);
 	tile_right = (int)(x + PLAYER_MARGIN);
 	tile_top = (int)(y - PLAYER_MARGIN);
 	tile_bottom = (int)(y + PLAYER_MARGIN);
-
-	// Reject if margin-check positions are outside the map
 	if (tile_left < 0 || tile_right >= (int)map->width
 		|| tile_top < 0 || tile_bottom >= (int)map->height)
 		return (false);
-
-	// Check if there is a wall in the surrounding tiles
 	if (map->matrix[tile_top][tile_left] == WALL
 		|| map->matrix[tile_top][tile_right] == WALL
 		|| map->matrix[tile_bottom][tile_left] == WALL
 		|| map->matrix[tile_bottom][tile_right] == WALL)
 		return (false);
-
 	return (true);
 }
 
-// * Helper to attempt movement in a direction
 void	attempt_move(t_map *map, t_axis *pos, double dx, double dy)
 {
-	double nx;
-	double ny;
+	double	nx;
+	double	ny;
 
 	nx = pos->x + dx;
 	ny = pos->y + dy;
-
 	if (can_move(map, nx, pos->y))
 		pos->x = nx;
-
 	if (can_move(map, pos->x, ny))
 		pos->y = ny;
 }
 
 bool	is_moving(t_game *game)
 {
-	return (game->player.movement[W] || game->player.movement[S]
-		|| game->player.movement[A] || game->player.movement[D]);
+	return (game->player.movement[A] != game->player.movement[D]
+		|| game->player.movement[W] != game->player.movement[S]);
 }
 
 bool	is_jumping(t_game *game)
 {
-	return (game->player.vertical.in_air && game->player.vertical.vertical_vel > 0);
+	return (game->player.vertical.in_air
+		&& game->player.vertical.vertical_vel > 0);
 }

@@ -1,24 +1,19 @@
 #ifndef GAME_H
 # define GAME_H
 
-// ============================ Standard Libraries ============================
 # include <stdbool.h>
 # include <stdio.h>
-# include <stdlib.h> // TODO: Check for duplicate includes from other headers like libft's
+# include <stdlib.h>
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
 
-// ============================= Project Structures ===========================
 # include "../core/structures.h"
 
-// ========================= External Libraries ========================
 # include "mlx.h"
 # include "libft.h"
 # include "get_next_line.h"
 
-// ============================== Project Modules =============================
-# include "../errors/debug.h"
 # include "../errors/error_logs.h"
 # include "../engine/textures.h"
 # include "../engine/init.h"
@@ -26,7 +21,6 @@
 # include "../engine/render.h"
 # include "../core/utils.h"
 
-// =========================== Core Game Functions ============================
 t_game	*init_game(char *map_path);
 int		gameloop(t_game *game);
 int		handle_close(t_game *game);

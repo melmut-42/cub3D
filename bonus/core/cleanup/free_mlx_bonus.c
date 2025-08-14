@@ -1,14 +1,12 @@
 #include "game.h"
 
-// * Frees all texture images in the game
-void	free_textures(t_game *game)
+static void	free_normal_textures(t_game *game)
 {
-	t_texture *tex;
-	int	i;
+	t_texture	*tex;
+	int			i;
 
 	if (!game || !game->mlx || !game->mlx->mlx_ptr)
-		return;
-
+		return ;
 	tex = &game->data.texture;
 	i = 0;
 	while (i < NUMBER_DIR)
@@ -20,15 +18,17 @@ void	free_textures(t_game *game)
 		}
 		i++;
 	}
-	
-	// Destroy frame buffer image
+}
+
+static void	free_special_textures(t_game *game)
+{
+	if (!game || !game->mlx || !game->mlx->mlx_ptr)
+		return ;
 	if (game->mlx->frame_img.img_ptr)
 	{
 		mlx_destroy_image(game->mlx->mlx_ptr, game->mlx->frame_img.img_ptr);
 		game->mlx->frame_img.img_ptr = NULL;
 	}
-
-	// Destroy weapon image (FIXED LEAK)
 	if (game->weapon.weapon_img && game->weapon.weapon_img->img_ptr)
 	{
 		mlx_destroy_image(game->mlx->mlx_ptr, game->weapon.weapon_img->img_ptr);
@@ -37,16 +37,18 @@ void	free_textures(t_game *game)
 	}
 }
 
-// * Destroy mlx window and display properly
+void	free_textures(t_game *game)
+{
+	free_normal_textures(game);
+	free_special_textures(game);
+}
+
 void	destroy_img(t_game *game)
 {
 	if (game->mlx)
 	{
-		// Free all texture images and frame buffer
 		free_textures(game);
-
 		mlx_mouse_show(game->mlx->mlx_ptr, game->mlx->win_ptr);
-		
 		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
 		{
 			mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);
