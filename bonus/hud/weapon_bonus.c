@@ -5,7 +5,7 @@
 // * Function linearly interpolates between start and end based on t (0.0 to 1.0)
 static float lerp(float start, float end, float t)
 {
-	return start + (end - start) * t;
+	return (start + (end - start) * t);
 }
 
 // * Makes a shake effect on the weapon image by offsetting its position (CS 1.6 style)
@@ -18,7 +18,7 @@ static void shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
 	int y;
 
 	if (!weapon_img || !weapon_img->addr)
-		return;
+		return ;
 
 	// Set weapon base position to the bottom of the screen 
 	if (weapon->weapon_base_y == 0)
@@ -102,11 +102,11 @@ void draw_weapon(t_game *game)
 	if (!weapon->weapon_img && !weapon->load_attempted)
 	{
 		weapon->load_attempted = true;
-		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr, "textures/test_pack/karambit.xpm");
+		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr, "textures/test_pack/karambit.xpm"); // ? is it efficient??????
 		if (!weapon->weapon_img)
 		{
-			printf("Warning: Could not load weapon texture\n");
-			return;
+			display_error_message("Could not load weapon texture!", true);
+			return ;
 		}
 	}
 

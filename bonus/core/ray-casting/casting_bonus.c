@@ -1,6 +1,5 @@
 #include "game.h"
-
-#define INF_DIST 1e30
+#include "bonus.h"
 
 static void	init_ray(const t_game *g, const t_player *p,
 				t_ray *ray, int x);
@@ -74,28 +73,37 @@ static void	init_steps(const t_player *p, t_ray *ray)
 // * Performs the DDA algorithm to find the first wall hit
 static void	perform_dda(t_game *game, t_ray *ray)
 {
+	t_door	*door;
+	char	tile;
+	int		map_x;
+	int		map_y;
+
 	ray->does_hit = false;
 	while (!ray->does_hit)
 	{
-		// Choose shortest side distance to step
 		if (ray->side_dist.x < ray->side_dist.y)
 		{
 			ray->side_dist.x += ray->delta_dist.x;
 			ray->map.x += ray->step_x;
-			ray->side = 0; // hit vertical side
+			ray->side = 0;
 		}
 		else
 		{
 			ray->side_dist.y += ray->delta_dist.y;
 			ray->map.y += ray->step_y;
-			ray->side = 1; // hit horizontal side
+			ray->side = 1;
 		}
-		const int	map_x = (int)ray->map.x;
-		const int	map_y = (int)ray->map.y;
-
-		// Check if ray has hit a wall
-		if (game->data.map.matrix[map_y][map_x] == WALL)
+		map_x = ray->map.x;
+		map_y = ray->map.y;
+		tile = game->data.map.matrix[map_y][map_x];
+		if (tile == WALL)
 			ray->does_hit = true;
+		else if (tile == DOOR)
+		{
+			door = find_door_at(game, map_x, map_y);
+			if (door && is_ray_blocked_by_door(game, ray, door))
+				ray->does_hit = true;
+		}
 	}
 }
 

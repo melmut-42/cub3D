@@ -50,7 +50,8 @@ static bool	check_invalid_element(t_game *game, char **matrix)
 		while (matrix[i][j])
 		{
 			if (!(is_space(matrix[i][j]) || matrix[i][j] == WALL
-					|| matrix[i][j] == GROUND || is_player(matrix[i][j])))
+					|| matrix[i][j] == GROUND || is_player(matrix[i][j])
+					|| matrix[i][j] == DOOR))
 			{
 				display_error_message(ERR_ELEM, false);
 				game->error_flag = true;

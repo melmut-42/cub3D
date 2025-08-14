@@ -29,6 +29,8 @@
 
 # define INITIAL_SPEED	0.04
 
+# define INF_DIST 1e30
+
 // ============= Rotation Constants =============
 
 # define NUM_OF_DEGREE	360
@@ -66,6 +68,7 @@
 # define GROUND		'0'
 # define WALL		'1'
 # define VISITED	'X'
+# define DOOR		'D'
 
 # define COMMA	','
 # define MAP_FILE_EXTENSION	".cub"
@@ -102,6 +105,11 @@
 #define MINIMAP_TILE_SIZE 4
 #define MINIMAP_PLAYER_SIZE 7
 
+// ================= Door Constants =================
+
+#define DOOR_OPEN_SPEED      2.5
+#define DOOR_CLOSE_SPEED     2.5
+#define DOOR_CLOSE_DELAY_MS  2000
 
 // ======================================= Enums =======================================
 
@@ -147,13 +155,14 @@ typedef struct s_column
 // * Represents a texture with paths for different directions and RGB values for ceiling and floor
 typedef struct s_texture
 {
+	t_img			*door;
+	t_img			textures[NUMBER_DIR];		// array of textures for different directions
+	int				ceil_rgb[RGB_CONSTANT];
+	int				floor_rgb[RGB_CONSTANT];
 	char			*no_path;
 	char			*so_path;
 	char			*we_path;
 	char			*ea_path;
-	int				ceil_rgb[RGB_CONSTANT];
-	int				floor_rgb[RGB_CONSTANT];
-	t_img			textures[NUMBER_DIR];		// array of textures for different directions
 }					t_texture;
 
 // * Represents a map with height, path to the map file, and a 2D matrix of characters
@@ -182,28 +191,37 @@ typedef struct s_axis_int
 // * Represents the vertical state of the player
 typedef struct		s_vertical
 {
-	bool	in_air;
-	bool	in_crouch;
 	double  jump_off;
 	double  crouch_off;
 	double  crouch_target;
 	double	vertical_pos;
 	double	vertical_vel;
+	bool	in_air;
+	bool	in_crouch;
 }					t_vertical;
 
 // * Holds direction, position, movement flags, and camera settings
 typedef struct	s_player
 {
+	t_vertical	vertical;				// vertical attributes
 	int			movement[NUMBER_DIR];
-	double		mov_speed;		// movement speed
-	double		pitch_angle;	// vertical look angle (up/down)
-	t_axis		dir;			// camera direction vector
-	t_axis		plane;			// camera plane vector
-	t_axis		pos;			// player position in the map
-	t_axis		rot;			// rotation vector
-	t_axis		sens;			// sensitivity vector
-	t_vertical	vertical;		// vertical attributes
+	t_axis		dir;					// camera direction vector
+	t_axis		plane;					// camera plane vector
+	t_axis		pos;					// player position in the map
+	t_axis		rot;					// rotation vector
+	t_axis		sens;					// sensitivity vector
+	double		mov_speed;				// movement speed
+	double		pitch_angle;			// vertical look angle (up/down)
 }				t_player;
+
+typedef struct s_door
+{
+	t_ms		last_touch;		// Last interaction time (ms)
+	t_axis_int	pos;			// Map position
+	double		open;			// 0.0 = closed, 1.0 = fully open
+	bool		is_moving;		// Is opening/closing animation active?
+	bool		want_open;		// Should the door be open?
+}				t_door;
 
 typedef struct	s_weapon
 {
@@ -247,22 +265,24 @@ typedef struct	t_mlx
 // * Main game data structure regarding textures and tables
 typedef	struct	s_data
 {
+	double			sin_table[NUM_OF_DEGREE];
+	double			cos_table[NUM_OF_DEGREE];
 	t_map			map;
 	t_texture		texture;
-	double			cos_table[NUM_OF_DEGREE];
-	double			sin_table[NUM_OF_DEGREE];
 }					t_data;
 
 // * Main game structure that holds all game-related data
 typedef struct s_game
 {
-	char		*name;
-	bool		error_flag;
-	t_ms		last_update;
 	t_mlx		*mlx;
+	char		*name;
+	t_door		*doors;
+	size_t		door_count;
+	t_weapon	weapon;
 	t_data		data;
 	t_player	player;
-	t_weapon	weapon;
+	t_ms		last_update;
+	bool		error_flag;
 }				t_game;
 
 #endif
