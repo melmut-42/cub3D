@@ -1,60 +1,79 @@
 #include "game.h"
+#include "bonus.h"
 
-// * Helper that checks if a position is inside map and not a wall
-bool	can_move(t_map *map, double x, double y)
+static bool	is_blocking_tile(t_game *g, int x, int y);
+
+bool	can_move(t_game *g, double x, double y)
 {
-	int	tile_left;
-	int	tile_right;
-	int	tile_top;
-	int	tile_bottom;
+	int	tl;
+	int	tr;
+	int	tt;
+	int	tb;
 
-	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
+	if (x < 0 || y < 0
+		|| x >= g->data.map.width || y >= g->data.map.height)
 		return (false);
-
-	// Compute tile positions around the player considering the margin
-	tile_left = (int)(x - PLAYER_MARGIN);
-	tile_right = (int)(x + PLAYER_MARGIN);
-	tile_top = (int)(y - PLAYER_MARGIN);
-	tile_bottom = (int)(y + PLAYER_MARGIN);
-
-	// Reject if margin-check positions are outside the map
-	if (tile_left < 0 || tile_right >= (int)map->width
-		|| tile_top < 0 || tile_bottom >= (int)map->height)
+	tl = (int)(x - PLAYER_MARGIN);
+	tr = (int)(x + PLAYER_MARGIN);
+	tt = (int)(y - PLAYER_MARGIN);
+	tb = (int)(y + PLAYER_MARGIN);
+	if (tl < 0 || tr >= (int)g->data.map.width
+		|| tt < 0 || tb >= (int)g->data.map.height)
 		return (false);
-
-	// Check if there is a wall in the surrounding tiles
-	if (map->matrix[tile_top][tile_left] == WALL
-		|| map->matrix[tile_top][tile_right] == WALL
-		|| map->matrix[tile_bottom][tile_left] == WALL
-		|| map->matrix[tile_bottom][tile_right] == WALL)
+	if (is_blocking_tile(g, tl, tt)
+		|| is_blocking_tile(g, tr, tt)
+		|| is_blocking_tile(g, tl, tb)
+		|| is_blocking_tile(g, tr, tb))
 		return (false);
-
 	return (true);
 }
 
-// * Helper to attempt movement in a direction
-void	attempt_move(t_map *map, t_axis *pos, double dx, double dy)
+// * Attempts to move player along a vector, respecting collision logic
+void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 {
-	double nx;
-	double ny;
+	double	nx;
+	double	ny;
 
 	nx = pos->x + dx;
 	ny = pos->y + dy;
-
-	if (can_move(map, nx, pos->y))
+	if (can_move(g, nx, pos->y))
 		pos->x = nx;
-
-	if (can_move(map, pos->x, ny))
+	if (can_move(g, pos->x, ny))
 		pos->y = ny;
 }
 
-bool	is_moving(t_game *game)
+// * Returns true if player is pressing a movement key
+bool	is_moving(t_game *g)
 {
-	return (game->player.movement[W] || game->player.movement[S]
-		|| game->player.movement[A] || game->player.movement[D]);
+	return ((g->player.movement[W] != g->player.movement[S])
+		|| (g->player.movement[A] != g->player.movement[D]));
 }
 
-bool	is_jumping(t_game *game)
+// * Returns true if player is in air and going upwards
+bool	is_jumping(t_game *g)
 {
-	return (game->player.vertical.in_air && game->player.vertical.vertical_vel > 0);
+	return (g->player.vertical.in_air
+		&& g->player.vertical.vertical_vel > 0);
+}
+
+// * Returns true if the given tile blocks movement
+static bool	is_blocking_tile(t_game *g, int x, int y)
+{
+	char	tile;
+	t_door	*door;
+
+	if (x < 0 || y < 0
+		|| x >= (int)g->data.map.width
+		|| y >= (int)g->data.map.height)
+		return (true);
+	tile = g->data.map.matrix[y][x];
+	if (tile == WALL)
+		return (true);
+	if (tile == DOOR)
+	{
+		door = find_door_at(g, x, y);
+		if (!door || door->open < 1.0)
+			return (true);
+	}
+	return (false);
 }

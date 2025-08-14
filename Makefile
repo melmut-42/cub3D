@@ -61,6 +61,7 @@ SRCS				=	$(SRC_DIR)/main.c 							\
 # Bonus subdirectories
 B_CORE_DIR       	= $(BONUS_DIR)/core
 B_HUD_DIR			= $(BONUS_DIR)/hud
+B_DOOR_DIR			= $(BONUS_DIR)/door
 B_UTIL_DIR       	= $(BONUS_DIR)/utils
 B_INIT_DIR       	= $(BONUS_DIR)/core/init
 B_CHECKER_DIR    	= $(BONUS_DIR)/core/checker
@@ -78,6 +79,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_INIT_DIR)/init_game_bonus.c				\
 						$(B_INIT_DIR)/init_player_bonus.c			\
 						$(B_INIT_DIR)/init_weapon_bonus.c			\
+						$(B_INIT_DIR)/init_door_bonus.c				\
 						$(B_INIT_DATA_DIR)/init_data_bonus.c		\
 						$(B_INIT_DATA_DIR)/init_map_bonus.c			\
 						$(B_INIT_DATA_DIR)/init_rgb_bonus.c			\
@@ -100,6 +102,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_HUD_DIR)/hud_bonus.c					\
 						$(B_HUD_DIR)/hud_utils_bonus.c				\
 						$(B_HUD_DIR)/weapon_bonus.c					\
+						$(B_DOOR_DIR)/door_bonus.c					\
 						$(B_UTIL_DIR)/debug_bonus.c					\
 						$(B_UTIL_DIR)/error_utils_bonus.c			\
 						$(B_UTIL_DIR)/image_utils_bonus.c			\

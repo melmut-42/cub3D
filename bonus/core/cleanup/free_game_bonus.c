@@ -15,7 +15,6 @@ void	free_game(t_game *game)
 	destroy_img(game);
 
 
-
 	// Free the game structure itself
 	ft_free((void **)&game);
 }
@@ -53,5 +52,6 @@ static void	free_data(t_data *data)
 	ft_free((void **)&data->texture.we_path);
 	ft_free((void **)&data->texture.no_path);
 	ft_free((void **)&data->texture.so_path);
+	ft_free((void **)&data->texture.door);
 	free_tab(data->map.matrix);
 }
