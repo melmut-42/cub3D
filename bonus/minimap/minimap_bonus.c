@@ -1,7 +1,8 @@
 #include "game.h"
 #include "bonus.h"
 
-static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta, t_axis_int offset);
+static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
+				t_axis_int offset);
 static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset);
 static void	draw_minimap_player(t_img *img, t_axis_int offset);
 
@@ -18,7 +19,8 @@ void	draw_minimap(t_game *g)
 	draw_minimap_player(img, offset);
 }
 
-static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta, t_axis_int o)
+static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
+		t_axis_int o)
 {
 	t_axis		win;
 	size_t		m_x;

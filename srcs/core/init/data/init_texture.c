@@ -5,7 +5,6 @@ static char	*get_dir_path(t_game *game, char *line);
 static bool	process_texture_attr(t_game *game, t_texture *texture, char *line);
 static void	process_path(t_game *game, t_texture *tex, t_dir dir, char *path);
 
-// * Processes the texture data from FD
 bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 {
 	char	*line;
@@ -14,32 +13,25 @@ bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		// Trim the line to remove leading and trailing spaces
 		trimmed = ultimate_trim(game, line, SPACE_SET);
 		if (!trimmed)
 			return (false);
-
-		// Check if the line is empty after trimming
 		if (trimmed[0] == '\0')
 			free(trimmed);
 		else if (!process_texture_attr(game, texture, trimmed))
 			return (false);
 		if (is_texture_valid(&game->data.texture))
 			return (true);
-
 		line = get_next_line(fd);
 	}
-
 	if (!is_texture_valid(&game->data.texture))
 	{
 		display_error_message(ERR_TEX, false);
 		return (false);
 	}
-
 	return (true);
 }
 
-// * Processes the texture attributes from the line
 static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 {
 	char	*data;
@@ -50,8 +42,6 @@ static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 		free(line);
 		return (false);
 	}
-
-	// Check if the line starts with a valid texture attribute
 	if (ft_strncmp(line, NORTH_ABB, ft_strlen(NORTH_ABB)) == 0)
 		process_path(game, &game->data.texture, NORTH, data);
 	else if (ft_strncmp(line, SOUTH_ABB, ft_strlen(SOUTH_ABB)) == 0)
@@ -64,16 +54,12 @@ static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 		process_rgb(game, texture->floor_rgb, data);
 	else if (ft_strncmp(line, CEILING_ABB, ft_strlen(CEILING_ABB)) == 0)
 		process_rgb(game, texture->ceil_rgb, data);
-
 	free(line);
-
 	if (game->error_flag)
 		return (false);
-
 	return (true);
 }
 
-// * Processes the texture path based on the direction
 static void	process_path(t_game *game, t_texture *tex, t_dir dir, char *path)
 {
 	char	**targets[NUMBER_DIR];
@@ -81,14 +67,11 @@ static void	process_path(t_game *game, t_texture *tex, t_dir dir, char *path)
 
 	if (dir < NORTH || dir > EAST)
 		return ;
-
-	// Initialize the targets array with the texture paths
 	targets[NORTH] = &tex->no_path;
 	targets[SOUTH] = &tex->so_path;
-	targets[WEST]  = &tex->we_path;
-	targets[EAST]  = &tex->ea_path;
+	targets[WEST] = &tex->we_path;
+	targets[EAST] = &tex->ea_path;
 	slot = targets[dir];
-
 	if (*slot)
 	{
 		free(path);
@@ -99,13 +82,11 @@ static void	process_path(t_game *game, t_texture *tex, t_dir dir, char *path)
 	*slot = path;
 }
 
-// * Extracts the directory path from the line
 static char	*get_dir_path(t_game *game, char *line)
 {
 	int		i;
 	char	*path;
 
-	// Check if the line is NULL or empty
 	i = get_start_index(line);
 	if (i == NPOS)
 	{
@@ -113,8 +94,6 @@ static char	*get_dir_path(t_game *game, char *line)
 		game->error_flag = true;
 		return (NULL);
 	}
-
-	// Extract the path from the line
 	path = ft_substr(line, i, ft_strlen(line + i));
 	if (!path)
 	{
@@ -122,16 +101,13 @@ static char	*get_dir_path(t_game *game, char *line)
 		game->error_flag = true;
 		return (NULL);
 	}
-
 	return (path);
 }
 
-// * Gets the starting index of the texture path in the line
 static int	get_start_index(char *line)
 {
 	int	i;
 
-	// Check if the line is NULL or empty
 	if (ft_strncmp(line, NORTH_ABB, ft_strlen(NORTH_ABB)) == 0
 		|| ft_strncmp(line, EAST_ABB, ft_strlen(EAST_ABB)) == 0
 		|| ft_strncmp(line, WEST_ABB, ft_strlen(WEST_ABB)) == 0
@@ -140,21 +116,17 @@ static int	get_start_index(char *line)
 		i = ft_strlen(EAST_ABB);
 	}
 	else if (ft_strncmp(line, FLOOR_ABB, ft_strlen(FLOOR_ABB)) == 0
-			|| ft_strncmp(line, CEILING_ABB, ft_strlen(CEILING_ABB)) == 0)
+		|| ft_strncmp(line, CEILING_ABB, ft_strlen(CEILING_ABB)) == 0)
 	{
 		i = ft_strlen(FLOOR_ABB);
 	}
 	else
 		return (NPOS);
-
 	if (!is_space(line[i]))
 		return (NPOS);
-
 	while (is_space(line[i]))
 		i++;
-
 	if (line[i] == '\0')
 		return (NPOS);
-
 	return (i);
 }

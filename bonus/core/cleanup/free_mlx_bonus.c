@@ -1,7 +1,6 @@
 #include "game.h"
 
-// * Frees all texture images in the game
-void	free_textures(t_game *game)
+static void	free_normal_textures(t_game *game)
 {
 	t_texture	*tex;
 	int			i;
@@ -20,13 +19,11 @@ void	free_textures(t_game *game)
 		}
 		i++;
 	}
-	if (tex->door)
-	{
-		if (tex->door->img_ptr)
-			mlx_destroy_image(game->mlx->mlx_ptr, tex->door->img_ptr);
-		free(tex->door);
-		tex->door = NULL;
-	}
+
+static void	free_special_textures(t_game *game)
+{
+	if (!game || !game->mlx || !game->mlx->mlx_ptr)
+		return ;
 	if (game->mlx->frame_img.img_ptr)
 	{
 		mlx_destroy_image(game->mlx->mlx_ptr,
@@ -42,15 +39,17 @@ void	free_textures(t_game *game)
 	}
 }
 
+void	free_textures(t_game *game)
+{
+	free_normal_textures(game);
+	free_special_textures(game);
+}
 
-// * Destroy mlx window and display properly
 void	destroy_img(t_game *game)
 {
 	if (game->mlx)
 	{
-		// Free all texture images and frame buffer
 		free_textures(game);
-		
 		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
 		{
 			mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);

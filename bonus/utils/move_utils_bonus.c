@@ -5,10 +5,10 @@ static bool	is_blocking_tile(t_game *g, int x, int y);
 
 bool	can_move(t_game *g, double x, double y)
 {
-	int	tl;
-	int	tr;
-	int	tt;
-	int	tb;
+	int tl;
+	int tr;
+	int tt;
+	int tb;
 
 	if (x < 0 || y < 0
 		|| x >= g->data.map.width || y >= g->data.map.height)
@@ -28,7 +28,7 @@ bool	can_move(t_game *g, double x, double y)
 	return (true);
 }
 
-// * Attempts to move player along a vector, respecting collision logic
+
 void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 {
 	double	nx;
@@ -42,21 +42,18 @@ void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 		pos->y = ny;
 }
 
-// * Returns true if player is pressing a movement key
 bool	is_moving(t_game *g)
 {
 	return ((g->player.movement[W] != g->player.movement[S])
 		|| (g->player.movement[A] != g->player.movement[D]));
 }
 
-// * Returns true if player is in air and going upwards
 bool	is_jumping(t_game *g)
 {
 	return (g->player.vertical.in_air
 		&& g->player.vertical.vertical_vel > 0);
 }
 
-// * Returns true if the given tile blocks movement
 static bool	is_blocking_tile(t_game *g, int x, int y)
 {
 	char	tile;

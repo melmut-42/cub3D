@@ -2,25 +2,15 @@
 
 static void	free_data(t_data *data);
 
-// * Frees the entire game structure including its data
 void	free_game(t_game *game)
 {
 	if (!game)
 		return ;
-
-	// Free all allocated textures
 	free_data(&game->data);
-
-	// Free the mlx structure and its resources (includes textures)
 	destroy_img(game);
-
-
-
-	// Free the game structure itself
 	ft_free((void **)&game);
 }
 
-// * Helper function to safely free pointer and set it to NULL
 void	ft_free(void **ptr)
 {
 	if (ptr && *ptr)
@@ -30,7 +20,6 @@ void	ft_free(void **ptr)
 	}
 }
 
-// * Free 2D array of strings
 void	free_tab(char **state)
 {
 	int	i;
@@ -46,7 +35,6 @@ void	free_tab(char **state)
 	ft_free((void **)&state);
 }
 
-// * Helper function to free allocated texture paths and map matrix
 static void	free_data(t_data *data)
 {
 	ft_free((void **)&data->texture.ea_path);

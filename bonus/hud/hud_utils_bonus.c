@@ -1,10 +1,10 @@
 #include "game.h"
+#include "bonus.h"
 
-// * Loops through each character in the string and draws it with an outline
-static void	outline_loop(void *mlx, void *win, int x, int y, int c, char *str)
+static void	outline_loop(t_game *game, int x, int y, char *str)
 {
-	int		dx;
-	int		dy;
+	int	dx;
+	int	dy;
 
 	dx = -1;
 	while (dx <= 1)
@@ -14,8 +14,10 @@ static void	outline_loop(void *mlx, void *win, int x, int y, int c, char *str)
 		{
 			if (dx != 0 || dy != 0)
 			{
-				mlx_string_put(mlx, win, x + dx, y + dy, c, str);
-				mlx_string_put(mlx, win, x + dx + 1, y + dy, c, str);
+				mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr,
+					x + dx, y + dy, 0x000000, str);
+				mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr,
+					x + dx + 1, y + dy, 0x000000, str);
 			}
 			dy++;
 		}
@@ -23,20 +25,20 @@ static void	outline_loop(void *mlx, void *win, int x, int y, int c, char *str)
 	}
 }
 
-// * Draws a single character with black outline and slight scaling
-static void	draw_outline(void *mlx, void *win, int x, int y, int color, char c)
+static void	draw_outline(t_game *game, int x, int y, char c)
 {
 	char	str[2];
 
 	str[0] = c;
 	str[1] = '\0';
-	outline_loop(mlx, win, x, y, 0x000000, str);
-	mlx_string_put(mlx, win, x, y, color, str);
-	mlx_string_put(mlx, win, x + 1, y, color, str);
+	outline_loop(game, x, y, str);
+	mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y,
+		TEXT_COLOR, str);
+	mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x + 1, y,
+		TEXT_COLOR, str);
 }
 
-// * Draws a full string with outline and spacing
-void	mlx_out_txt(void *mlx, void *win, int x, int y, int color, char *str)
+void	mlx_out_txt(t_game *game, int x, int y, char *str)
 {
 	int	offset_x;
 	int	i;
@@ -45,7 +47,7 @@ void	mlx_out_txt(void *mlx, void *win, int x, int y, int color, char *str)
 	i = 0;
 	while (str[i])
 	{
-		draw_outline(mlx, win, x + offset_x, y, color, str[i]);
+		draw_outline(game, x + offset_x, y, str[i]);
 		offset_x += 10;
 		i++;
 	}

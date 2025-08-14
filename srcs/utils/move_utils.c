@@ -1,6 +1,5 @@
 #include "game.h"
 
-// * Checks if the position is within bounds and not inside a wall
 bool	can_move(t_game *g, double x, double y)
 {
 	int	tl;
@@ -27,7 +26,6 @@ bool	can_move(t_game *g, double x, double y)
 	return (true);
 }
 
-// * Moves the player if the new position is not blocked
 void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 {
 	double	nx;
