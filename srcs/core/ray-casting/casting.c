@@ -1,7 +1,5 @@
 #include "game.h"
 
-#define INF_DIST 1e30
-
 static void	init_ray(const t_game *g, const t_player *p,
 				t_ray *ray, int x);
 static void	init_steps(const t_player *p, t_ray *ray);

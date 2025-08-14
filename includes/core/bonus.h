@@ -3,7 +3,6 @@
 
 # include "structures.h"
 
-# define INF_DIST 1e30
 # define TEXT_COLOR 0xFFFFFF
 
 void	draw_hud(t_game *game);
