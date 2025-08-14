@@ -13,7 +13,7 @@ int gameloop(t_game *game)
 		game->player.movement[A] || game->player.movement[D] ||
 		game->player.rot.x || game->player.rot.y)
 	{
-		update_player_movement(game, &game->player, &game->data.map);
+		update_player_movement(game, &game->player);
 	}
 
 	// Render the game state

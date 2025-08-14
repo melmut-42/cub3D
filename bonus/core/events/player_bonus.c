@@ -4,7 +4,7 @@ static void	pitch(t_player *player);
 static void	yaw(t_game *game, t_player *player);
 
 // * Handles player movement and rotation
-void update_player_movement(t_game *g, t_player *p, t_map *map)
+void update_player_movement(t_game *g, t_player *p)
 {
     t_axis strafe;
 
@@ -12,14 +12,14 @@ void update_player_movement(t_game *g, t_player *p, t_map *map)
     strafe.y =  p->dir.x;
 
     if (p->movement[W])
-        attempt_move(map, &p->pos, p->dir.x * p->mov_speed,  p->dir.y * p->mov_speed);
+        attempt_move(g, &p->pos, p->dir.x * p->mov_speed,  p->dir.y * p->mov_speed);
     if (p->movement[S])
-        attempt_move(map, &p->pos, -p->dir.x * p->mov_speed, -p->dir.y * p->mov_speed);
+        attempt_move(g, &p->pos, -p->dir.x * p->mov_speed, -p->dir.y * p->mov_speed);
     if (p->movement[D])
-        attempt_move(map, &p->pos, strafe.x * p->mov_speed,  strafe.y * p->mov_speed);
+        attempt_move(g, &p->pos, strafe.x * p->mov_speed,  strafe.y * p->mov_speed);
     if (p->movement[A])
 	{
-		attempt_move(map, &p->pos, -strafe.x * p->mov_speed, -strafe.y * p->mov_speed);
+		attempt_move(g, &p->pos, -strafe.x * p->mov_speed, -strafe.y * p->mov_speed);
 	}
 
 	// execute yaw & pitch
