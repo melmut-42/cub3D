@@ -11,7 +11,7 @@ int	gameloop(t_game *game)
 		|| game->player.rot.x || game->player.rot.y
 		|| game->player.vertical.in_air)
 	{
-		update_player_movement(game, &game->player, &game->data.map);
+		update_player_movement(game, &game->player);
 	}
 	render_scene(game);
 	return (0);

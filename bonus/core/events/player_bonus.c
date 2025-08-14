@@ -3,7 +3,7 @@
 static void	pitch(t_player *player);
 static void	yaw(t_game *game, t_player *player);
 
-void	update_player_movement(t_game *g, t_player *p, t_map *map)
+void update_player_movement(t_game *g, t_player *p)
 {
 	t_axis	strafe;
 

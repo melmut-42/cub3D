@@ -87,10 +87,10 @@ void	draw_weapon(t_game *game)
 	{
 		weapon->load_attempted = true;
 		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr,
-				"textures/test_pack/karambit.xpm");
+        "textures/test_pack/karambit.xpm"); // ? is it efficient??????
 		if (!weapon->weapon_img)
 		{
-			printf("Warning: Could not load weapon texture\n");
+			display_error_message("Could not load weapon texture!", true);
 			return ;
 		}
 	}

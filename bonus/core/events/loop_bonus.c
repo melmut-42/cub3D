@@ -13,7 +13,7 @@ int	gameloop(t_game *game)
 		|| game->player.rot.x || game->player.rot.y
 		|| game->player.vertical.in_air)
 	{
-		update_player_movement(game, &game->player, &game->data.map);
+		update_player_movement(game, &game->player);
 	}
 	jump_event(&game->player, 0.016);
 	stand_up(&game->player, 0.016);

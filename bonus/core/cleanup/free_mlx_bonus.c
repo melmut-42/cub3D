@@ -13,12 +13,12 @@ static void	free_normal_textures(t_game *game)
 	{
 		if (tex->textures[i].img_ptr)
 		{
-			mlx_destroy_image(game->mlx->mlx_ptr, tex->textures[i].img_ptr);
+			mlx_destroy_image(game->mlx->mlx_ptr,
+				tex->textures[i].img_ptr);
 			tex->textures[i].img_ptr = NULL;
 		}
 		i++;
 	}
-}
 
 static void	free_special_textures(t_game *game)
 {
@@ -26,12 +26,14 @@ static void	free_special_textures(t_game *game)
 		return ;
 	if (game->mlx->frame_img.img_ptr)
 	{
-		mlx_destroy_image(game->mlx->mlx_ptr, game->mlx->frame_img.img_ptr);
+		mlx_destroy_image(game->mlx->mlx_ptr,
+			game->mlx->frame_img.img_ptr);
 		game->mlx->frame_img.img_ptr = NULL;
 	}
 	if (game->weapon.weapon_img && game->weapon.weapon_img->img_ptr)
 	{
-		mlx_destroy_image(game->mlx->mlx_ptr, game->weapon.weapon_img->img_ptr);
+		mlx_destroy_image(game->mlx->mlx_ptr,
+			game->weapon.weapon_img->img_ptr);
 		free(game->weapon.weapon_img);
 		game->weapon.weapon_img = NULL;
 	}
@@ -48,7 +50,6 @@ void	destroy_img(t_game *game)
 	if (game->mlx)
 	{
 		free_textures(game);
-		mlx_mouse_show(game->mlx->mlx_ptr, game->mlx->win_ptr);
 		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
 		{
 			mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);

@@ -31,6 +31,8 @@
 # define MAX_PITCH 500.0
 # define MAX_VERTICAL_DELTA 50
 
+# define INF_DIST 1e30
+
 # define GRAVITY 90.0
 # define JUMP_VELOCITY 60.0
 # define JUMP_SCALE 5
@@ -84,10 +86,54 @@
 # define RAY_MAX_LEN 5.0
 # define RAY_STEP_SIZE 0.05
 
-# define MINIMAP_TILE_SIZE 4
-# define MINIMAP_PLAYER_SIZE 7
+# define GROUND '0'
+# define WALL '1'
+# define VISITED 'X'
+# define DOOR 'D'
 
-typedef enum e_directions
+# define COMMA	','
+# define MAP_FILE_EXTENSION	".cub"
+
+# define DIR_SET	"NSWE"
+# define SPACE_SET	" \n\t\v\f\r"
+
+
+// ============= Key Codes =============
+
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_SPACE 32
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_SHIFT 65505
+# define KEY_UP 65364
+# define KEY_DOWN	65362
+# define KEY_CTRL_L	65507
+
+// ================= Minimap Constants =================
+
+#define MINIMAP_RADIUS 100
+#define MINIMAP_SCALE 0.2
+#define MINIMAP_FOV 90
+#define RAY_COUNT 120
+#define RAY_MAX_LEN 5.0
+#define RAY_STEP_SIZE 0.05
+
+#define MINIMAP_TILE_SIZE 4
+#define MINIMAP_PLAYER_SIZE 7
+
+// ================= Door Constants =================
+
+#define DOOR_OPEN_SPEED      2.5
+#define DOOR_CLOSE_SPEED     2.5
+#define DOOR_CLOSE_DELAY_MS  2000
+
+// ======================================= Enums =======================================
+
+typedef enum	e_directions
 {
 	NORTH,
 	SOUTH,
@@ -123,6 +169,7 @@ typedef struct s_column
 
 typedef struct s_texture
 {
+	t_img			*door;
 	t_img			textures[NUMBER_DIR];
 	int				ceil_rgb[RGB_CONSTANT];
 	int				floor_rgb[RGB_CONSTANT];
@@ -154,27 +201,36 @@ typedef struct s_axis_int
 
 typedef struct s_vertical
 {
-	double	jump_off;
-	double	crouch_off;
-	double	crouch_target;
+	double  jump_off;
+	double  crouch_off;
+	double  crouch_target;
 	double	vertical_pos;
 	double	vertical_vel;
-	bool	in_crouch;
 	bool	in_air;
+	bool	in_crouch;
 }					t_vertical;
 
 typedef struct s_player
 {
+	t_vertical	vertical;				// vertical attributes
 	int			movement[NUMBER_DIR];
-	double		mov_speed;
-	double		pitch_angle;
-	t_axis		dir;
-	t_axis		plane;
-	t_axis		pos;
-	t_axis		rot;
-	t_axis		sens;
-	t_vertical	vertical;
+	t_axis		dir;					// camera direction vector
+	t_axis		plane;					// camera plane vector
+	t_axis		pos;					// player position in the map
+	t_axis		rot;					// rotation vector
+	t_axis		sens;					// sensitivity vector
+	double		mov_speed;				// movement speed
+	double		pitch_angle;			// vertical look angle (up/down)
 }				t_player;
+
+typedef struct s_door
+{
+	t_ms		last_touch;		// Last interaction time (ms)
+	t_axis_int	pos;			// Map position
+	double		open;			// 0.0 = closed, 1.0 = fully open
+	bool		is_moving;		// Is opening/closing animation active?
+	bool		want_open;		// Should the door be open?
+}				t_door;
 
 typedef struct s_weapon
 {
@@ -215,19 +271,21 @@ typedef struct t_mlx
 
 typedef struct s_data
 {
-	double			cos_table[NUM_OF_DEGREE];
 	double			sin_table[NUM_OF_DEGREE];
-	t_texture		texture;
+	double			cos_table[NUM_OF_DEGREE];
 	t_map			map;
+	t_texture		texture;
 }					t_data;
 
 typedef struct s_game
 {
 	t_mlx		*mlx;
+	char		*name;
+	t_door		*doors;
+	size_t		door_count;
+	t_weapon	weapon;
 	t_data		data;
 	t_player	player;
-	t_weapon	weapon;
-	char		*name;
 	t_ms		last_update;
 	bool		error_flag;
 }				t_game;

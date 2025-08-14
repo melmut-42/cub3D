@@ -15,9 +15,10 @@ bool	is_number(char *str);
 bool	has_valid_cub_extension(const char *filename);
 bool	check_map(t_game *game);
 
-bool	can_move(t_map *map, double x, double y);
-void	attempt_move(t_map *map, t_axis *pos, double dx, double dy);
-
+// ============================== Movement ==============================
+bool	can_move(t_game *g, double x, double y);
+void	attempt_move(t_game *g, t_axis *pos, double dx, double dy);
+// =============================== Matrix ===============================
 char	**copy_matrix(t_game *game, char **matrix);
 
 void	display_error_message(const char *msg, bool is_perror);
