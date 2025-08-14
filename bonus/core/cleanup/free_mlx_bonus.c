@@ -19,6 +19,7 @@ static void	free_normal_textures(t_game *game)
 		}
 		i++;
 	}
+}
 
 static void	free_special_textures(t_game *game)
 {
