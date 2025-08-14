@@ -1,18 +1,12 @@
 #include "game.h"
 
 static size_t	count_doors_in_map(char **matrix, size_t height);
-static void	set_door(t_door *door, int x, int y);
-
-#include "game.h"
-
-static size_t	count_doors_in_map(char **matrix, size_t height);
 static void		set_door(t_door *door, int x, int y);
+static void		set_all_doors(t_game *game);
 
 bool	init_doors(t_game *game)
 {
-	t_axis_int	pos;
-	size_t		i;
-	size_t		door_count;
+	size_t	door_count;
 
 	door_count = count_doors_in_map(
 			game->data.map.matrix, game->data.map.height);
@@ -28,6 +22,15 @@ bool	init_doors(t_game *game)
 		display_error_message(ERR_GAME, true);
 		return (false);
 	}
+	set_all_doors(game);
+	return (true);
+}
+
+static void	set_all_doors(t_game *game)
+{
+	t_axis_int	pos;
+	size_t		i;
+
 	i = 0;
 	pos.y = 0;
 	while ((size_t)pos.y < game->data.map.height)
@@ -37,11 +40,10 @@ bool	init_doors(t_game *game)
 		{
 			if (game->data.map.matrix[pos.y][pos.x] == DOOR)
 				set_door(&game->doors[i++], pos.x, pos.y);
-			(pos.x)++;
+			pos.x++;
 		}
-		(pos.y)++;
+		pos.y++;
 	}
-	return (true);
 }
 
 static void	set_door(t_door *door, int x, int y)

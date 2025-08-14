@@ -2,11 +2,11 @@
 
 bool	can_move(t_game *g, double x, double y)
 {
-	int	tl;
-	int	tr;
-	int	tt;
-	int	tb;
 	t_map	*map;
+	int		tl;
+	int		tr;
+	int		tt;
+	int		tb;
 
 	map = &g->data.map;
 	if (x < 0 || y < 0 || x >= map->width || y >= map->height)

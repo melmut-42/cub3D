@@ -29,4 +29,3 @@ bool	is_ray_blocked_by_door(t_game *g, t_ray *ray, t_door *door)
 		return (false);
 	return (true);
 }
-

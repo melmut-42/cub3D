@@ -9,5 +9,6 @@ void	draw_column(t_game *game, t_ray *ray, int x);
 void	rotate_vector(t_data *data, t_axis *vec, double angle);
 void	update_player_movement(t_game *game, t_player *p);
 int		get_angle_index(double angle);
+void	perform_dda(t_game *game, t_ray *ray);
 
 #endif

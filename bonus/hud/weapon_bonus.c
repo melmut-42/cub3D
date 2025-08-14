@@ -87,7 +87,7 @@ void	draw_weapon(t_game *game)
 	{
 		weapon->load_attempted = true;
 		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr,
-        "textures/test_pack/karambit.xpm"); // ? is it efficient??????
+				"textures/test_pack/karambit.xpm"); // TODO: Move it out of the loop
 		if (!weapon->weapon_img)
 		{
 			display_error_message("Could not load weapon texture!", true);

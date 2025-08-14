@@ -42,6 +42,7 @@ SRCS				=	$(SRC_DIR)/main.c 							\
 						$(CHECKER_DIR)/file_checker.c				\
 						$(CHECKER_DIR)/map_checker.c				\
 						$(RAYCAST_DIR)/casting.c					\
+						$(RAYCAST_DIR)/dda.c						\
 						$(RAYCAST_DIR)/rotation.c					\
 						$(RAYCAST_DIR)/draw_texture.c				\
 						$(UTIL_DIR)/error_utils.c					\
@@ -89,6 +90,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_CHECKER_DIR)/file_checker_bonus.c		\
 						$(B_CHECKER_DIR)/map_checker_bonus.c		\
 						$(B_RAYCAST_DIR)/casting_bonus.c			\
+						$(B_RAYCAST_DIR)/dda_bonus.c				\
 						$(B_RAYCAST_DIR)/rotation_bonus.c			\
 						$(B_RAYCAST_DIR)/draw_texture_bonus.c		\
 						$(B_HUD_DIR)/hud_bonus.c					\

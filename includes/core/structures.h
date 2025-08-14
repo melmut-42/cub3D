@@ -97,7 +97,6 @@
 # define DIR_SET	"NSWE"
 # define SPACE_SET	" \n\t\v\f\r"
 
-
 // ============= Key Codes =============
 
 # define KEY_ESC 65307
@@ -133,7 +132,7 @@
 
 // ======================================= Enums =======================================
 
-typedef enum	e_directions
+typedef enum e_directions
 {
 	NORTH,
 	SOUTH,
@@ -201,9 +200,9 @@ typedef struct s_axis_int
 
 typedef struct s_vertical
 {
-	double  jump_off;
-	double  crouch_off;
-	double  crouch_target;
+	double	jump_off;
+	double	crouch_off;
+	double	crouch_target;
 	double	vertical_pos;
 	double	vertical_vel;
 	bool	in_air;

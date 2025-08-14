@@ -3,7 +3,6 @@
 static void	init_ray(const t_game *g, const t_player *p,
 				t_ray *ray, int x);
 static void	init_steps(const t_player *p, t_ray *ray);
-static void	perform_dda(t_game *game, t_ray *ray);
 static void	calc_perp_dist(t_game *g, t_ray *ray);
 
 void	cast_ray(t_game *game, t_ray *ray, int x)
@@ -55,33 +54,6 @@ static void	init_steps(const t_player *p, t_ray *ray)
 	{
 		ray->step_y = 1;
 		ray->side_dist.y = (ray->map.y + 1 - p->pos.y) * ray->delta_dist.y;
-	}
-}
-
-static void	perform_dda(t_game *game, t_ray *ray)
-{
-	int	map_x;
-	int	map_y;
-
-	ray->does_hit = false;
-	while (!ray->does_hit)
-	{
-		if (ray->side_dist.x < ray->side_dist.y)
-		{
-			ray->side_dist.x += ray->delta_dist.x;
-			ray->map.x += ray->step_x;
-			ray->side = 0;
-		}
-		else
-		{
-			ray->side_dist.y += ray->delta_dist.y;
-			ray->map.y += ray->step_y;
-			ray->side = 1;
-		}
-		map_x = (int)ray->map.x;
-		map_y = (int)ray->map.y;
-		if (game->data.map.matrix[map_y][map_x] == WALL)
-			ray->does_hit = true;
 	}
 }
 
