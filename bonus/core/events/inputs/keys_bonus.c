@@ -1,4 +1,5 @@
 #include "game.h"
+#include "bonus.h"
 
 static void	exec_key_rotation(t_game *game, int keycode, int mode);
 
@@ -17,6 +18,10 @@ int	handle_keypress(int keycode, t_game *game)
 	if (keycode == KEY_SHIFT && !game->player.vertical.in_air
 		&& !game->player.vertical.in_crouch)
 		game->player.mov_speed += game->player.mov_speed / 4;
+	if (keycode == KEY_E)
+	{
+		init_door_movement(game);
+	}
 	if (keycode == KEY_SPACE && !game->player.vertical.in_air)
 	{
 		game->player.vertical.vertical_vel = JUMP_VELOCITY;

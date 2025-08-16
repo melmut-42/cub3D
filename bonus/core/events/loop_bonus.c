@@ -23,6 +23,10 @@ int	gameloop(t_game *game)
 
 static void	render_game(t_game *game)
 {
+	double	dt;
+
+	dt = get_delta_time();
+	update_doors(game, dt);
 	render_scene(game);
 	draw_minimap(game);
 	draw_hud(game);

@@ -67,7 +67,7 @@ static bool	is_blocking_tile(t_game *g, int x, int y)
 		return (true);
 	if (tile == DOOR)
 	{
-		door = find_door_at(g, x, y);
+		door = find_door(g, x, y);
 		if (!door || door->open < 1.0)
 			return (true);
 	}

@@ -97,6 +97,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_HUD_DIR)/hud_utils_bonus.c				\
 						$(B_HUD_DIR)/weapon_bonus.c					\
 						$(B_DOOR_DIR)/door_bonus.c					\
+						$(B_DOOR_DIR)/find_door_bonus.c				\
 						$(B_UTIL_DIR)/error_utils_bonus.c			\
 						$(B_UTIL_DIR)/image_utils_bonus.c			\
 						$(B_UTIL_DIR)/texture_utils_bonus.c			\

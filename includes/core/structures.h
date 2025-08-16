@@ -99,18 +99,21 @@
 
 // ============= Key Codes =============
 
-# define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_SPACE 32
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_SHIFT 65505
-# define KEY_UP 65364
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_E		101
+# define KEY_SPACE	32
+
+# define KEY_UP		65364
 # define KEY_DOWN	65362
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
+
+# define KEY_SHIFT	65505
 # define KEY_CTRL_L	65507
+# define KEY_ESC	65307
 
 // ================= Minimap Constants =================
 
@@ -126,9 +129,11 @@
 
 // ================= Door Constants =================
 
-# define DOOR_OPEN_SPEED      2.5
-# define DOOR_CLOSE_SPEED     2.5
-# define DOOR_CLOSE_DELAY_MS  2000
+# define DOOR_MOVE_SPEED		2.5
+
+# define MAX_INTERACT_DIST		1.3
+# define MIN_INTERACT_DIST		0.4
+
 
 // ======================================= Enums =======================================
 
@@ -224,7 +229,6 @@ typedef struct s_player
 
 typedef struct s_door
 {
-	t_ms		last_touch;		// Last interaction time (ms)
 	t_axis_int	pos;			// Map position
 	double		open;			// 0.0 = closed, 1.0 = fully open
 	bool		is_moving;		// Is opening/closing animation active?

@@ -1,7 +1,19 @@
 #include "game.h"
 #include "bonus.h"
 
-static void	step_ray(t_ray *ray)
+static bool	check_hit(t_game *game, t_ray *ray);
+
+void	perform_dda(t_game *game, t_ray *ray)
+{
+	ray->does_hit = false;
+	while (!ray->does_hit)
+	{
+		step_ray(ray);
+		ray->does_hit = check_hit(game, ray);
+	}
+}
+
+void	step_ray(t_ray *ray)
 {
 	if (ray->side_dist.x < ray->side_dist.y)
 	{
@@ -27,14 +39,4 @@ static bool	check_hit(t_game *game, t_ray *ray)
 	if (game->data.map.matrix[map_y][map_x] == WALL)
 		return (true);
 	return (false);
-}
-
-void	perform_dda(t_game *game, t_ray *ray)
-{
-	ray->does_hit = false;
-	while (!ray->does_hit)
-	{
-		step_ray(ray);
-		ray->does_hit = check_hit(game, ray);
-	}
 }
