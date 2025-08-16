@@ -32,6 +32,7 @@ static void	init_ray(const t_game *g, const t_player *p,
 		ray->delta_dist.y = INF_DIST;
 	else
 		ray->delta_dist.y = fabs(1.0 / ray->dir.y);
+	ft_bzero(&ray->door, sizeof(t_ray_door));
 }
 
 static void	init_steps(const t_player *p, t_ray *ray)

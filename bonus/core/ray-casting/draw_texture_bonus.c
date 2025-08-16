@@ -1,4 +1,5 @@
 #include "game.h"
+#include "bonus.h"
 
 static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
 {
@@ -76,15 +77,18 @@ void	draw_column(t_game *g, t_ray *ray, int x)
 	int			floor_col;
 
 	init_column(&col, g, ray, x);
-	ceil_col = rgb_to_int(
-			g->data.texture.ceil_rgb[0],
-			g->data.texture.ceil_rgb[1],
-			g->data.texture.ceil_rgb[2]);
-	floor_col = rgb_to_int(
-			g->data.texture.floor_rgb[0],
-			g->data.texture.floor_rgb[1],
-			g->data.texture.floor_rgb[2]);
+	ceil_col = rgb_to_int(g->data.texture.ceil_rgb[0],
+		g->data.texture.ceil_rgb[1], g->data.texture.ceil_rgb[2]);
+	floor_col = rgb_to_int(g->data.texture.floor_rgb[0],
+		g->data.texture.floor_rgb[1], g->data.texture.floor_rgb[2]);
+
 	draw_ceiling(g, &col, ceil_col);
 	draw_wall(g, &col);
 	draw_floor(g, &col, floor_col);
+
+	if (ray->door.has && ray->door.perp > 0.0
+		&& ray->perp_wall_dist > 0.0
+		&& ray->door.perp < ray->perp_wall_dist)
+		draw_door_overlay_tex(g, ray, x);
 }
+

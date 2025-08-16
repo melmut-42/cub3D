@@ -91,6 +91,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_CHECKER_DIR)/map_checker_bonus.c		\
 						$(B_RAYCAST_DIR)/casting_bonus.c			\
 						$(B_RAYCAST_DIR)/dda_bonus.c				\
+						$(B_RAYCAST_DIR)/draw_door_bonus.c			\
 						$(B_RAYCAST_DIR)/rotation_bonus.c			\
 						$(B_RAYCAST_DIR)/draw_texture_bonus.c		\
 						$(B_HUD_DIR)/hud_bonus.c					\

@@ -21,12 +21,14 @@ void	jump_event(t_player *p, double dt);
 
 bool	init_doors(t_game *game);
 t_door	*find_door(t_game *game, int x, int y);
-bool	is_ray_blocked_by_door(t_game *g, t_ray *ray, t_door *door);
 
 t_door	*scan_facing_door(t_game *g, t_axis player_pos, t_axis dir);
 void	update_doors(t_game *g, double delta_time);
 void	init_door_movement(t_game *game);
 
 double	get_delta_time(void);
+
+
+void	draw_door_overlay_tex(t_game *g, t_ray *ray, int x);
 
 #endif

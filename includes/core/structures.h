@@ -248,12 +248,24 @@ typedef struct s_weapon
 	bool	load_attempted;
 }				t_weapon;
 
+typedef struct s_ray_door
+{
+	bool		has;       
+	t_axis_int	cell;
+	int			side;
+	double		open;
+	double		perp;
+	int			tex_x;
+}	t_ray_door;
+
 typedef struct s_ray
 {
+	t_ray_door		door;
 	t_axis			dir;
 	t_axis			map;
 	t_axis			side_dist;
 	t_axis			delta_dist;
+	double			len_wall;
 	double			perp_wall_dist;
 	int				step_x;
 	int				step_y;

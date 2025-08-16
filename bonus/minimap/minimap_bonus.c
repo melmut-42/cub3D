@@ -27,6 +27,7 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 	size_t		m_y;
 	t_axis_int	p;
 	int			c;
+	t_door		*door;
 
 	win.x = g->player.pos.x + delta.x * MINIMAP_SCALE;
 	win.y = g->player.pos.y + delta.y * MINIMAP_SCALE;
@@ -39,6 +40,14 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 		ft_put_pixel(img, p.x, p.y, 0x000000);
 	else if (g->data.map.matrix[m_y][m_x] == WALL)
 		ft_put_pixel(img, p.x, p.y, 0x555555);
+	else if (g->data.map.matrix[m_y][m_x] == DOOR)
+	{
+		door = find_door(g, m_x, m_y);
+		if (door && door->open >= 1.0)
+			ft_put_pixel(img, p.x, p.y, 0x0000FF);
+		else
+			ft_put_pixel(img, p.x, p.y, 0x00FF00);
+	}
 	else
 		ft_put_pixel(img, p.x, p.y, 0x222222);
 }
