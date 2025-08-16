@@ -5,41 +5,47 @@ static bool	is_blocking_tile(t_game *g, int x, int y);
 
 bool	can_move(t_game *g, double x, double y)
 {
-	int	tl;
-	int	tr;
-	int	tt;
-	int	tb;
+	int	left_cell_x;
+	int	right_cell_x;
+	int	top_cell_y;
+	int	bottom_cell_y;
 
-	if (x < 0 || y < 0
+	if (x < 0.0 || y < 0.0
 		|| x >= g->data.map.width || y >= g->data.map.height)
 		return (false);
-	tl = (int)(x - PLAYER_MARGIN);
-	tr = (int)(x + PLAYER_MARGIN);
-	tt = (int)(y - PLAYER_MARGIN);
-	tb = (int)(y + PLAYER_MARGIN);
-	if (tl < 0 || tr >= (int)g->data.map.width
-		|| tt < 0 || tb >= (int)g->data.map.height)
+
+	left_cell_x = (int)(x - PLAYER_MARGIN);
+	right_cell_x = (int)(x + PLAYER_MARGIN);
+	top_cell_y = (int)(y - PLAYER_MARGIN);
+	bottom_cell_y = (int)(y + PLAYER_MARGIN);
+
+	if (left_cell_x < 0 || right_cell_x >= (int)g->data.map.width
+		|| top_cell_y < 0 || bottom_cell_y >= (int)g->data.map.height)
 		return (false);
-	if (is_blocking_tile(g, tl, tt)
-		|| is_blocking_tile(g, tr, tt)
-		|| is_blocking_tile(g, tl, tb)
-		|| is_blocking_tile(g, tr, tb))
+
+	if (is_blocking_tile(g, left_cell_x,  top_cell_y)
+	 || is_blocking_tile(g, right_cell_x, top_cell_y)
+	 || is_blocking_tile(g, left_cell_x,  bottom_cell_y)
+	 || is_blocking_tile(g, right_cell_x, bottom_cell_y))
 		return (false);
+
 	return (true);
 }
 
 void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 {
-	double	nx;
-	double	ny;
+	double	next_x;
+	double	next_y;
 
-	nx = pos->x + dx;
-	ny = pos->y + dy;
-	if (can_move(g, nx, pos->y))
-		pos->x = nx;
-	if (can_move(g, pos->x, ny))
-		pos->y = ny;
+	next_x = pos->x + dx;
+	next_y = pos->y + dy;
+
+	if (can_move(g, next_x, pos->y))
+		pos->x = next_x;
+	if (can_move(g, pos->x, next_y))
+		pos->y = next_y;
 }
+
 
 bool	is_moving(t_game *g)
 {

@@ -55,7 +55,6 @@ static bool	is_door_and_valid(t_game *g, t_ray *ray, t_door **out, double dist)
 	door = find_door(g, pos.x, pos.y);
 	if (!door)
 		return (false);
-	printf("dist: %f\n", dist);
 	if (!(dist > MIN_INTERACT_DIST))
 		return (false);
 	*out = door;
