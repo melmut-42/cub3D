@@ -20,8 +20,6 @@ int		handle_mouse_click(int button, int x, int y, t_game *game);
 void	stand_up(t_player *p, double dt);
 void	jump_event(t_player *p, double dt);
 
-bool    init_doors(t_game *game);
-t_door	*find_door_at(t_game *game, int x, int y);
-bool	is_ray_blocked_by_door(t_game *g, t_ray *ray, t_door *door);
+
 
 #endif

@@ -1,23 +1,5 @@
 #include "game.h"
 
-t_img	*get_wall_texture(t_game *game, t_ray *ray)
-{
-	int	map_x;
-	int	map_y;
-
-	map_x = (int)(ray->map.x);
-	map_y = (int)(ray->map.y);
-	if (game->data.map.matrix[map_y][map_x] == DOOR)
-		return (game->data.texture.door);
-	if (ray->side == 0 && ray->dir.x > 0)
-		return (&game->data.texture.textures[EAST]);
-	if (ray->side == 0 && ray->dir.x < 0)
-		return (&game->data.texture.textures[WEST]);
-	if (ray->side == 1 && ray->dir.y > 0)
-		return (&game->data.texture.textures[SOUTH]);
-	return (&game->data.texture.textures[NORTH]);
-}
-
 int	get_texture_x(t_game *g, t_ray *ray, t_img *tex)
 {
 	double	wall_x;

@@ -127,9 +127,7 @@
 
 // ================= Door Constants =================
 
-#define DOOR_OPEN_SPEED      2.5
-#define DOOR_CLOSE_SPEED     2.5
-#define DOOR_CLOSE_DELAY_MS  2000
+# define NUM_DOOR_FRAMES 6
 
 // ======================================= Enums =======================================
 
@@ -169,7 +167,7 @@ typedef struct s_column
 
 typedef struct s_texture
 {
-	t_img			*door;
+	t_img			doors[NUM_DOOR_FRAMES];
 	t_img			textures[NUMBER_DIR];
 	int				ceil_rgb[RGB_CONSTANT];
 	int				floor_rgb[RGB_CONSTANT];
@@ -212,24 +210,24 @@ typedef struct s_vertical
 
 typedef struct s_player
 {
-	t_vertical	vertical;				// vertical attributes
+	t_vertical	vertical;
 	int			movement[NUMBER_DIR];
-	t_axis		dir;					// camera direction vector
-	t_axis		plane;					// camera plane vector
-	t_axis		pos;					// player position in the map
-	t_axis		rot;					// rotation vector
-	t_axis		sens;					// sensitivity vector
-	double		mov_speed;				// movement speed
-	double		pitch_angle;			// vertical look angle (up/down)
+	t_axis		dir;
+	t_axis		plane;
+	t_axis		pos;
+	t_axis		rot;
+	t_axis		sens;
+	double		mov_speed;
+	double		pitch_angle;
 }				t_player;
 
 typedef struct s_door
 {
-	t_ms		last_touch;		// Last interaction time (ms)
-	t_axis_int	pos;			// Map position
-	double		open;			// 0.0 = closed, 1.0 = fully open
-	bool		is_moving;		// Is opening/closing animation active?
-	bool		want_open;		// Should the door be open?
+	t_ms		last_touch;
+	t_axis_int	pos;
+	double		open;
+	bool		is_moving;
+	bool		want_open;
 }				t_door;
 
 typedef struct s_weapon
@@ -281,7 +279,6 @@ typedef struct s_game
 {
 	t_mlx		*mlx;
 	char		*name;
-	t_door		*doors;
 	size_t		door_count;
 	t_weapon	weapon;
 	t_data		data;

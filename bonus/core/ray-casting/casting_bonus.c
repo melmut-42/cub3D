@@ -61,7 +61,6 @@ static void	init_steps(const t_player *p, t_ray *ray)
 
 static void	perform_dda(t_game *game, t_ray *ray)
 {
-	t_door	*door;
 	int		map_x;
 	int		map_y;
 
@@ -84,12 +83,6 @@ static void	perform_dda(t_game *game, t_ray *ray)
 		map_y = (int)ray->map.y;
 		if (game->data.map.matrix[map_y][map_x] == WALL)
 			ray->does_hit = true;
-		else if (game->data.map.matrix[map_y][map_x] == DOOR)
-		{
-			door = find_door_at(game, map_x, map_y);
-			if (door && is_ray_blocked_by_door(game, ray, door))
-				ray->does_hit = true;
-		}
 	}
 }
 
