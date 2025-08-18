@@ -18,7 +18,7 @@ static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
 		col->pixel_bottom = win_h - 1;
 	col->texture = get_wall_texture(g, ray);
 	col->texture_x = get_texture_x(g, ray, col->texture);
-	col->screen_x = x;
+	col->window_x = x;
 }
 
 static void	draw_ceiling(t_game *g, t_column *col, int color)
@@ -27,25 +27,25 @@ static void	draw_ceiling(t_game *g, t_column *col, int color)
 
 	y = 0;
 	while (y < col->pixel_top)
-		ft_put_pixel(&g->mlx->frame_img, col->screen_x, y++, color);
+		ft_put_pixel(&g->mlx->frame_img, col->window_x, y++, color);
 }
 
 static void	draw_floor(t_game *g, t_column *col, int color)
 {
 	int	y;
-	int	win_h;
+	int	window_height;
 
-	win_h = g->mlx->height;
+	window_height = g->mlx->height;
 	y = col->pixel_bottom + 1;
-	while (y < win_h)
-		ft_put_pixel(&g->mlx->frame_img, col->screen_x, y++, color);
+	while (y < window_height)
+		ft_put_pixel(&g->mlx->frame_img, col->window_x, y++, color);
 }
 
 static void	draw_wall(t_game *g, t_column *col)
 {
 	int		center;
 	int		tex_y;
-	int		y;
+	int		window_y;
 	double	tex_pos;
 	double	step;
 
@@ -53,19 +53,19 @@ static void	draw_wall(t_game *g, t_column *col)
 		+ (int)g->player.vertical.jump_off - (int)g->player.vertical.crouch_off;
 	step = (double)col->texture->height / col->wall_height;
 	tex_pos = (col->pixel_top - center + col->wall_height / 2) * step;
-	y = col->pixel_top;
-	while (y <= col->pixel_bottom)
+	window_y = col->pixel_top;
+	while (window_y <= col->pixel_bottom)
 	{
 		if (tex_pos >= 0.0 && tex_pos < col->texture->height)
 		{
 			tex_y = (int)tex_pos;
-			ft_put_pixel(&g->mlx->frame_img, col->screen_x, y,
+			ft_put_pixel(&g->mlx->frame_img, col->window_x, window_y,
 				*(unsigned int *)(col->texture->addr
 					+ tex_y * col->texture->line_len
 					+ col->texture_x * (col->texture->bpp / 8)));
 		}
 		tex_pos += step;
-		y++;
+		window_y++;
 	}
 }
 
@@ -74,7 +74,7 @@ void	draw_column(t_game *g, t_ray *ray, int x)
 	t_column	col;
 
 	init_column(&col, g, ray, x);
-	draw_ceiling(g, &col, ceil_col);
+	draw_ceiling(g, &col, g->data.texture.ceil_color);
 	draw_wall(g, &col);
-	draw_floor(g, &col, floor_col);
+	draw_floor(g, &col, g->data.texture.floor_color);
 }

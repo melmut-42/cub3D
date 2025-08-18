@@ -28,13 +28,12 @@ bool	can_move(t_game *g, double x, double y)
 
 void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 {
-	double	nx;
-	double	ny;
+	t_axis	new_pos;
 
-	nx = pos->x + dx;
-	ny = pos->y + dy;
-	if (can_move(g, nx, pos->y))
-		pos->x = nx;
-	if (can_move(g, pos->x, ny))
-		pos->y = ny;
+	new_pos.x = pos->x + dx;
+	new_pos.y = pos->y + dy;
+	if (can_move(g, new_pos.x, pos->y))
+		pos->x = new_pos.x;
+	if (can_move(g, pos->x, new_pos.y))
+		pos->y = new_pos.y;
 }

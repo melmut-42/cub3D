@@ -158,7 +158,7 @@ typedef struct s_img
 typedef struct s_column
 {
 	t_img			*texture;
-	int				screen_x;
+	int				window_x;
 	int				pixel_top;
 	int				pixel_bottom;
 	int				texture_x;
@@ -225,8 +225,8 @@ typedef struct s_player
 
 typedef struct s_door
 {
-	t_ms		last_touch;
 	t_axis_int	pos;
+	t_ms		last_touch;
 	double		open;
 	bool		is_moving;
 	bool		want_open;
@@ -248,9 +248,9 @@ typedef struct s_weapon
 typedef struct s_ray
 {
 	t_axis			dir;
-	t_axis			map;
 	t_axis			side_dist;
 	t_axis			delta_dist;
+	t_axis_int		pos;
 	double			perp_wall_dist;
 	int				step_x;
 	int				step_y;
@@ -282,6 +282,7 @@ typedef struct s_game
 	t_mlx		*mlx;
 	char		*name;
 	size_t		door_count;
+	t_door		*doors;
 	t_weapon	weapon;
 	t_data		data;
 	t_player	player;
