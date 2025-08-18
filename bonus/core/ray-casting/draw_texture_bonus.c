@@ -72,18 +72,8 @@ static void	draw_wall(t_game *g, t_column *col)
 void	draw_column(t_game *g, t_ray *ray, int x)
 {
 	t_column	col;
-	int			ceil_col;
-	int			floor_col;
 
 	init_column(&col, g, ray, x);
-	ceil_col = rgb_to_int(
-			g->data.texture.ceil_rgb[0],
-			g->data.texture.ceil_rgb[1],
-			g->data.texture.ceil_rgb[2]);
-	floor_col = rgb_to_int(
-			g->data.texture.floor_rgb[0],
-			g->data.texture.floor_rgb[1],
-			g->data.texture.floor_rgb[2]);
 	draw_ceiling(g, &col, ceil_col);
 	draw_wall(g, &col);
 	draw_floor(g, &col, floor_col);

@@ -171,6 +171,8 @@ typedef struct s_texture
 	t_img			textures[NUMBER_DIR];
 	int				ceil_rgb[RGB_CONSTANT];
 	int				floor_rgb[RGB_CONSTANT];
+	int				ceil_color;
+	int				floor_color;
 	char			*no_path;
 	char			*so_path;
 	char			*we_path;
