@@ -100,7 +100,7 @@
 // ================= Door Constants =================
 
 # define NUM_DOOR_FRAMES 5
-# define INTERACT_STEP 0.8
+# define INTERACT_STEP 1.3
 # define MIN_DOOR_INT_DIST 0.25
 # define DOOR_SPEED 0.5
 
@@ -124,6 +124,15 @@ typedef enum	e_directions
 }					t_dir;
 
 typedef uint64_t	t_ms;
+
+typedef struct	s_draw_util
+{
+	int		center;
+	int		tex_y;
+	int		window_y;
+	double	tex_pos;
+	double	step;
+}			t_draw_util;
 
 typedef struct s_img
 {

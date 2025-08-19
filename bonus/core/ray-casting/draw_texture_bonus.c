@@ -1,3 +1,4 @@
+#include "bonus.h"
 #include "game.h"
 
 static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
@@ -7,8 +8,7 @@ static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
 
 	win_h = g->mlx->height;
 	col->wall_height = (int)(win_h / ray->perp_wall_dist);
-	pitch = (int)(g->player.pitch_angle
-			+ g->player.vertical.jump_off
+	pitch = (int)(g->player.pitch_angle + g->player.vertical.jump_off
 			- g->player.vertical.crouch_off);
 	col->pixel_top = (win_h - col->wall_height) / 2 + pitch;
 	if (col->pixel_top < 0)
@@ -43,29 +43,27 @@ static void	draw_floor(t_game *g, t_column *col, int color)
 
 static void	draw_wall(t_game *g, t_column *col)
 {
-	int		center;
-	int		tex_y;
-	int		window_y;
-	double	tex_pos;
-	double	step;
+	t_draw_util	draw;
+	int			color;
 
-	center = g->mlx->height / 2 + (int)g->player.pitch_angle
+	draw.center = g->mlx->height / 2 + (int)g->player.pitch_angle
 		+ (int)g->player.vertical.jump_off - (int)g->player.vertical.crouch_off;
-	step = (double)col->texture->height / col->wall_height;
-	tex_pos = (col->pixel_top - center + col->wall_height / 2) * step;
-	window_y = col->pixel_top;
-	while (window_y <= col->pixel_bottom)
+	draw.step = (double)col->texture->height / col->wall_height;
+	draw.tex_pos = (col->pixel_top - draw.center + col->wall_height / 2)
+		* draw.step;
+	draw.window_y = col->pixel_top;
+	while (draw.window_y <= col->pixel_bottom)
 	{
-		if (tex_pos >= 0.0 && tex_pos < col->texture->height)
+		if (draw.tex_pos >= 0.0 && draw.tex_pos < col->texture->height)
 		{
-			tex_y = (int)tex_pos;
-			ft_put_pixel(&g->mlx->frame_img, col->window_x, window_y,
-				*(unsigned int *)(col->texture->addr
-					+ tex_y * col->texture->line_len
-					+ col->texture_x * (col->texture->bpp / 8)));
+			draw.tex_y = (int)draw.tex_pos;
+			color = get_pixel_from_img(col->texture, col->texture_x,
+					draw.tex_y);
+			ft_put_pixel(&g->mlx->frame_img, col->window_x, draw.window_y,
+					color);
 		}
-		tex_pos += step;
-		window_y++;
+		draw.tex_pos += draw.step;
+		(draw.window_y)++;
 	}
 }
 
@@ -77,4 +75,6 @@ void	draw_column(t_game *g, t_ray *ray, int x)
 	draw_ceiling(g, &col, g->data.texture.ceil_color);
 	draw_wall(g, &col);
 	draw_floor(g, &col, g->data.texture.floor_color);
+	if (ray->door_feat.ptr)
+		start_draw_doors(g, ray, x);
 }

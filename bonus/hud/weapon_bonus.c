@@ -11,8 +11,8 @@ static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
 	int	x_offset;
 	int	y_offset;
 	int	color;
-	int	i;
 	int	y;
+	int	x;
 
 	if (!weapon_img || !weapon_img->addr)
 		return ;
@@ -20,17 +20,17 @@ static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
 		weapon->weapon_base_y = WIN_HEIGHT - weapon_img->height + 10;
 	x_offset = WIN_WIDTH - weapon_img->width - 100 + weapon->shake_offset_x;
 	y_offset = weapon->weapon_base_y + weapon->shake_offset_y;
-	i = -1;
-	while (++i < weapon_img->height)
+	y = -1;
+	while (++y < weapon_img->height)
 	{
-		y = 0;
-		while (y < weapon_img->width)
+		x = 0;
+		while (x < weapon_img->width)
 		{
-			color = get_pixel_from_img(weapon_img, y, i);
+			color = get_pixel_from_img(weapon_img, x, y);
 			if (color != 0)
-				ft_put_pixel(&game->mlx->frame_img, x_offset + y,
-					y_offset + i, color);
-			y++;
+				ft_put_pixel(&game->mlx->frame_img, x_offset + x,
+					y_offset + y, color);
+			x++;
 		}
 	}
 }
