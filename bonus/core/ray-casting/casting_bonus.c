@@ -34,6 +34,7 @@ static void	init_ray(const t_game *g, const t_player *p,
 	else
 		ray->delta_dist.y = fabs(1.0 / ray->dir.y);
 	ray->does_hit = false;
+	ft_bzero(&ray->door_feat, sizeof(t_door_feat));
 }
 
 static void	init_steps(const t_player *p, t_ray *ray)
@@ -82,6 +83,8 @@ static void	perform_dda(t_game *game, t_ray *ray)
 		pos.y = (int)ray->pos.y;
 		if (game->data.map.matrix[pos.y][pos.x] == WALL)
 			ray->does_hit = true;
+		if (game->data.map.matrix[pos.y][pos.x] == DOOR)
+			update_ray_door(game, ray, pos.y, pos.x);
 	}
 }
 

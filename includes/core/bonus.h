@@ -23,6 +23,8 @@ void	jump_event(t_player *p, double dt);
 bool	init_doors(t_game *game);
 void	update_doors(t_game *game);
 void	handle_door_interact(t_game *g);
+t_door	*get_the_door(t_game *g, t_axis_int cell);
 t_img	*get_door_texture(t_game *g, const t_door *door);
+void	update_ray_door(t_game *game, t_ray *ray, int map_y, int map_x);
 
 #endif

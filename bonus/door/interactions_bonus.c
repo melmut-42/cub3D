@@ -24,7 +24,7 @@ void	handle_door_interact(t_game *g)
 	door->is_moving = true;
 }
 
-static t_door	*get_the_door(t_game *g, t_axis_int cell)
+t_door	*get_the_door(t_game *g, t_axis_int cell)
 {
 	size_t	i;
 

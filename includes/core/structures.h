@@ -205,6 +205,15 @@ typedef struct s_player
 	double		pitch_angle;
 }				t_player;
 
+typedef struct s_door_feat
+{
+	t_door		*ptr;
+	double		open;
+	double		perp_dist;
+	t_axis_int	pos;
+	int			side;
+}				t_door_feat;
+
 typedef struct s_door
 {
 	t_axis_int	pos;
@@ -229,6 +238,7 @@ typedef struct s_weapon
 
 typedef struct s_ray
 {
+	t_door_feat		door_feat;
 	t_axis			dir;
 	t_axis			side_dist;
 	t_axis			delta_dist;
@@ -238,6 +248,7 @@ typedef struct s_ray
 	int				step_y;
 	int				side;
 	bool			does_hit;
+	bool			is_door;
 }					t_ray;
 
 typedef struct t_mlx
