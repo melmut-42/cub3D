@@ -87,15 +87,15 @@
 
 // ================= Minimap Constants =================
 
-#define MINIMAP_RADIUS 100
-#define MINIMAP_SCALE 0.2
+#define MINIMAP_RADIUS 65
+#define MINIMAP_SCALE 0.1
 #define MINIMAP_FOV 90
 #define RAY_COUNT 120
-#define RAY_MAX_LEN 5.0
+#define RAY_MAX_LEN 3
 #define RAY_STEP_SIZE 0.05
 
-#define MINIMAP_TILE_SIZE 4
-#define MINIMAP_PLAYER_SIZE 7
+#define MINIMAP_TILE_SIZE 6
+#define MINIMAP_PLAYER_SIZE 4
 
 // ================= Door Constants =================
 
