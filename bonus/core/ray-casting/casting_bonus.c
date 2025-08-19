@@ -35,6 +35,7 @@ static void	init_ray(const t_game *g, const t_player *p,
 		ray->delta_dist.y = fabs(1.0 / ray->dir.y);
 	ray->does_hit = false;
 	ft_bzero(&ray->door_feat, sizeof(t_door_feat));
+	ray->is_door = false;
 }
 
 static void	init_steps(const t_player *p, t_ray *ray)

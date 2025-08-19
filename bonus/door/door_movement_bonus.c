@@ -17,7 +17,7 @@ void	update_doors(t_game *game)
 	t_ms	now;
 	size_t	i;
 
-	now = get_time_ms();
+	now = get_timestamp(game);
 	i = 0;
 	while (i < game->door_count)
 	{

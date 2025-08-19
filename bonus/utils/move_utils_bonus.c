@@ -55,6 +55,7 @@ bool	is_jumping(t_game *g)
 static bool	is_blocking_tile(t_game *g, int x, int y)
 {
 	char	tile;
+	t_door	*door;
 
 	if (x < 0 || y < 0
 		|| x >= (int)g->data.map.width
@@ -63,5 +64,11 @@ static bool	is_blocking_tile(t_game *g, int x, int y)
 	tile = g->data.map.matrix[y][x];
 	if (tile == WALL)
 		return (true);
+	if (tile == DOOR)
+	{
+		door = get_the_door(g, x, y);
+		if (door && door->open != 1)
+			return (true);
+	}
 	return (false);
 }

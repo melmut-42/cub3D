@@ -52,7 +52,7 @@ static bool	load_door_textures(t_game *game)
 	tex = &game->data.texture;
 	i = 0;
 	init_door_paths(tex);
-	while (++i < NUM_DOOR_FRAMES)
+	while (i < NUM_DOOR_FRAMES)
 	{
 		if (!tex->door_paths[i]
 			|| !load_door_frame(game, tex, tex->door_paths[i], i))

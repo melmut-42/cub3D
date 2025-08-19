@@ -2,6 +2,8 @@
 
 t_img	*get_wall_texture(t_game *g, t_ray *ray)
 {
+	if (ray->is_door)
+		return (&g->data.texture.doors[0]);
 	if (ray->side == 0 && ray->dir.x > 0)
 		return (&g->data.texture.textures[EAST]);
 	if (ray->side == 0 && ray->dir.x < 0)

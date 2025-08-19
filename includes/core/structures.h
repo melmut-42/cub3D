@@ -104,11 +104,11 @@
 # define MIN_DOOR_INT_DIST 0.25
 # define DOOR_SPEED 0.5
 
-# define DOOR_FRAME_0 "textures/doors/door0.xpm"
-# define DOOR_FRAME_1 "textures/doors/door1.xpm"
-# define DOOR_FRAME_2 "textures/doors/door2.xpm"
-# define DOOR_FRAME_3 "textures/doors/door3.xpm"
-# define DOOR_FRAME_4 "textures/doors/door4.xpm"
+# define DOOR_FRAME_0 "textures/test_pack/door0.xpm"
+# define DOOR_FRAME_1 "textures/test_pack/door1.xpm"
+# define DOOR_FRAME_2 "textures/test_pack/door2.xpm"
+# define DOOR_FRAME_3 "textures/test_pack/door3.xpm"
+# define DOOR_FRAME_4 "textures/test_pack/door4.xpm"
 
 // ======================================= Enums =======================================
 
@@ -205,15 +205,6 @@ typedef struct s_player
 	double		pitch_angle;
 }				t_player;
 
-typedef struct s_door_feat
-{
-	t_door		*ptr;
-	double		open;
-	double		perp_dist;
-	t_axis_int	pos;
-	int			side;
-}				t_door_feat;
-
 typedef struct s_door
 {
 	t_axis_int	pos;
@@ -222,6 +213,15 @@ typedef struct s_door
 	bool		is_moving;
 	bool		want_open;
 }				t_door;
+
+typedef struct s_door_feat
+{
+	t_door		*ptr;
+	double		open;
+	double		perp_dist;
+	t_axis_int	pos;
+	int			side;
+}				t_door_feat;
 
 typedef struct s_weapon
 {
