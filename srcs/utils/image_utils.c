@@ -15,7 +15,7 @@ int	rgb_to_int(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-void	update_colors(t_texture *texture)
+void	update_colors(t_game *g, t_texture *texture)
 {
 	texture->ceil_color = rgb_to_int(
 			g->data.texture.ceil_rgb[0],

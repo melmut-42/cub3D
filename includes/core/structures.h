@@ -58,6 +58,7 @@
 # define GROUND '0'
 # define WALL '1'
 # define VISITED 'X'
+# define DOOR 'D'
 
 # define COMMA ','
 # define MAP_FILE_EXTENSION ".cub"
@@ -65,53 +66,24 @@
 # define DIR_SET "NSWE"
 # define SPACE_SET " \n\t\v\f\r"
 
-# define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_SPACE 32
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_SHIFT 65505
-# define KEY_UP 65364
-# define KEY_DOWN 65362
-# define KEY_CTRL_L 65507
-# define KEY_CTRL_R 65508
-
-# define MINIMAP_RADIUS 100
-# define MINIMAP_SCALE 0.2
-# define MINIMAP_FOV 90
-# define RAY_COUNT 120
-# define RAY_MAX_LEN 5.0
-# define RAY_STEP_SIZE 0.05
-
-# define GROUND '0'
-# define WALL '1'
-# define VISITED 'X'
-# define DOOR 'D'
-
-# define COMMA	','
-# define MAP_FILE_EXTENSION	".cub"
-
-# define DIR_SET	"NSWE"
-# define SPACE_SET	" \n\t\v\f\r"
-
 
 // ============= Key Codes =============
 
-# define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_SPACE 32
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_SHIFT 65505
-# define KEY_UP 65364
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_E		101
+# define KEY_SPACE	32
+
+# define KEY_UP		65364
 # define KEY_DOWN	65362
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
+
+# define KEY_SHIFT	65505
 # define KEY_CTRL_L	65507
+# define KEY_ESC	65307
 
 // ================= Minimap Constants =================
 
@@ -127,7 +99,16 @@
 
 // ================= Door Constants =================
 
-# define NUM_DOOR_FRAMES 6
+# define NUM_DOOR_FRAMES 5
+# define INTERACT_STEP 0.8
+# define MIN_DOOR_INT_DIST 0.25
+# define DOOR_SPEED 0.5
+
+# define DOOR_FRAME_0 "textures/doors/door0.xpm"
+# define DOOR_FRAME_1 "textures/doors/door1.xpm"
+# define DOOR_FRAME_2 "textures/doors/door2.xpm"
+# define DOOR_FRAME_3 "textures/doors/door3.xpm"
+# define DOOR_FRAME_4 "textures/doors/door4.xpm"
 
 // ======================================= Enums =======================================
 
@@ -169,6 +150,7 @@ typedef struct s_texture
 {
 	t_img			doors[NUM_DOOR_FRAMES];
 	t_img			textures[NUMBER_DIR];
+	char			*door_paths[NUM_DOOR_FRAMES];
 	int				ceil_rgb[RGB_CONSTANT];
 	int				floor_rgb[RGB_CONSTANT];
 	int				ceil_color;

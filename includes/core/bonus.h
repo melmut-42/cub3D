@@ -20,6 +20,9 @@ int		handle_mouse_click(int button, int x, int y, t_game *game);
 void	stand_up(t_player *p, double dt);
 void	jump_event(t_player *p, double dt);
 
-
+bool	init_doors(t_game *game);
+void	update_doors(t_game *game);
+void	handle_door_interact(t_game *g);
+t_img	*get_door_texture(t_game *g, const t_door *door);
 
 #endif

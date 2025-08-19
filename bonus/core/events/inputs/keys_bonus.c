@@ -1,4 +1,5 @@
 #include "game.h"
+#include "bonus.h"
 
 static void	exec_key_rotation(t_game *game, int keycode, int mode);
 
@@ -27,6 +28,8 @@ int	handle_keypress(int keycode, t_game *game)
 		game->player.vertical.crouch_off = CROUCH_SCALE;
 		game->player.vertical.crouch_target = CROUCH_SCALE;
 	}
+	// if (keycode == KEY_E)
+	// 	handle_door_interact(game);
 	exec_key_rotation(game, keycode, 0);
 	return (0);
 }
