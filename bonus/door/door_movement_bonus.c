@@ -9,7 +9,6 @@ t_img	*get_door_texture(t_game *g, const t_door *door)
 	size_t idx;
 
 	idx = door_frame_from_open(door->open);
-	printf("idx: %zu\n", idx);
 	return (&g->data.texture.doors[idx]);
 }
 
@@ -56,9 +55,9 @@ static void	update_single_door(t_door *door, t_ms now)
 	if (!door->is_moving)
 		return ;
 	delta = (now - door->last_touch) / 1000.0;
-	if (delta <= 0.0)
+	if (delta <= 0.25)
 		return ;
-	step = DOOR_SPEED * delta;
+	step = DOOR_SPEED;
 	if (door->want_open)
 		door->open = validate_open(door->open + step);
 	else

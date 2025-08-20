@@ -100,9 +100,9 @@
 // ================= Door Constants =================
 
 # define NUM_DOOR_FRAMES 5
-# define INTERACT_STEP 1.3
+# define INTERACT_STEP 1.8
 # define MIN_DOOR_INT_DIST 0.25
-# define DOOR_SPEED 0.5
+# define DOOR_SPEED 0.2
 
 # define DOOR_FRAME_0 "textures/test_pack/door0.xpm"
 # define DOOR_FRAME_1 "textures/test_pack/door1.xpm"

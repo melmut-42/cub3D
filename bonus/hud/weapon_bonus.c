@@ -26,7 +26,7 @@ static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
 		x = 0;
 		while (x < weapon_img->width)
 		{
-			color = get_pixel_from_img(weapon_img, x, y);
+			color = get_pixel_from_img(weapon_img, x, y); // ! check the transperency adress
 			if (color != 0)
 				ft_put_pixel(&game->mlx->frame_img, x_offset + x,
 					y_offset + y, color);

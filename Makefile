@@ -23,6 +23,8 @@ INIT_DATA_DIR		=	$(INIT_DIR)/data
 OBJ_DIR				=	objs
 OBJ_BONUS_DIR		=	bonus_objs
 
+INCLUDES = 
+
 SRCS				=	$(SRC_DIR)/main.c 							\
 						$(INIT_DIR)/init_game.c						\
 						$(INIT_DIR)/init_player.c					\
@@ -164,6 +166,8 @@ fclean: clean
 
 
 re: fclean all
+
+re_bonus: fclean bonus
 
 # Usage: make valgrind MAP=path/to/map.cub FLAGS=-b # ! DELETE COMMENT, REMOVE ANYWAY LOL # TODO: REMOVE
 valgrind:

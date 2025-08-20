@@ -31,13 +31,8 @@ static void	draw_doors(t_game *game, t_column *col)
 		{
 			draw.tex_y = (int)draw.tex_pos;
 			color = get_pixel_from_img(col->texture, col->texture_x, draw.tex_y);
-			// if ((color & 0xFF000000) == 0)
-			// {
-			// 	draw.tex_pos += draw.step;
-			// 	draw.window_y++;
-			// 	continue;
-			// }
-			ft_put_pixel(&game->mlx->frame_img, col->window_x, draw.window_y, color);
+			if (color != 0)
+				ft_put_pixel(&game->mlx->frame_img, col->window_x, draw.window_y, color);
 		}
 		draw.tex_pos += draw.step;
 		draw.window_y++;
