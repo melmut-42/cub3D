@@ -41,7 +41,7 @@ static size_t	door_frame_from_open(double open)
 	double	valid_open;
 
 	valid_open = validate_open(open);
-	idx = (size_t)(valid_open * (double)(NUM_DOOR_FRAMES - 1) + 0.5);
+	idx = (size_t)floor(valid_open * (double)NUM_DOOR_FRAMES);
 	if (idx >= NUM_DOOR_FRAMES)
 		idx = NUM_DOOR_FRAMES - 1;
 	return (idx);
