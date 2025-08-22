@@ -6,7 +6,7 @@
 
 
 
-NO textures/test/north.xpm
+NO textures/wolfenstein/color_stone.xpm
 
 
 
@@ -15,9 +15,9 @@ NO textures/test/north.xpm
 
 
 
-SO textures/test/south.xpm
-                        WE textures/test/west.xpm
-        EA textures/test/east.xpm            
+SO textures/wolfenstein/eagle.xpm
+                        WE textures/wolfenstein/red_brick.xpm
+        EA textures/wolfenstein/red_brick.xpm            
 
         F 20,           20,             20
 C 200,          200,200

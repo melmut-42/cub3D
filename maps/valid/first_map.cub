@@ -1,12 +1,12 @@
 
 
 
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
+NO ./textures/wolfenstein/blue_stone.xpm
+SO ./textures/wolfenstein/color_stone.xpm
+WE ./textures/wolfenstein/grey_stone.xpm
 
 
-EA ./path_to_the_east_texture
+EA ./textures/wolfenstein/purple_stone.xpm
 
 
 
