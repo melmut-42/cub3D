@@ -185,6 +185,7 @@ test_valid: $(NAME_BONUS)
 	@for map in $(wildcard maps/valid/*.cub); do	\
 		echo "\nRunning with $$map";				\
 		./$(NAME_BONUS) $$map || true;				\
+		sleep 0.25;									\
 	done
 
 # Run all invalid maps
