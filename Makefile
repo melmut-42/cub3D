@@ -179,9 +179,20 @@ valgrind:
 
 mlx: $(MLX)
 
-# TODO: REMOVE
-rem_comments:
-	@echo "Stripping comments with Python..."
-	@/usr/bin/env python3 rem_comments.py
+# Run all valid maps
+test_valid: $(NAME_BONUS)
+	@echo "=== Testing valid maps ==="
+	@for map in $(wildcard maps/valid/*.cub); do	\
+		echo "\nRunning with $$map";				\
+		./$(NAME_BONUS) $$map || true;				\
+	done
 
-.PHONY: all clean fclean re valgrind mlx rem_comments
+# Run all invalid maps
+test_invalid: $(NAME_BONUS)
+	@echo "\n=== Testing invalid maps ==="
+	@for map in $(wildcard maps/invalid/*); do		\
+		echo "\nRunning with $$map";				\
+		./$(NAME_BONUS) $$map || true;				\
+	done
+
+.PHONY: all clean fclean re valgrind mlx test_valid test_invalid
