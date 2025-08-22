@@ -12,6 +12,7 @@
 # define ERR_DATA       "Invalid data found in the map file!"
 # define ERR_RGB        "Invalid RGB value in the map file!"
 # define ERR_ELEM       "Invalid map element found in the map!"
+# define ERR_RGB_COUNT	"Invalid number of RGB values in the map file!"
 
 # define ERR_ACCESS     "Map accessability is incorrect!"
 # define ERR_EMPTY      "Map does not exist in the file!"
