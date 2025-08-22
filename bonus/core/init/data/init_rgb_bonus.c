@@ -2,6 +2,7 @@
 
 static bool	validate_rgb(t_game *game, char **rgb);
 static char	**get_rgb_segments(t_game *game, char *data);
+static bool	check_missing_rgb(t_game *game, char **segment);
 static bool	rgb_already_set(t_game *game, int rgb[RGB_CONSTANT]);
 
 void	process_rgb(t_game *game, int rgb[RGB_CONSTANT], char *data)
@@ -93,5 +94,27 @@ static char	**get_rgb_segments(t_game *game, char *data)
 		game->error_flag = true;
 		return (NULL);
 	}
+	if (!check_missing_rgb(game, segments))
+	{	
+		free_tab(segments);
+		segments = NULL;
+		return (false);
+	}
 	return (segments);
+}
+
+static bool	check_missing_rgb(t_game *game, char **segment)
+{
+	int	rgb_count;
+
+	rgb_count = 0;
+	while (segment[rgb_count])
+		rgb_count++;
+	if (rgb_count != RGB_CONSTANT)
+	{
+		display_error_message(ERR_RGB_COUNT, false);
+		game->error_flag = true;
+		return (false);
+	}
+	return (true);
 }
