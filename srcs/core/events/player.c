@@ -9,17 +9,17 @@ void update_player_movement(t_game *g, t_player *p)
 	strafe.x = -p->dir.y;
 	strafe.y = p->dir.x;
 	if (p->movement[W])
-		attempt_move(map, &p->pos, p->dir.x * p->mov_speed,
+		attempt_move(g, &p->pos, p->dir.x * p->mov_speed,
 			p->dir.y * p->mov_speed);
 	if (p->movement[S])
-		attempt_move(map, &p->pos, -p->dir.x * p->mov_speed,
+		attempt_move(g, &p->pos, -p->dir.x * p->mov_speed,
 			-p->dir.y * p->mov_speed);
 	if (p->movement[D])
-		attempt_move(map, &p->pos, strafe.x * p->mov_speed,
+		attempt_move(g, &p->pos, strafe.x * p->mov_speed,
 			strafe.y * p->mov_speed);
 	if (p->movement[A])
 	{
-		attempt_move(map, &p->pos, -strafe.x * p->mov_speed,
+		attempt_move(g, &p->pos, -strafe.x * p->mov_speed,
 			-strafe.y * p->mov_speed);
 	}
 	yaw(g, p);
