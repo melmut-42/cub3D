@@ -17,6 +17,7 @@ int	gameloop(t_game *game)
 	}
 	jump_event(&game->player, 0.016);
 	stand_up(&game->player, 0.016);
+	update_doors(game);
 	render_game(game);
 	return (0);
 }

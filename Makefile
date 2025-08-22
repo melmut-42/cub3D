@@ -23,6 +23,8 @@ INIT_DATA_DIR		=	$(INIT_DIR)/data
 OBJ_DIR				=	objs
 OBJ_BONUS_DIR		=	bonus_objs
 
+INCLUDES = 
+
 SRCS				=	$(SRC_DIR)/main.c 							\
 						$(INIT_DIR)/init_game.c						\
 						$(INIT_DIR)/init_player.c					\
@@ -71,7 +73,6 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_INIT_DIR)/init_game_bonus.c				\
 						$(B_INIT_DIR)/init_player_bonus.c			\
 						$(B_INIT_DIR)/init_weapon_bonus.c			\
-						$(B_INIT_DIR)/init_door_bonus.c				\
 						$(B_INIT_DATA_DIR)/init_data_bonus.c		\
 						$(B_INIT_DATA_DIR)/init_map_bonus.c			\
 						$(B_INIT_DATA_DIR)/init_rgb_bonus.c			\
@@ -94,7 +95,11 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_HUD_DIR)/hud_bonus.c					\
 						$(B_HUD_DIR)/hud_utils_bonus.c				\
 						$(B_HUD_DIR)/weapon_bonus.c					\
-						$(B_DOOR_DIR)/door_bonus.c					\
+						$(B_DOOR_DIR)/ray_doors_bonus.c				\
+						$(B_DOOR_DIR)/door_movement_bonus.c			\
+						$(B_DOOR_DIR)/interactions_bonus.c			\
+						$(B_DOOR_DIR)/init_doors_bonus.c			\
+						$(B_DOOR_DIR)/draw_doors.c					\
 						$(B_UTIL_DIR)/error_utils_bonus.c			\
 						$(B_UTIL_DIR)/image_utils_bonus.c			\
 						$(B_UTIL_DIR)/texture_utils_bonus.c			\
@@ -161,6 +166,8 @@ fclean: clean
 
 
 re: fclean all
+
+re_bonus: fclean bonus
 
 # Usage: make valgrind MAP=path/to/map.cub FLAGS=-b # ! DELETE COMMENT, REMOVE ANYWAY LOL # TODO: REMOVE
 valgrind:

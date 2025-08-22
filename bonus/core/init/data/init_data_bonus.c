@@ -33,7 +33,6 @@ static bool	process_file_data(t_game *game, const char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("it works\n");
 		display_error_message(ERR_FILE, true);
 		return (false);
 	}

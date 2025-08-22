@@ -57,6 +57,7 @@ static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 	free(line);
 	if (game->error_flag)
 		return (false);
+	update_colors(game, texture);
 	return (true);
 }
 

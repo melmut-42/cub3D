@@ -5,6 +5,7 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 				t_axis_int offset);
 static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset);
 static void	draw_minimap_player(t_img *img, t_axis_int offset);
+static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor, t_axis_int *map);
 
 void	draw_minimap(t_game *g)
 {
@@ -20,27 +21,41 @@ void	draw_minimap(t_game *g)
 }
 
 static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
-		t_axis_int o)
+		t_axis_int offset)
 {
 	t_axis		win;
-	size_t		m_x;
-	size_t		m_y;
-	t_axis_int	p;
-	int			c;
+	t_axis_int	map;
+	t_axis_int	cor;
+	int			center;
 
 	win.x = g->player.pos.x + delta.x * MINIMAP_SCALE;
 	win.y = g->player.pos.y + delta.y * MINIMAP_SCALE;
-	m_x = (size_t)win.x;
-	m_y = (size_t)win.y;
-	c = MINIMAP_RADIUS;
-	p.x = o.x + c + delta.x;
-	p.y = o.y + c + delta.y;
-	if (m_x >= g->data.map.width || m_y >= g->data.map.height)
-		ft_put_pixel(img, p.x, p.y, 0x000000);
-	else if (g->data.map.matrix[m_y][m_x] == WALL)
-		ft_put_pixel(img, p.x, p.y, 0x555555);
+	map.x = (size_t)win.x;
+	map.y = (size_t)win.y;
+	center = MINIMAP_RADIUS;
+	cor.x = offset.x + center + delta.x;
+	cor.y = offset.y + center + delta.y;
+	if ((size_t)map.x >= g->data.map.width || (size_t)map.y >= g->data.map.height)
+		ft_put_pixel(img, cor.x, cor.y, 0x000000);
+	else if (g->data.map.matrix[map.y][map.x] == WALL)
+		ft_put_pixel(img, cor.x, cor.y, 0x555555);
+	else if (g->data.map.matrix[map.y][map.x] == DOOR)
+		draw_door_in_minimap(g, img, &cor, &map);
 	else
-		ft_put_pixel(img, p.x, p.y, 0x222222);
+		ft_put_pixel(img, cor.x, cor.y, 0x222222);
+}
+
+static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor, t_axis_int *map)
+{
+	t_door	*door;
+
+	door = get_the_door(g, map->x, map->y);
+	if (!door)
+		return ;
+	if (door->open == 1.0)
+		ft_put_pixel(img, cor->x, cor->y, 0xff00ff);
+	else
+		ft_put_pixel(img, cor->x, cor->y, 0x40ff00);
 }
 
 static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset)
