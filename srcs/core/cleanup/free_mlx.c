@@ -30,7 +30,6 @@ void	destroy_img(t_game *game)
 	if (game->mlx)
 	{
 		free_textures(game);
-		mlx_mouse_show(game->mlx->mlx_ptr, game->mlx->win_ptr);
 		if (game->mlx->mlx_ptr && game->mlx->win_ptr)
 		{
 			mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);
