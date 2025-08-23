@@ -15,9 +15,9 @@ static void	outline_loop(t_game *game, int x, int y, char *str)
 			if (dx != 0 || dy != 0)
 			{
 				mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr,
-					x + dx, y + dy, 0x000000, str);
+					x + dx, y + dy, COLOR_BLACK, str);
 				mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr,
-					x + dx + 1, y + dy, 0x000000, str);
+					x + dx + 1, y + dy, COLOR_BLACK, str);
 			}
 			dy++;
 		}
@@ -33,9 +33,9 @@ static void	draw_outline(t_game *game, int x, int y, char c)
 	str[1] = '\0';
 	outline_loop(game, x, y, str);
 	mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, y,
-		TEXT_COLOR, str);
+		COLOR_WHITE, str);
 	mlx_string_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x + 1, y,
-		TEXT_COLOR, str);
+		COLOR_WHITE, str);
 }
 
 void	mlx_out_txt(t_game *game, int x, int y, char *str)

@@ -80,7 +80,7 @@ static void	draw_ray_dot(t_img *img, t_axis_int pos)
 		d.x = -1;
 		while (d.x <= 1)
 		{
-			ft_put_pixel(img, pos.x + d.x, pos.y + d.y, 0xCCCC66);
+			ft_put_pixel(img, pos.x + d.x, pos.y + d.y, COLOR_YELLOW);
 			d.x++;
 		}
 		d.y++;

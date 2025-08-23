@@ -42,13 +42,13 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 	else
 		row_len = 0;
 	if ((size_t)map.x >= row_len || (size_t)map.y >= g->data.map.height)
-		ft_put_pixel(img, cor.x, cor.y, 0x000000);
+		ft_put_pixel(img, cor.x, cor.y, COLOR_BLACK);
 	else if (g->data.map.matrix[map.y][map.x] == WALL)
-		ft_put_pixel(img, cor.x, cor.y, 0x555555);
+		ft_put_pixel(img, cor.x, cor.y, COLOR_OFF_GREY);
 	else if (g->data.map.matrix[map.y][map.x] == DOOR)
 		draw_door_in_minimap(g, img, &cor, &map);
 	else
-		ft_put_pixel(img, cor.x, cor.y, 0x222222);
+		ft_put_pixel(img, cor.x, cor.y, COLOR_GREY);
 }
 
 static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor,
@@ -60,9 +60,9 @@ static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor,
 	if (!door)
 		return ;
 	if (door->open == 1.0)
-		ft_put_pixel(img, cor->x, cor->y, 0xff00ff);
+		ft_put_pixel(img, cor->x, cor->y, COLOR_GREEN);
 	else
-		ft_put_pixel(img, cor->x, cor->y, 0x40ff00);
+		ft_put_pixel(img, cor->x, cor->y, COLOR_PINK);
 }
 
 static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset)

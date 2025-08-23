@@ -75,7 +75,7 @@ static void	render_compass(t_game *game, int x, int y, int color)
 
 void	draw_hud(t_game *game)
 {
-	render_fps(game, 10, 20, 0xFFFFFF);
-	render_coordinates(game, 10, 40, 0xFFFFFF);
-	render_compass(game, 10, 60, 0xFFFFFF);
+	render_fps(game, 10, 20, COLOR_WHITE);
+	render_coordinates(game, 10, 40, COLOR_WHITE);
+	render_compass(game, 10, 60, COLOR_WHITE);
 }

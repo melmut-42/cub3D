@@ -3,8 +3,14 @@
 
 # include "structures.h"
 
-# define INF_DIST		1e30
-# define TEXT_COLOR		0xFFFFFF
+# define COLOR_RED		0xFF0000
+# define COLOR_GREY		0x222222
+# define COLOR_PINK		0xff00ff
+# define COLOR_GREEN	0x40ff00
+# define COLOR_WHITE	0xFFFFFF
+# define COLOR_BLACK	0x000000
+# define COLOR_YELLOW	0xCCCC66
+# define COLOR_OFF_GREY	0x555555
 
 // ====================== HUD & Rendering ======================
 void	draw_hud(t_game *game);
