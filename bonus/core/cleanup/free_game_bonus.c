@@ -8,7 +8,7 @@ void	free_game(t_game *game)
 		return ;
 	free_data(&game->data);
 	destroy_img(game);
-	ft_free((void **)&game->weapon);	
+	ft_free((void **)&game->weapon);
 	ft_free((void **)&game);
 }
 

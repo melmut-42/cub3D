@@ -215,7 +215,6 @@ typedef struct s_weapon
 	int		shake_direction_x;
 	int		shake_direction_y;
 	int		weapon_base_y;
-	bool	load_attempted;
 }				t_weapon;
 
 typedef struct s_ray

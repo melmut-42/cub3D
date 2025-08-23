@@ -98,5 +98,4 @@ void	weapon_ctor(t_weapon *weapon)
 	weapon->shake_direction_x = 1;
 	weapon->shake_direction_y = 1;
 	weapon->weapon_base_y = 0;
-	weapon->load_attempted = false;
 }

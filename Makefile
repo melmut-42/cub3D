@@ -166,7 +166,11 @@ re_bonus: fclean bonus
 
 mlx: $(MLX)
 
-# Usage: make valgrind MAP=path/to/map.cub FLAGS=-b # ! DELETE COMMENT, REMOVE ANYWAY LOL # TODO: REMOVE
+mlx_del:
+	@rm -rf $(MLX_DIR)
+	@echo "MLX removed!"
+
+# =============== Usage: make valgrind MAP=path/to/map.cub FLAGS=-b ===============
 valgrind:
 	@if echo "$(FLAGS)" | grep -q "\-b"; then \
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d_bonus $(MAP); \
@@ -219,4 +223,4 @@ test_leaks_valid:	$(NAME)
 		$(MAKE) valgrind MAP=$$map || true;				\
 	done
 
-.PHONY: all clean fclean re mlx
+.PHONY: all clean fclean re mlx mlx_del

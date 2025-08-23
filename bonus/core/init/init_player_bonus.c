@@ -34,8 +34,8 @@ static bool	set_player(t_game *game, t_player *player)
 		{
 			if (is_player(matrix[y][x]))
 			{
-				pos.x = (float)x + 0.5f;
-				pos.y = (float)y + 0.5f;
+				pos.x = x + 0.5;
+				pos.y = y + 0.5;
 				if (!update_player(game, player, pos))
 					return (false);
 			}

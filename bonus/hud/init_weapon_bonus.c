@@ -13,11 +13,10 @@ bool	init_weapon(t_game *game)
 	}
 	game->weapon = weapon;
 	weapon_ctor(weapon);
-	if (!weapon->weapon_img && !weapon->load_attempted)
+	if (!weapon->weapon_img)
 	{
-		weapon->load_attempted = true;
 		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr,
-			WEAPON_TEXT);
+				WEAPON_TEXT);
 		if (!weapon->weapon_img)
 		{
 			display_error_message("Could not load weapon texture!", true);
