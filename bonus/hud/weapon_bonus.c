@@ -26,7 +26,7 @@ static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
 		x = 0;
 		while (x < weapon_img->width)
 		{
-			color = get_pixel_from_img(weapon_img, x, y); // ! check the transperency adress
+			color = get_pixel_from_img(weapon_img, x, y);
 			if (color != 0)
 				ft_put_pixel(&game->mlx->frame_img, x_offset + x,
 					y_offset + y, color);
@@ -87,7 +87,7 @@ void	draw_weapon(t_game *game)
 	{
 		weapon->load_attempted = true;
 		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr,
-        "textures/test_pack/karambit.xpm"); // ? is it efficient??????
+        "textures/test_pack/karambit.xpm");
 		if (!weapon->weapon_img)
 		{
 			display_error_message("Could not load weapon texture!", true);
