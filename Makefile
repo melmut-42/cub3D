@@ -196,4 +196,32 @@ test_invalid: $(NAME_BONUS)
 		./$(NAME_BONUS) $$map || true;				\
 	done
 
+test_leaks_bonus:	$(NAME_BONUS)
+	@echo "\n=== Checking leaks for invalid maps ==="
+	@for map in $(wildcard maps/invalid/*); do			\
+		echo "\nRunning with $$map";					\
+		$(MAKE) valgrind MAP=$$map FLAGS=-b || true;	\
+	done
+
+test_leaks:	$(NAME)
+	@echo "\n=== Checking leaks for invalid maps ==="
+	@for map in $(wildcard maps/invalid/*); do			\
+		echo "\nRunning with $$map";					\
+		$(MAKE) valgrind MAP=$$map || true;				\
+	done
+
+test_leaks_bonus_valid:	$(NAME_BONUS)
+	@echo "\n=== Checking leaks for invalid maps ==="
+	@for map in $(wildcard maps/valid/*); do			\
+		echo "\nRunning with $$map";					\
+		$(MAKE) valgrind MAP=$$map FLAGS=-b || true;	\
+	done
+
+test_leaks_valid:	$(NAME)
+	@echo "\n=== Checking leaks for invalid maps ==="
+	@for map in $(wildcard maps/valid/*); do			\
+		echo "\nRunning with $$map";					\
+		$(MAKE) valgrind MAP=$$map || true;				\
+	done
+
 .PHONY: all clean fclean re valgrind mlx test_valid test_invalid
