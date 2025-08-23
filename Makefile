@@ -72,7 +72,6 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(BONUS_DIR)/minimap/ray_bonus.c			\
 						$(B_INIT_DIR)/init_game_bonus.c				\
 						$(B_INIT_DIR)/init_player_bonus.c			\
-						$(B_INIT_DIR)/init_weapon_bonus.c			\
 						$(B_INIT_DATA_DIR)/init_data_bonus.c		\
 						$(B_INIT_DATA_DIR)/init_map_bonus.c			\
 						$(B_INIT_DATA_DIR)/init_rgb_bonus.c			\

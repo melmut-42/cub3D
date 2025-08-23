@@ -50,7 +50,8 @@ static void	free_doors(t_game *game)
 	while (i < NUM_DOOR_FRAMES)
 	{
 		if (game->data.texture.doors[i].img_ptr)
-			mlx_destroy_image(game->mlx->mlx_ptr, game->data.texture.doors[i].img_ptr);
+			mlx_destroy_image(game->mlx->mlx_ptr,
+				game->data.texture.doors[i].img_ptr);
 		game->data.texture.doors[i].img_ptr = NULL;
 		i++;
 	}

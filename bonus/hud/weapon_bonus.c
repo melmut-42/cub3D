@@ -1,9 +1,31 @@
 #include "game.h"
 #include "bonus.h"
 
-static float	lerp(float start, float end, float t)
+static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img);
+static void	shake_on_movement(t_game *game);
+static void	shake_on_jump(t_game *game);
+
+void	draw_weapon(t_game *game)
 {
-	return (start + (end - start) * t);
+	t_weapon	*weapon;
+
+	weapon = &game->weapon;
+	if (!weapon->weapon_img && !weapon->load_attempted)
+	{
+		weapon->load_attempted = true;
+		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr,
+				"textures/test_pack/karambit.xpm");
+		if (!weapon->weapon_img)
+		{
+			display_error_message("Could not load weapon texture!", true);
+			return ;
+		}
+	}
+	weapon->frame_count++;
+	shake_on_jump(game);
+	if (!is_jumping(game))
+		shake_on_movement(game);
+	shake_weapon(game, weapon, weapon->weapon_img);
 }
 
 static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
@@ -78,25 +100,15 @@ static void	shake_on_movement(t_game *game)
 	}
 }
 
-void	draw_weapon(t_game *game)
+void	weapon_ctor(t_weapon *weapon)
 {
-	t_weapon	*weapon;
-
-	weapon = &game->weapon;
-	if (!weapon->weapon_img && !weapon->load_attempted)
-	{
-		weapon->load_attempted = true;
-		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr,
-				"textures/test_pack/karambit.xpm");
-		if (!weapon->weapon_img)
-		{
-			display_error_message("Could not load weapon texture!", true);
-			return ;
-		}
-	}
-	weapon->frame_count++;
-	shake_on_jump(game);
-	if (!is_jumping(game))
-		shake_on_movement(game);
-	shake_weapon(game, weapon, weapon->weapon_img);
+	weapon->weapon_img = NULL;
+	weapon->frame_count = 0;
+	weapon->jump_frame = 0;
+	weapon->shake_offset_x = 0;
+	weapon->shake_offset_y = 0;
+	weapon->shake_direction_x = 1;
+	weapon->shake_direction_y = 1;
+	weapon->weapon_base_y = 0;
+	weapon->load_attempted = false;
 }

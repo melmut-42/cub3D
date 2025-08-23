@@ -29,3 +29,8 @@ int	get_texture_x(t_game *g, t_ray *ray, t_img *tex)
 		tex_x = tex->width - tex_x - 1;
 	return (tex_x);
 }
+
+float	lerp(float start, float end, float t)
+{
+	return (start + (end - start) * t);
+}
