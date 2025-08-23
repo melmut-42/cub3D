@@ -2,11 +2,11 @@
 
 static double	validate_open(double v);
 static size_t	door_frame_from_open(double open);
-static void	update_single_door(t_door *door, t_ms now);
+static void		update_single_door(t_door *door, t_ms now);
 
 t_img	*get_door_texture(t_game *g, const t_door *door)
 {
-	size_t idx;
+	size_t	idx;
 
 	idx = door_frame_from_open(door->open);
 	return (&g->data.texture.doors[idx]);
@@ -66,5 +66,3 @@ static void	update_single_door(t_door *door, t_ms now)
 		door->is_moving = false;
 	door->last_touch = now;
 }
-
-

@@ -25,7 +25,6 @@ bool	init_mlx(t_game *game, int width, int height, char *title)
 		return (false);
 	}
 	setup_mlx_dimensions(mlx, width, height, title);
-	//mlx_mouse_hide(mlx->mlx_ptr, mlx->win_ptr);
 	game->mlx = mlx;
 	return (true);
 }

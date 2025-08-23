@@ -60,7 +60,7 @@ static void	draw_wall(t_game *g, t_column *col)
 			color = get_pixel_from_img(col->texture, col->texture_x,
 					draw.tex_y);
 			ft_put_pixel(&g->mlx->frame_img, col->window_x, draw.window_y,
-					color);
+				color);
 		}
 		draw.tex_pos += draw.step;
 		(draw.window_y)++;

@@ -5,10 +5,10 @@ static bool	is_blocking_tile(t_game *g, int x, int y);
 
 bool	can_move(t_game *g, double x, double y)
 {
-	int left;
-	int right;
-	int top;
-	int bottom;
+	int	left;
+	int	right;
+	int	top;
+	int	bottom;
 
 	if (x < 0 || y < 0
 		|| x >= g->data.map.width || y >= g->data.map.height)

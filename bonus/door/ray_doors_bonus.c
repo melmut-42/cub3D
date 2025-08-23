@@ -18,9 +18,9 @@ void	update_ray_door(t_game *game, t_ray *ray, int map_y, int map_x)
 	}
 	if (door->open >= 1.0)
 		return ;
-    if (ray->door_feat.ptr)
-        return ;
-    ray->door_feat.ptr = door;
+	if (ray->door_feat.ptr)
+		return ;
+	ray->door_feat.ptr = door;
 	ray->door_feat.ptr = door;
 	ray->door_feat.pos.x = map_x;
 	ray->door_feat.pos.y = map_y;

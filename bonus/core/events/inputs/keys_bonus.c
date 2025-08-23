@@ -2,6 +2,7 @@
 #include "bonus.h"
 
 static void	exec_key_rotation(t_game *game, int keycode, int mode);
+static void	exec_key_special(t_game *game, int keycode);
 
 int	handle_keypress(int keycode, t_game *game)
 {
@@ -15,22 +16,7 @@ int	handle_keypress(int keycode, t_game *game)
 		game->player.movement[A] = 1;
 	if (keycode == KEY_D && !game->player.vertical.in_air)
 		game->player.movement[D] = 1;
-	if (keycode == KEY_SHIFT && !game->player.vertical.in_air
-		&& !game->player.vertical.in_crouch)
-		game->player.mov_speed += game->player.mov_speed / 4;
-	if (keycode == KEY_SPACE && !game->player.vertical.in_air)
-	{
-		game->player.vertical.vertical_vel = JUMP_VELOCITY;
-		game->player.vertical.in_air = true;
-	}
-	if (keycode == KEY_CTRL_L)
-	{
-		game->player.vertical.crouch_off = CROUCH_SCALE;
-		game->player.vertical.crouch_target = CROUCH_SCALE;
-	}
-	if (keycode == KEY_E)
-		handle_door_interact(game);
-	exec_key_rotation(game, keycode, 0);
+	exec_key_special(game, keycode);
 	return (0);
 }
 
@@ -76,6 +62,26 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 		game->player.pitch_angle = MAX_PITCH;
 	if (game->player.pitch_angle < MIN_PITCH)
 		game->player.pitch_angle = MIN_PITCH;
+}
+
+static void	exec_key_special(t_game *game, int keycode)
+{
+	if (keycode == KEY_SHIFT && !game->player.vertical.in_air
+		&& !game->player.vertical.in_crouch)
+		game->player.mov_speed += game->player.mov_speed / 4;
+	if (keycode == KEY_SPACE && !game->player.vertical.in_air)
+	{
+		game->player.vertical.vertical_vel = JUMP_VELOCITY;
+		game->player.vertical.in_air = true;
+	}
+	if (keycode == KEY_CTRL_L)
+	{
+		game->player.vertical.crouch_off = CROUCH_SCALE;
+		game->player.vertical.crouch_target = CROUCH_SCALE;
+	}
+	if (keycode == KEY_E)
+		handle_door_interact(game);
+	exec_key_rotation(game, keycode, 0);
 }
 
 int	handle_mouse_click(int button, int x, int y, t_game *game)

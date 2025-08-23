@@ -2,10 +2,10 @@
 
 bool	can_move(t_game *g, double x, double y)
 {
-	int	tl;
-	int	tr;
-	int	tt;
-	int	tb;
+	int		tl;
+	int		tr;
+	int		tt;
+	int		tb;
 	t_map	*map;
 
 	map = &g->data.map;

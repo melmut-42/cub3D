@@ -5,7 +5,8 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 				t_axis_int offset);
 static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset);
 static void	draw_minimap_player(t_img *img, t_axis_int offset);
-static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor, t_axis_int *map);
+static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor,
+				t_axis_int *map);
 
 void	draw_minimap(t_game *g)
 {
@@ -50,7 +51,8 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 		ft_put_pixel(img, cor.x, cor.y, 0x222222);
 }
 
-static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor, t_axis_int *map)
+static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor,
+				t_axis_int *map)
 {
 	t_door	*door;
 
