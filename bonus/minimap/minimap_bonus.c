@@ -27,6 +27,7 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 	t_axis_int	map;
 	t_axis_int	cor;
 	int			center;
+	size_t		row_len;
 
 	win.x = g->player.pos.x + delta.x * MINIMAP_SCALE;
 	win.y = g->player.pos.y + delta.y * MINIMAP_SCALE;
@@ -35,7 +36,11 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 	center = MINIMAP_RADIUS;
 	cor.x = offset.x + center + delta.x;
 	cor.y = offset.y + center + delta.y;
-	if ((size_t)map.x >= g->data.map.width || (size_t)map.y >= g->data.map.height)
+	if ((size_t)map.y < g->data.map.height && map.y >= 0)
+		row_len = ft_strlen(g->data.map.matrix[map.y]);
+	else
+		row_len = 0;
+	if ((size_t)map.x >= row_len || (size_t)map.y >= g->data.map.height)
 		ft_put_pixel(img, cor.x, cor.y, 0x000000);
 	else if (g->data.map.matrix[map.y][map.x] == WALL)
 		ft_put_pixel(img, cor.x, cor.y, 0x555555);
