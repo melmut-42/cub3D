@@ -17,12 +17,12 @@ t_game	*init_game(char *map_path)
 	game->data.map.map_path = map_path;
 	data_ctor(&game->data);
 	player_ctor(&game->player);
-	weapon_ctor(&game->weapon);
 	game->name = WIN_TITLE;
 	if (!init_data(game) || !init_player(game)
 		|| !check_map(game) || !init_doors(game)
 		|| !init_mlx(game, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE)
-		|| !init_frame_image(game) || !load_game_textures(game))
+		|| !init_frame_image(game) || !load_game_textures(game)
+		|| !init_weapon(game))
 	{
 		free_game(game);
 		return (NULL);

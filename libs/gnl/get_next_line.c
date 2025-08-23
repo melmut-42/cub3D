@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/23 14:43:10 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/08/23 14:43:13 by usogukpi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 int	ft_set_d(char **data)
@@ -22,6 +34,7 @@ char	*ft_free_and_update_repo(char **old, char *new)
 	*old = new;
 	return (new);
 }
+
 char	*ft_free_and_clean(char **data)
 {
 	if (*data)

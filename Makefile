@@ -1,8 +1,5 @@
-# !!!
-# TODO: MAKE SURE THAT THE WILDCARD FOR OBJ FILES IS FINE BY 42NORM
-
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -g
+CFLAGS				=	-Wall -Wextra -Werror
 
 NAME    			=	cub3d
 NAME_BONUS			=	cub3d_bonus
@@ -54,18 +51,18 @@ SRCS				=	$(SRC_DIR)/main.c 							\
 						$(UTIL_DIR)/player_utils.c					\
 						$(UTIL_DIR)/string_utils.c
 
-B_CORE_DIR       	= $(BONUS_DIR)/core
-B_HUD_DIR			= $(BONUS_DIR)/hud
-B_DOOR_DIR			= $(BONUS_DIR)/door
-B_UTIL_DIR       	= $(BONUS_DIR)/utils
-B_INIT_DIR       	= $(BONUS_DIR)/core/init
-B_CHECKER_DIR    	= $(BONUS_DIR)/core/checker
-B_EVENTS_DIR     	= $(BONUS_DIR)/core/events
-B_RAYCAST_DIR    	= $(BONUS_DIR)/core/ray-casting
-B_CLEANUP_DIR    	= $(BONUS_DIR)/core/cleanup
-B_INIT_MLX_DIR   	= $(BONUS_DIR)/core/init/mlx
-B_INIT_DATA_DIR  	= $(BONUS_DIR)/core/init/data
-B_EVENT_INPUT_DIR	= $(BONUS_DIR)/core/events/inputs
+B_CORE_DIR       	= 	$(BONUS_DIR)/core
+B_HUD_DIR			= 	$(BONUS_DIR)/hud
+B_DOOR_DIR			= 	$(BONUS_DIR)/door
+B_UTIL_DIR       	= 	$(BONUS_DIR)/utils
+B_INIT_DIR       	= 	$(BONUS_DIR)/core/init
+B_CHECKER_DIR    	= 	$(BONUS_DIR)/core/checker
+B_EVENTS_DIR     	= 	$(BONUS_DIR)/core/events
+B_RAYCAST_DIR    	= 	$(BONUS_DIR)/core/ray-casting
+B_CLEANUP_DIR    	= 	$(BONUS_DIR)/core/cleanup
+B_INIT_MLX_DIR   	= 	$(BONUS_DIR)/core/init/mlx
+B_INIT_DATA_DIR  	= 	$(BONUS_DIR)/core/init/data
+B_EVENT_INPUT_DIR	= 	$(BONUS_DIR)/core/events/inputs
 
 BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(BONUS_DIR)/minimap/minimap_bonus.c		\
@@ -94,6 +91,7 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_HUD_DIR)/hud_bonus.c					\
 						$(B_HUD_DIR)/hud_utils_bonus.c				\
 						$(B_HUD_DIR)/weapon_bonus.c					\
+						$(B_HUD_DIR)/init_weapon_bonus.c			\
 						$(B_DOOR_DIR)/ray_doors_bonus.c				\
 						$(B_DOOR_DIR)/door_movement_bonus.c			\
 						$(B_DOOR_DIR)/interactions_bonus.c			\
@@ -107,8 +105,8 @@ BONUS_SRCS			=	$(BONUS_DIR)/main_bonus.c					\
 						$(B_UTIL_DIR)/player_utils_bonus.c			\
 						$(B_UTIL_DIR)/string_utils_bonus.c
 
-OBJS				= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-BONUS_OBJS			= $(BONUS_SRCS:$(BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
+OBJS				=	$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+BONUS_OBJS			=	$(BONUS_SRCS:$(BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
 
 MLX_DIR 			=	libs/mlx
 LIBFT_DIR			=	libs/libft
@@ -146,27 +144,27 @@ $(GNL):
 	@$(MAKE) -C $(GNL_DIR)
 
 $(MLX):
-	@if [ ! -d $(MLX_DIR) ]; then \
+	@if [ ! -d $(MLX_DIR) ]; then 											\
 		git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR); \
 	fi
 	@$(MAKE) -C $(MLX_DIR)
 
 clean:
 	@rm -rf $(OBJ_DIR) $(OBJ_BONUS_DIR)
-	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(MLX_DIR) clean
+	@if [ -d "$(MLX_DIR)" ]; then $(MAKE) -C $(MLX_DIR) clean; fi
+	@if [ -d "$(LIBFT_DIR)" ]; then $(MAKE) -C $(LIBFT_DIR) clean; fi
+	@if [ -d "$(GNL_DIR)" ]; then $(MAKE) -C $(GNL_DIR) clean; fi
 
 fclean: clean
-	@rm -f $(NAME)
-	@rm -f $(NAME_BONUS)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@$(MAKE) -C $(MLX_DIR) clean
-	@$(MAKE) -C $(GNL_DIR) fclean
-
+	@rm -f $(NAME) $(NAME_BONUS)
+	@if [ -d "$(LIBFT_DIR)" ]; then $(MAKE) -C $(LIBFT_DIR) fclean; fi
+	@if [ -d "$(GNL_DIR)" ]; then $(MAKE) -C $(GNL_DIR) fclean; fi
 
 re: fclean all
 
 re_bonus: fclean bonus
+
+mlx: $(MLX)
 
 # Usage: make valgrind MAP=path/to/map.cub FLAGS=-b # ! DELETE COMMENT, REMOVE ANYWAY LOL # TODO: REMOVE
 valgrind:
@@ -175,8 +173,6 @@ valgrind:
 	else \
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d $(MAP); \
 	fi
-
-mlx: $(MLX)
 
 # Run all valid maps
 test_valid: $(NAME_BONUS)
@@ -223,4 +219,4 @@ test_leaks_valid:	$(NAME)
 		$(MAKE) valgrind MAP=$$map || true;				\
 	done
 
-.PHONY: all clean fclean re valgrind mlx test_valid test_invalid
+.PHONY: all clean fclean re mlx

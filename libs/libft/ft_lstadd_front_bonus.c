@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:50:18 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:50:21 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/24 20:14:11 by usogukpi          #+#    #+#             */
+/*   Updated: 2024/10/24 20:14:13 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	len;
-
-	if (!s)
+	if (!lst || !new)
 		return ;
-	if (s)
-	{
-		len = ft_strlen(s);
-		write(fd, s, len);
-		write(fd, "\n", 1);
-	}
+	new -> next = *lst;
+	*lst = new;
 }

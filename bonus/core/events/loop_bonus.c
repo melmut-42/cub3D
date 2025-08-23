@@ -27,7 +27,8 @@ static void	render_game(t_game *game)
 	render_scene(game);
 	draw_minimap(game);
 	draw_hud(game);
-	draw_weapon(game);
+	if (game->weapon)
+		draw_weapon(game);
 }
 
 static void	render_scene(t_game *game)

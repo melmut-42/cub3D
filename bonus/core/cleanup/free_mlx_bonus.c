@@ -23,20 +23,14 @@ static void	free_walls(t_game *game)
 
 static void	free_weapon(t_game *game)
 {
-	if (!game || !game->mlx || !game->mlx->mlx_ptr)
+	if (!game || !game->mlx || !game->mlx->mlx_ptr || !game->weapon)
 		return ;
-	if (game->mlx->frame_img.img_ptr)
+	if (game->weapon->weapon_img && game->weapon->weapon_img->img_ptr)
 	{
 		mlx_destroy_image(game->mlx->mlx_ptr,
-			game->mlx->frame_img.img_ptr);
-		game->mlx->frame_img.img_ptr = NULL;
-	}
-	if (game->weapon.weapon_img && game->weapon.weapon_img->img_ptr)
-	{
-		mlx_destroy_image(game->mlx->mlx_ptr,
-			game->weapon.weapon_img->img_ptr);
-		free(game->weapon.weapon_img);
-		game->weapon.weapon_img = NULL;
+			game->weapon->weapon_img->img_ptr);
+		free(game->weapon->weapon_img);
+		game->weapon->weapon_img = NULL;
 	}
 }
 
@@ -62,8 +56,14 @@ static void	free_doors(t_game *game)
 void	free_textures(t_game *game)
 {
 	free_walls(game);
-	free_weapon(game);
 	free_doors(game);
+	free_weapon(game);
+	if (game->mlx->frame_img.img_ptr)
+	{
+		mlx_destroy_image(game->mlx->mlx_ptr,
+			game->mlx->frame_img.img_ptr);
+		game->mlx->frame_img.img_ptr = NULL;
+	}
 }
 
 void	destroy_img(t_game *game)
