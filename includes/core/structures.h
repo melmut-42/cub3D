@@ -66,7 +66,6 @@
 # define DIR_SET "NSWE"
 # define SPACE_SET " \n\t\v\f\r"
 
-
 // ============= Key Codes =============
 
 # define KEY_W		119
@@ -87,15 +86,15 @@
 
 // ================= Minimap Constants =================
 
-#define MINIMAP_RADIUS 65
-#define MINIMAP_SCALE 0.1
-#define MINIMAP_FOV 90
-#define RAY_COUNT 120
-#define RAY_MAX_LEN 3
-#define RAY_STEP_SIZE 0.05
+# define MINIMAP_RADIUS 65
+# define MINIMAP_SCALE 0.1
+# define MINIMAP_FOV 90
+# define RAY_COUNT 120
+# define RAY_MAX_LEN 3
+# define RAY_STEP_SIZE 0.05
 
-#define MINIMAP_TILE_SIZE 6
-#define MINIMAP_PLAYER_SIZE 4
+# define MINIMAP_TILE_SIZE 6
+# define MINIMAP_PLAYER_SIZE 4
 
 // ================= Door Constants =================
 
@@ -110,9 +109,9 @@
 # define DOOR_FRAME_3 "textures/test_pack/door3.xpm"
 # define DOOR_FRAME_4 "textures/test_pack/door4.xpm"
 
-// ======================================= Enums =======================================
+// ====================== Enums ======================
 
-typedef enum	e_directions
+typedef enum e_directions
 {
 	NORTH,
 	SOUTH,
@@ -125,7 +124,7 @@ typedef enum	e_directions
 
 typedef uint64_t	t_ms;
 
-typedef struct	s_draw_util
+typedef struct s_draw_util
 {
 	int		center;
 	int		tex_y;
@@ -192,9 +191,9 @@ typedef struct s_axis_int
 
 typedef struct s_vertical
 {
-	double  jump_off;
-	double  crouch_off;
-	double  crouch_target;
+	double	jump_off;
+	double	crouch_off;
+	double	crouch_target;
 	double	vertical_pos;
 	double	vertical_vel;
 	bool	in_air;
