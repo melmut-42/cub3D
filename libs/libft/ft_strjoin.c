@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:51:22 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:51:24 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:52:18 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/16 16:06:42 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,29 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	total_size;
-	char	*arr;
-	size_t	i;
-	size_t	arr_index;
+	int		i;
+	int		len1;
+	int		len2;
+	char	*str;
 
-	i = 0;
-	arr_index = 0;
-	total_size = ft_strlen(s1) + ft_strlen(s2) + 1;
-	arr = malloc(total_size);
-	if (arr == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
+	if (s1 && s2)
 	{
-		arr[arr_index++] = s1[i];
-		i++;
+		len1 = ft_strlen(s1);
+		len2 = ft_strlen(s2);
+		str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+		if (str == NULL)
+			return (NULL);
+		i = -1;
+		while (s1[++i])
+			str[i] = s1[i];
+		i = -1;
+		while (s2[++i])
+		{
+			str[len1] = s2[i];
+			len1++;
+		}
+		str[len1] = '\0';
+		return (str);
 	}
-	i = 0;
-	while (s2[i] != '\0')
-	{
-		arr[arr_index++] = s2[i];
-		i++;
-	}
-	arr[arr_index] = '\0';
-	return (arr);
+	return (NULL);
 }

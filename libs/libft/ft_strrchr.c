@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:52:08 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:52:10 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:53:01 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/12 14:25:11 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *str, int c)
 {
-	int				index;
-	unsigned char	new_c;
+	unsigned char	ch;
+	char			*ptr;
+	size_t			index;
 
-	new_c = (unsigned char) c;
-	index = ft_strlen(s);
-	if (s[index] == new_c)
-		return ((char *) &s[index]);
-	while (index >= 0)
+	index = ft_strlen(str);
+	ch = (unsigned char)c;
+	ptr = (char *)str + index;
+	if (ch == '\0')
+		return (ptr++);
+	while (ptr >= str)
 	{
-		if (s[index] == new_c)
-			return ((char *)(s + index));
-		index--;
+		if (*ptr == ch)
+			return (ptr);
+		ptr--;
 	}
-	return (NULL);
+	ptr = NULL;
+	return (ptr);
 }

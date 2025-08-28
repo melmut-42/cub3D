@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:12:38 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:12:40 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 13:07:29 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/12 10:37:58 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t num, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
-	unsigned char	*p;
-	size_t			total;
+	void	*mem;
+	size_t	total_size;
 
-	total = num * size;
-	p = malloc(total);
-	if (p == NULL)
+	total_size = count * size;
+	mem = malloc(total_size);
+	if (!mem)
 		return (NULL);
-	ft_bzero(p, total);
-	return (p);
+	ft_bzero(mem, total_size);
+	return (mem);
 }

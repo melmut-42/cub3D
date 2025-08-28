@@ -3,50 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:52:23 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:52:26 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:53:10 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/16 16:23:53 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char static	*ft_zero_exception_handle(void)
-{
-	char	*arr;
-
-	arr = malloc(1);
-	if (!arr)
-		return (NULL);
-	arr[0] = '\0';
-	return (arr);
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	char	*arr;
+	char	*new;
+	size_t	slen;
+	size_t	finish;
 
 	if (!s)
-		return (NULL);
-	if (start > ft_strlen(s))
+		return (0);
+	slen = ft_strlen(s);
+	if (start >= slen)
 	{
-		arr = ft_zero_exception_handle();
-		return (arr);
+		new = (char *)malloc(sizeof(char));
+		if (!new)
+			return (0);
+		new[0] = '\0';
+		return (new);
 	}
-	if (start + len > ft_strlen(s))
-		arr = malloc(ft_strlen(s) - start + 1);
-	else
-		arr = malloc(len + 1);
-	if (!arr)
-		return (NULL);
-	i = 0;
-	while (i < len && s[start + i] != '\0')
-	{
-		arr[i] = s[start + i];
-		i++;
-	}
-	arr[i] = '\0';
-	return (arr);
+	finish = slen - start;
+	if (finish > len)
+		finish = len;
+	new = (char *)malloc(sizeof(char) * (finish + 1));
+	if (!new)
+		return (0);
+	ft_strlcpy(new, s + start, finish + 1);
+	return (new);
 }

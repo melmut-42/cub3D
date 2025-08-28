@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:48:54 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:48:56 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 13:57:51 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/18 17:03:28 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	if (!lst)
-		return (NULL);
-	while (lst -> next)
-	{
-		lst = lst -> next;
-	}
+	while (lst && lst->next)
+		lst = lst->next;
 	return (lst);
 }

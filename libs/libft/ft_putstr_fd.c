@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:50:47 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:50:49 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:51:45 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/18 16:53:28 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	len;
-
 	if (!s)
 		return ;
-	if (s)
+	while (*s != '\0')
 	{
-		len = ft_strlen(s);
-		write(fd, s, len);
+		ft_putchar_fd(*s, fd);
+		s++;
 	}
 }

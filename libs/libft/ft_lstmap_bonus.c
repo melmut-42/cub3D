@@ -1,51 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:49:04 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:49:06 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:51:02 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/16 16:36:59 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void static	ft_lstmap_helper_func(t_list **head, t_list **lst, t_list *new_node)
-{
-	t_list	*temp;
-
-	temp = *lst;
-	ft_lstadd_back(head, new_node);
-	*lst = temp -> next;
-}
-
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*head;
-	t_list	*new_node;
-	void	*new_content;
+	t_list	*new_list;
+	t_list	*new_obj;
 
 	if (!lst || !f || !del)
 		return (NULL);
-	head = NULL;
+	new_list = NULL;
 	while (lst)
 	{
-		new_content = f(lst->content);
-		if (!new_content)
+		new_obj = ft_lstnew(f(lst->content));
+		if (!new_obj)
 		{
-			ft_lstclear(&head, del);
+			ft_lstclear(&new_list, del);
 			return (NULL);
 		}
-		new_node = ft_lstnew(new_content);
-		if (!new_node)
-		{
-			free(new_content);
-			ft_lstclear(&head, del);
-			return (NULL);
-		}
-		ft_lstmap_helper_func(&head, &lst, new_node);
+		ft_lstadd_back(&new_list, new_obj);
+		lst = lst->next;
 	}
-	return (head);
+	return (new_list);
 }

@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:52:37 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:52:39 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:53:18 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/18 17:15:03 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_toupper(int c)
 {
-	if (c >= 97 && c <= 122)
-	{
+	if (c >= 'a' && c <= 'z')
 		c -= 32;
-		return (c);
-	}
-	else
-		return (c);
+	return (c);
 }

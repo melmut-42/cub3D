@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 19:21:07 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 19:21:11 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:50:12 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/07 11:50:13 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isprint(int c)
 {
-	if (c >= 32 && c <= 126)
-		return (1);
-	else
-		return (0);
+	if (c >= ' ' && c <= '~')
+		return (c);
+	return (0);
 }

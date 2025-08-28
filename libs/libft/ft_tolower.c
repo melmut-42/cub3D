@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:52:30 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:52:33 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:53:15 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/18 17:15:06 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_tolower(int c)
 {
-	if (c >= 65 && c <= 90)
-	{
+	if (c >= 'A' && c <= 'Z')
 		c += 32;
-		return (c);
-	}
-	else
-		return (c);
+	return (c);
 }

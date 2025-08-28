@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 20:51:17 by usogukpi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:51:18 by usogukpi         ###   ########.fr       */
+/*   Created: 2024/10/07 11:52:15 by mmunajed          #+#    #+#             */
+/*   Updated: 2024/10/07 13:29:33 by mmunajed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int	i;
+	unsigned int	i;
 
-	i = 0;
 	if (!s || !f)
 		return ;
-	while (s[i] != '\0')
+	i = 0;
+	while (*s)
 	{
-		f(i, &s[i]);
+		f(i, s);
+		s++;
 		i++;
 	}
 }
