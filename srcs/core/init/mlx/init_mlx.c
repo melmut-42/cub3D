@@ -2,28 +2,22 @@
 
 static void	setup_mlx_dimensions(t_mlx *mlx, int w, int h, char *title);
 
-// * Sets up the mlx structure and creates a new window
 bool	init_mlx(t_game *game, int width, int height, char *title)
 {
 	t_mlx	*mlx;
 
-	// Allocate memory for the mlx structure
 	mlx = (t_mlx *)ft_calloc(1, sizeof(t_mlx));
 	if (!mlx)
 	{
 		display_error_message(ERR_MLX, true);
 		return (false);
 	}
-
-	// Initialize the mlx structure
 	mlx->mlx_ptr = mlx_init();
 	if (!mlx->mlx_ptr)
 	{
 		display_error_message(ERR_MLX, true);
 		return (false);
 	}
-
-	// Create a new window with the given dimensions and title
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, width, height, title);
 	if (!mlx->win_ptr)
 	{
@@ -31,43 +25,35 @@ bool	init_mlx(t_game *game, int width, int height, char *title)
 		return (false);
 	}
 	setup_mlx_dimensions(mlx, width, height, title);
-	// ! CAUSES LEAK, LIKE BRO MLX YOU OK?
-	// mlx_mouse_hide(mlx->mlx_ptr, mlx->win_ptr);
+	mlx_mouse_hide(mlx->mlx_ptr, mlx->win_ptr);
 	game->mlx = mlx;
-
 	return (true);
 }
 
-// * Initializes the frame image for rendering
 bool	init_frame_image(t_game *game)
 {
 	t_img	*frame_img;
-	
-	// Check if the game and mlx structures are initialized
+
 	frame_img = &game->mlx->frame_img;
-	frame_img->img_ptr = mlx_new_image(game->mlx->mlx_ptr, game->mlx->width, game->mlx->height);
+	frame_img->img_ptr = mlx_new_image(game->mlx->mlx_ptr,
+			game->mlx->width, game->mlx->height);
 	if (!frame_img->img_ptr)
 	{
 		display_error_message(ERR_MLX, true);
 		return (false);
 	}
-
-	// Get the address of the image data
-	frame_img->addr = mlx_get_data_addr(frame_img->img_ptr, &frame_img->bpp, &frame_img->line_len, &frame_img->endian);
+	frame_img->addr = mlx_get_data_addr(frame_img->img_ptr, &frame_img->bpp,
+			&frame_img->line_len, &frame_img->endian);
 	if (!frame_img->addr)
 	{
 		display_error_message(ERR_MLX, true);
 		return (false);
 	}
-
-	// Set the width and height of the frame image
 	frame_img->width = game->mlx->width;
 	frame_img->height = game->mlx->height;
-
 	return (true);
 }
 
-// * Store dimensions and title
 static void	setup_mlx_dimensions(t_mlx *mlx, int w, int h, char *title)
 {
 	mlx->width = w;

@@ -1,6 +1,5 @@
 *.o
 *.a
-cub3d
-cub3d_bonus
+cub3D
 .vscode
 libs/mlx

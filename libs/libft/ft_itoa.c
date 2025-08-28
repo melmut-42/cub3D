@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 20:13:44 by usogukpi          #+#    #+#             */
+/*   Updated: 2024/10/24 20:13:46 by usogukpi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int	ft_digit_len(int n)
+int static	ft_digit_len(int n)
 {
 	int	i;
 
@@ -17,7 +29,7 @@ static int	ft_digit_len(int n)
 	return (i);
 }
 
-static char	*ft_itoa_negatives(int n, int digit_len)
+char static	*ft_itoa_negatives(int n, int digit_len)
 {
 	char	*arr;
 

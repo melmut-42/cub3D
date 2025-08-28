@@ -4,7 +4,6 @@ static bool	skip_map_line(t_game *game, int fd);
 static bool	matrix_realloc(t_game *game, t_map *map, char *line);
 static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *line);
 
-// * Processes the map data from FD and populates the map struct
 bool	process_map_data(t_game *game, t_map *map, int fd)
 {
 	char	*line;
@@ -12,15 +11,12 @@ bool	process_map_data(t_game *game, t_map *map, int fd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		// Skip empty lines or lines with only spaces
 		if (is_fully_space(line))
 			free(line);
 		else if (!process_map_matrix(game, map, fd, line))
 			return (false);
-
 		line = get_next_line(fd);
 	}
-
 	if (!map->matrix)
 	{
 		display_error_message(ERR_EMPTY, false);
@@ -30,7 +26,6 @@ bool	process_map_data(t_game *game, t_map *map, int fd)
 	return (true);
 }
 
-// * Removes trailing spaces from the line
 static void	ft_rtrim(char *line)
 {
 	int	i;
@@ -43,7 +38,6 @@ static void	ft_rtrim(char *line)
 	}
 }
 
-// * Processes the map matrix by reading lines from FD
 static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *line)
 {
 	char	*trimmed;
@@ -55,30 +49,24 @@ static bool	process_map_matrix(t_game *game, t_map *map, int fd, char *line)
 			free(line);
 			return (skip_map_line(game, fd));
 		}
-
 		ft_rtrim(line);
 		trimmed = ft_strdup(line);
 		free(line);
-
 		if (!trimmed)
 		{
 			display_error_message(ERR_GAME, true);
 			game->error_flag = true;
 			return (false);
 		}
-
 		if (!matrix_realloc(game, map, trimmed))
 			return (false);
-
 		if (game->error_flag)
 			return (false);
-
 		line = get_next_line(fd);
 	}
 	return (true);
 }
 
-// * Reallocates the map matrix to accommodate a new line
 static bool	matrix_realloc(t_game *game, t_map *map, char *line)
 {
 	char	**new_matrix;
@@ -87,7 +75,6 @@ static bool	matrix_realloc(t_game *game, t_map *map, char *line)
 	map->height++;
 	if (ft_strlen(line) > map->width)
 		map->width = ft_strlen(line);
-
 	new_matrix = ft_calloc(map->height + 1, sizeof(char *));
 	if (!new_matrix)
 	{
@@ -96,15 +83,12 @@ static bool	matrix_realloc(t_game *game, t_map *map, char *line)
 		display_error_message(ERR_GAME, true);
 		return (false);
 	}
-
 	i = 0;
-	while (i < map->height - 1) // Copy existing lines
+	while (i < map->height - 1)
 	{
 		new_matrix[i] = map->matrix[i];
 		i++;
 	}
-
-	// Add the new line and terminate the array
 	new_matrix[i++] = line;
 	new_matrix[i] = NULL;
 	free(map->matrix);
@@ -112,7 +96,6 @@ static bool	matrix_realloc(t_game *game, t_map *map, char *line)
 	return (true);
 }
 
-// * Skips lines in the map file until a non-empty line is found
 static bool	skip_map_line(t_game *game, int fd)
 {
 	char	*line;

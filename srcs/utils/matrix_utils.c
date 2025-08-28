@@ -1,6 +1,5 @@
 #include "game.h"
 
-// * Copies the given matrix into a new one, allocating memory for each row.
 char	**copy_matrix(t_game *game, char **matrix)
 {
 	char	**copy;
@@ -13,7 +12,6 @@ char	**copy_matrix(t_game *game, char **matrix)
 		display_error_message(ERR_GAME, true);
 		return (NULL);
 	}
-
 	i = 0;
 	while (matrix[i])
 	{
@@ -27,6 +25,5 @@ char	**copy_matrix(t_game *game, char **matrix)
 		}
 		i++;
 	}
-
 	return (copy);
 }

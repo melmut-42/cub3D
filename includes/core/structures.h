@@ -1,100 +1,12 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-# include <stdint.h> 
+# include <stdint.h>
 # include <stddef.h>
+# include <stdbool.h>
+# include "./macros.h"
 
-// ============= Window Constants =============
-
-# define WIN_TITLE	"Cub3D"
-# define WIN_WIDTH	1024
-# define WIN_HEIGHT	768
-
-// TODO: Check whether this is a macro or not (forbidden)
-# define MID_POINT_X	WIN_WIDTH / 2
-# define MID_POINT_Y	WIN_HEIGHT / 2
-# define PLAYER_MARGIN 0.25
-
-# define TARGET_FPS	100
-
-// ============= Game Physics Constants =============
-
-# define W	0
-# define S	1
-# define D	2
-# define A	3
-
-# define SENS_X	0.05
-# define SENS_Y	0.6
-
-# define INITIAL_SPEED	0.04
-
-// ============= Rotation Constants =============
-
-# define NUM_OF_DEGREE	360
-
-# define MAX_PITCH	500.0
-# define MIN_PITCH	-500.0
-# define MAX_VERTICAL_DELTA	50
-
-// ============= Vertical Constants =============
-
-# define GRAVITY        90.0
-# define JUMP_VELOCITY  60.0
-# define JUMP_SCALE     5
-
-# define CROUCH_SCALE		40.0
-# define CROUCH_OUT_SPEED	150.0
-
-// ============= Map Elements =============
-
-# define NPOS	-1
-
-# define NUMBER_DIR	4
-
-# define RGB_CONSTANT	3
-# define RGB_MIN_VAL	0
-# define RGB_MAX_VAL	255
-
-# define NORTH_ABB		"NO"
-# define SOUTH_ABB		"SO"
-# define WEST_ABB		"WE"
-# define EAST_ABB		"EA"
-# define FLOOR_ABB		"F"
-# define CEILING_ABB	"C"
-
-# define GROUND		'0'
-# define WALL		'1'
-# define VISITED	'X'
-
-# define COMMA	','
-# define MAP_FILE_EXTENSION	".cub"
-
-# define DIR_SET	"NSWE"
-# define SPACE_SET	" \n\t\v\f\r"
-
-
-// ============= Key Codes =============
-
-# define KEY_ESC	65307
-# define KEY_W		119
-# define KEY_A		97
-# define KEY_S		115
-# define KEY_D		100
-# define KEY_SPACE	32
-# define KEY_LEFT	65361
-# define KEY_RIGHT	65363
-# define KEY_SHIFT	65505
-# define KEY_UP		65364
-# define KEY_DOWN	65362
-# define KEY_CTRL_L	65507
-# define KEY_CTRL_R	65508
-
-
-// ======================================= Enums =======================================
-
-// * Defines the possible directions for map parsing and texture loading
-typedef enum	e_directions
+typedef enum e_directions
 {
 	NORTH,
 	SOUTH,
@@ -105,131 +17,172 @@ typedef enum	e_directions
 	NONE
 }					t_dir;
 
-// ======================================= Structures =======================================
+typedef uint64_t	t_ms;
 
-typedef uint64_t t_ms;
-
-// * Represents an image in memory with its properties
-typedef struct	s_img
+typedef struct s_draw_util
 {
-	void			*img_ptr;		// pointer to image in memory
-	char			*addr;			// pointer to the image data
-	int				bpp;			// bits per pixel
-	int				endian;			// endianess of the image data
-	int				line_len;		// length of a line in bytes
-	int				width;			// width of the image
-	int				height;			// height of the image
+	int		center;
+	int		tex_y;
+	int		window_y;
+	double	tex_pos;
+	double	step;
+}			t_draw_util;
+
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		endian;
+	int		line_len;
+	int		width;
+	int		height;
 }					t_img;
 
-// * Represents a column of pixels in the 3D rendering
 typedef struct s_column
 {
-	t_img			*texture;       // Texture to sample from
-	int				screen_x;       // Screen column (X) being rendered
-	int				pixel_top;      // Start of the wall slice on screen
-	int				pixel_bottom;   // End of the wall slice on screen
-	int				texture_x;      // X coordinate in the texture
-	int				wall_height;    // Projected height of the wall
+	t_img	*texture;
+	int		window_x;
+	int		pixel_top;
+	int		pixel_bottom;
+	int		texture_x;
+	int		wall_height;
 }					t_column;
 
-// * Represents a texture with paths for different directions and RGB values for ceiling and floor
 typedef struct s_texture
 {
-	char			*no_path;
-	char			*so_path;
-	char			*we_path;
-	char			*ea_path;
-	int				ceil_rgb[RGB_CONSTANT];
-	int				floor_rgb[RGB_CONSTANT];
-	t_img			textures[NUMBER_DIR];		// array of textures for different directions
+	t_img	doors[NUM_DOOR_FRAMES];
+	t_img	textures[NUMBER_DIR];
+	char	*door_paths[NUM_DOOR_FRAMES];
+	int		ceil_rgb[RGB_CONSTANT];
+	int		floor_rgb[RGB_CONSTANT];
+	int		ceil_color;
+	int		floor_color;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
 }					t_texture;
 
-// * Represents a map with height, path to the map file, and a 2D matrix of characters
 typedef struct s_map
 {
-	size_t			height;
-	size_t			width;
-	char			*map_path;
-	char			**matrix;
+	char	**matrix;
+	char	*map_path;
+	size_t	height;
+	size_t	width;
 }					t_map;
 
-// * Represents a 2D axis with x and y coordinates
 typedef struct s_axis
 {
 	double				x;
 	double				y;
 }					t_axis;
 
-// * Represents the vertical state of the player
-typedef struct		s_vertical
+typedef struct s_axis_int
 {
-	bool	in_air;
-	bool	in_crouch;
-	double  jump_off;
-	double  crouch_off;
-	double  crouch_target;
+	int				x;
+	int				y;
+}					t_axis_int;
+
+typedef struct s_vertical
+{
+	double	jump_off;
+	double	crouch_off;
+	double	crouch_target;
 	double	vertical_pos;
 	double	vertical_vel;
+	bool	in_air;
+	bool	in_crouch;
 }					t_vertical;
 
-// * Holds direction, position, movement flags, and camera settings
-typedef struct	s_player
+typedef struct s_player
 {
+	t_vertical	vertical;
 	int			movement[NUMBER_DIR];
-	double		mov_speed;		// movement speed
-	double		pitch_angle;	// vertical look angle (up/down)
-	t_axis		dir;			// camera direction vector
-	t_axis		plane;			// camera plane vector
-	t_axis		pos;			// player position in the map
-	t_axis		rot;			// rotation vector
-	t_axis		sens;			// sensitivity vector
-	t_vertical	vertical;		// vertical attributes
+	t_axis		dir;
+	t_axis		plane;
+	t_axis		pos;
+	t_axis		rot;
+	t_axis		sens;
+	double		mov_speed;
+	double		pitch_angle;
 }				t_player;
 
-// * Ray structure for raycasting
+typedef struct s_door
+{
+	t_axis_int	pos;
+	t_ms		last_touch;
+	double		open;
+	bool		is_moving;
+	bool		want_open;
+}				t_door;
+
+typedef struct s_door_feat
+{
+	t_door		*ptr;
+	double		open;
+	double		perp_dist;
+	t_axis_int	pos;
+	int			side;
+}				t_door_feat;
+
+typedef struct s_weapon
+{
+	t_img	*weapon_img;
+	int		frame_count;
+	int		jump_frame;
+	int		shake_offset_x;
+	int		shake_offset_y;
+	int		shake_direction_x;
+	int		shake_direction_y;
+	int		weapon_base_y;
+}				t_weapon;
+
 typedef struct s_ray
 {
-	t_axis			dir;				// ray direction
-	t_axis			map;				// which coordinates of the map we are in
-	t_axis			side_dist;			// length of ray from current pos to next x or y-side
-	t_axis			delta_dist;			// length of ray from one x or y-side to next x or y-side
-	double			perp_wall_dist;		// distance to wall (corrected)
-    int     		step_x;      		// Direction to step in x: +1 (east) or –1 (west)
-    int     		step_y;         	// Direction to step in y: +1 (south) or –1 (north)
-	bool			does_hit;			// was there a wall hit?
-	int				side;				// was a NS or EW wall hit? 0 = vertical (NS), 1 = horizontal (EW)
+	t_door_feat	door_feat;
+	t_axis		dir;
+	t_axis		side_dist;
+	t_axis		delta_dist;
+	t_axis_int	pos;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			side;
+	bool		does_hit;
+	bool		is_door;
 }					t_ray;
 
-// * Main structure for the MLX window and images
-typedef struct	t_mlx
+typedef struct t_mlx
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	char		*title;
-	int			width;
-	int			height;
-	t_img		frame_img;		// image structure for the frame (main screen buffer)
-	t_img		minimap_img;	// image structure for the minimap
+	void	*mlx_ptr;
+	void	*win_ptr;
+	char	*title;
+	int		width;
+	int		height;
+	t_img	frame_img;
+
 }				t_mlx;
 
-// * Main game data structure regarding textures and tables
-typedef	struct	s_data
+typedef struct s_data
 {
-	t_map			map;
-	t_texture		texture;
-	double			cos_table[NUM_OF_DEGREE];
-	double			sin_table[NUM_OF_DEGREE];
+	double		sin_table[NUM_OF_DEGREE];
+	double		cos_table[NUM_OF_DEGREE];
+	t_map		map;
+	t_texture	texture;
 }					t_data;
 
-// * Main game structure that holds all game-related data
 typedef struct s_game
 {
-	char		*name;
-	bool		error_flag;
-	t_ms		last_update;
 	t_mlx		*mlx;
+	char		*name;
+	size_t		door_count;
+	t_door		*doors;
+	t_weapon	*weapon;
 	t_data		data;
 	t_player	player;
+	t_ms		last_update;
+	bool		error_flag;
 }				t_game;
 
 #endif
