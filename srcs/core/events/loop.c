@@ -26,9 +26,13 @@ static void	render_game(t_game *game)
 {
 	render_scene(game);
 	draw_minimap(game);
-	draw_hud(game);
 	if (game->weapon)
 		draw_weapon(game);
+	mlx_put_image_to_window(game->mlx->mlx_ptr,
+		game->mlx->win_ptr,
+		game->mlx->frame_img.img_ptr,
+		0, 0);
+	draw_hud(game);
 }
 
 static void	render_scene(t_game *game)
@@ -45,8 +49,4 @@ static void	render_scene(t_game *game)
 		draw_column(game, &ray, i);
 		i++;
 	}
-	mlx_put_image_to_window(game->mlx->mlx_ptr,
-		game->mlx->win_ptr,
-		game->mlx->frame_img.img_ptr,
-		0, 0);
 }
