@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static void	render_fps(t_game *game, int x, int y, int color)
 {

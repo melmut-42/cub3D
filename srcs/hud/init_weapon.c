@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 bool	init_weapon(t_game *game)
 {
@@ -16,7 +16,7 @@ bool	init_weapon(t_game *game)
 	if (!weapon->weapon_img)
 	{
 		weapon->weapon_img = xpm_to_img(game->mlx->mlx_ptr,
-				WEAPON_TEXT);
+				WEAPON_PATH);
 		if (!weapon->weapon_img)
 		{
 			display_error_message("Could not load weapon texture!", true);

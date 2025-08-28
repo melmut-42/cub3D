@@ -1,6 +1,8 @@
 #include "game.h"
 
+
 static void	render_scene(t_game *game);
+static void	render_game(t_game *game);
 
 int	gameloop(t_game *game)
 {
@@ -13,8 +15,20 @@ int	gameloop(t_game *game)
 	{
 		update_player_movement(game, &game->player);
 	}
-	render_scene(game);
+	jump_event(&game->player, 0.016);
+	stand_up(&game->player, 0.016);
+	update_doors(game);
+	render_game(game);
 	return (0);
+}
+
+static void	render_game(t_game *game)
+{
+	render_scene(game);
+	draw_minimap(game);
+	draw_hud(game);
+	if (game->weapon)
+		draw_weapon(game);
 }
 
 static void	render_scene(t_game *game)

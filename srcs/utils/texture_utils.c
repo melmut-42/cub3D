@@ -2,6 +2,8 @@
 
 t_img	*get_wall_texture(t_game *g, t_ray *ray)
 {
+	if (ray->is_door)
+		return (&g->data.texture.doors[0]);
 	if (ray->side == 0 && ray->dir.x > 0)
 		return (&g->data.texture.textures[EAST]);
 	if (ray->side == 0 && ray->dir.x < 0)
@@ -26,4 +28,9 @@ int	get_texture_x(t_game *g, t_ray *ray, t_img *tex)
 		|| (ray->side == 1 && ray->dir.y > 0))
 		tex_x = tex->width - tex_x - 1;
 	return (tex_x);
+}
+
+float	lerp(float start, float end, float t)
+{
+	return (start + (end - start) * t);
 }

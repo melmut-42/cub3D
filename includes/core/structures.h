@@ -4,86 +4,7 @@
 # include <stdint.h>
 # include <stddef.h>
 # include <stdbool.h>
-
-# define WIN_TITLE	"Cub3D"
-# define WIN_WIDTH	1024
-# define WIN_HEIGHT	768
-
-# define PLAYER_MARGIN	0.25
-
-# define TARGET_FPS	100
-
-# define W 0
-# define S 1
-# define D 2
-# define A 3
-
-# define SENS_X 0.025
-# define SENS_Y 0.3
-
-# define INITIAL_SPEED	0.04
-
-# define NUM_OF_DEGREE	360
-
-# define MIN_PITCH			-500.0
-# define MAX_PITCH			500.0
-# define MAX_VERTICAL_DELTA	50
-
-# define INF_DIST	1e30
-
-# define GRAVITY		90.0
-# define JUMP_VELOCITY	60.0
-# define JUMP_SCALE		5
-
-# define CROUCH_SCALE		40.0
-# define CROUCH_OUT_SPEED	150.0
-
-# define NPOS	-1
-
-# define NUMBER_DIR	4
-
-# define RGB_CONSTANT	3
-# define RGB_MIN_VAL	0
-# define RGB_MAX_VAL	255
-
-# define NORTH_ABB		"NO"
-# define SOUTH_ABB		"SO"
-# define WEST_ABB		"WE"
-# define EAST_ABB		"EA"
-# define FLOOR_ABB		"F"
-# define CEILING_ABB	"C"
-
-# define GROUND		'0'
-# define WALL		'1'
-# define VISITED	'X'
-# define DOOR		'D'
-
-# define COMMA				','
-# define MAP_FILE_EXTENSION	".cub"
-
-# define DIR_SET	"NSWE"
-# define SPACE_SET	" \n\t\v\f\r"
-
-# define KEY_W		119
-# define KEY_A		97
-# define KEY_S		115
-# define KEY_D		100
-
-# define KEY_LEFT	65361
-# define KEY_RIGHT	65363
-
-# define KEY_ESC	65307
-
-# define NUM_DOOR_FRAMES	5
-# define INTERACT_STEP		1.8
-# define MIN_DOOR_INT_DIST	0.25
-# define DOOR_SPEED			0.2
-
-# define DOOR_FRAME_0	"textures/sprites/door0.xpm"
-# define DOOR_FRAME_1	"textures/sprites/door1.xpm"
-# define DOOR_FRAME_2	"textures/sprites/door2.xpm"
-# define DOOR_FRAME_3	"textures/sprites/door3.xpm"
-# define DOOR_FRAME_4	"textures/sprites/door4.xpm"
+# include "./macros.h"
 
 typedef enum e_directions
 {
@@ -109,46 +30,46 @@ typedef struct s_draw_util
 
 typedef struct s_img
 {
-	void			*img_ptr;
-	char			*addr;
-	int				bpp;
-	int				endian;
-	int				line_len;
-	int				width;
-	int				height;
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		endian;
+	int		line_len;
+	int		width;
+	int		height;
 }					t_img;
 
 typedef struct s_column
 {
-	t_img			*texture;
-	int				window_x;
-	int				pixel_top;
-	int				pixel_bottom;
-	int				texture_x;
-	int				wall_height;
+	t_img	*texture;
+	int		window_x;
+	int		pixel_top;
+	int		pixel_bottom;
+	int		texture_x;
+	int		wall_height;
 }					t_column;
 
 typedef struct s_texture
 {
-	t_img			doors[NUM_DOOR_FRAMES];
-	t_img			textures[NUMBER_DIR];
-	char			*door_paths[NUM_DOOR_FRAMES];
-	int				ceil_rgb[RGB_CONSTANT];
-	int				floor_rgb[RGB_CONSTANT];
-	int				ceil_color;
-	int				floor_color;
-	char			*no_path;
-	char			*so_path;
-	char			*we_path;
-	char			*ea_path;
+	t_img	doors[NUM_DOOR_FRAMES];
+	t_img	textures[NUMBER_DIR];
+	char	*door_paths[NUM_DOOR_FRAMES];
+	int		ceil_rgb[RGB_CONSTANT];
+	int		floor_rgb[RGB_CONSTANT];
+	int		ceil_color;
+	int		floor_color;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
 }					t_texture;
 
 typedef struct s_map
 {
-	char			**matrix;
-	char			*map_path;
-	size_t			height;
-	size_t			width;
+	char	**matrix;
+	char	*map_path;
+	size_t	height;
+	size_t	width;
 }					t_map;
 
 typedef struct s_axis
@@ -219,36 +140,36 @@ typedef struct s_weapon
 
 typedef struct s_ray
 {
-	t_door_feat		door_feat;
-	t_axis			dir;
-	t_axis			side_dist;
-	t_axis			delta_dist;
-	t_axis_int		pos;
-	double			perp_wall_dist;
-	int				step_x;
-	int				step_y;
-	int				side;
-	bool			does_hit;
-	bool			is_door;
+	t_door_feat	door_feat;
+	t_axis		dir;
+	t_axis		side_dist;
+	t_axis		delta_dist;
+	t_axis_int	pos;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			side;
+	bool		does_hit;
+	bool		is_door;
 }					t_ray;
 
 typedef struct t_mlx
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	char		*title;
-	int			width;
-	int			height;
-	t_img		frame_img;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	char	*title;
+	int		width;
+	int		height;
+	t_img	frame_img;
 
 }				t_mlx;
 
 typedef struct s_data
 {
-	double			sin_table[NUM_OF_DEGREE];
-	double			cos_table[NUM_OF_DEGREE];
-	t_map			map;
-	t_texture		texture;
+	double		sin_table[NUM_OF_DEGREE];
+	double		cos_table[NUM_OF_DEGREE];
+	t_map		map;
+	t_texture	texture;
 }					t_data;
 
 typedef struct s_game

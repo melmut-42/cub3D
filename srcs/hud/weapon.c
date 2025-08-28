@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img);
 static void	shake_on_movement(t_game *game);

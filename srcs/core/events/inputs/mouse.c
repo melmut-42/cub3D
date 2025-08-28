@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static void	update_rot_angles(t_player *player, int delta_x, int delta_y);
 

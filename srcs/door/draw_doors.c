@@ -1,4 +1,4 @@
-#include "bonus.h"
+
 #include "game.h"
 
 static int	get_door_texture_x(t_game *g, t_ray *ray, t_img *text);

@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static void			draw_minimap_ray(t_game *g, t_img *img, double angle,
 						t_axis_int offset);

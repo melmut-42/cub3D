@@ -26,3 +26,37 @@ void	update_colors(t_game *g, t_texture *texture)
 			g->data.texture.floor_rgb[1],
 			g->data.texture.floor_rgb[2]);
 }
+
+int	get_pixel_from_img(t_img *img, int x, int y)
+{
+	char	*pixel;
+
+	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
+		return (0);
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	return (*(unsigned int *)pixel);
+}
+
+t_img	*xpm_to_img(void *mlx, char *path)
+{
+	t_img	*img;
+
+	img = malloc(sizeof(t_img));
+	if (!img)
+		return (NULL);
+	img->img_ptr = mlx_xpm_file_to_image(mlx, path, &img->width, &img->height);
+	if (!img->img_ptr)
+	{
+		free(img);
+		return (NULL);
+	}
+	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
+			&img->endian);
+	if (!img->addr)
+	{
+		mlx_destroy_image(mlx, img->img_ptr);
+		free(img);
+		return (NULL);
+	}
+	return (img);
+}

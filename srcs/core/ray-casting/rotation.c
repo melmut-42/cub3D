@@ -20,7 +20,7 @@ int	get_angle_index(double angle)
 	angle = fmod(angle, 2 * M_PI);
 	if (angle < 0)
 		angle += 2 * M_PI;
-	index = (int)(angle * (180.0 / M_PI)) % NUM_OF_DEGREE;
+	index = (int)(angle * NUM_OF_DEGREE / (2 * M_PI));
 	return (index);
 }
 

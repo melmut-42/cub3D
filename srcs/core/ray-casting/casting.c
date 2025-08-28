@@ -1,5 +1,6 @@
 #include "game.h"
 
+
 static void	init_ray(const t_game *g, const t_player *p,
 				t_ray *ray, int x);
 static void	init_steps(const t_player *p, t_ray *ray);
@@ -32,6 +33,9 @@ static void	init_ray(const t_game *g, const t_player *p,
 		ray->delta_dist.y = INF_DIST;
 	else
 		ray->delta_dist.y = fabs(1.0 / ray->dir.y);
+	ray->does_hit = false;
+	ft_bzero(&ray->door_feat, sizeof(t_door_feat));
+	ray->is_door = false;
 }
 
 static void	init_steps(const t_player *p, t_ray *ray)
@@ -60,10 +64,8 @@ static void	init_steps(const t_player *p, t_ray *ray)
 
 static void	perform_dda(t_game *game, t_ray *ray)
 {
-	int	map_x;
-	int	map_y;
+	t_axis_int	pos;
 
-	ray->does_hit = false;
 	while (!ray->does_hit)
 	{
 		if (ray->side_dist.x < ray->side_dist.y)
@@ -78,10 +80,12 @@ static void	perform_dda(t_game *game, t_ray *ray)
 			ray->pos.y += ray->step_y;
 			ray->side = 1;
 		}
-		map_x = (int)ray->pos.x;
-		map_y = (int)ray->pos.y;
-		if (game->data.map.matrix[map_y][map_x] == WALL)
+		pos.x = (int)ray->pos.x;
+		pos.y = (int)ray->pos.y;
+		if (game->data.map.matrix[pos.y][pos.x] == WALL)
 			ray->does_hit = true;
+		if (game->data.map.matrix[pos.y][pos.x] == DOOR)
+			update_ray_door(game, ray, pos.y, pos.x);
 	}
 }
 

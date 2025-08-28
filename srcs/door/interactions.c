@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static double	vec_len(double x, double y);
 

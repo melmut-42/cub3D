@@ -21,7 +21,7 @@ bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 		else if (!process_texture_attr(game, texture, trimmed))
 			return (false);
 		if (is_texture_valid(&game->data.texture))
-			break ;
+			return (true);
 		line = get_next_line(fd);
 	}
 	if (!is_texture_valid(&game->data.texture))
@@ -29,7 +29,6 @@ bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 		display_error_message(ERR_TEX, false);
 		return (false);
 	}
-	update_colors(game, texture);
 	return (true);
 }
 
@@ -58,6 +57,7 @@ static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 	free(line);
 	if (game->error_flag)
 		return (false);
+	update_colors(game, texture);
 	return (true);
 }
 

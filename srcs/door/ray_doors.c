@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static double	calc_perp_dist(t_game *game, t_ray *ray);
 

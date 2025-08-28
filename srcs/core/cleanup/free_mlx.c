@@ -1,6 +1,6 @@
 #include "game.h"
 
-void	free_textures(t_game *game)
+static void	free_walls(t_game *game)
 {
 	t_texture	*tex;
 	int			i;
@@ -13,14 +13,55 @@ void	free_textures(t_game *game)
 	{
 		if (tex->textures[i].img_ptr)
 		{
-			mlx_destroy_image(game->mlx->mlx_ptr, tex->textures[i].img_ptr);
+			mlx_destroy_image(game->mlx->mlx_ptr,
+				tex->textures[i].img_ptr);
 			tex->textures[i].img_ptr = NULL;
 		}
 		i++;
 	}
+}
+
+static void	free_weapon(t_game *game)
+{
+	if (!game || !game->mlx || !game->mlx->mlx_ptr || !game->weapon)
+		return ;
+	if (game->weapon->weapon_img && game->weapon->weapon_img->img_ptr)
+	{
+		mlx_destroy_image(game->mlx->mlx_ptr,
+			game->weapon->weapon_img->img_ptr);
+		free(game->weapon->weapon_img);
+		game->weapon->weapon_img = NULL;
+	}
+}
+
+static void	free_doors(t_game *game)
+{
+	int	i;
+
+	if (!game || !game->mlx || !game->mlx->mlx_ptr)
+		return ;
+	i = 0;
+	while (i < NUM_DOOR_FRAMES)
+	{
+		if (game->data.texture.doors[i].img_ptr)
+			mlx_destroy_image(game->mlx->mlx_ptr,
+				game->data.texture.doors[i].img_ptr);
+		game->data.texture.doors[i].img_ptr = NULL;
+		i++;
+	}
+	if (game->doors)
+		ft_free((void **)&game->doors);
+}
+
+void	free_textures(t_game *game)
+{
+	free_walls(game);
+	free_doors(game);
+	free_weapon(game);
 	if (game->mlx->frame_img.img_ptr)
 	{
-		mlx_destroy_image(game->mlx->mlx_ptr, game->mlx->frame_img.img_ptr);
+		mlx_destroy_image(game->mlx->mlx_ptr,
+			game->mlx->frame_img.img_ptr);
 		game->mlx->frame_img.img_ptr = NULL;
 	}
 }

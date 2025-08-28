@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static void	exec_key_rotation(t_game *game, int keycode, int mode);
 static void	exec_key_special(t_game *game, int keycode);

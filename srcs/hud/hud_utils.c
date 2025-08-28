@@ -1,5 +1,5 @@
 #include "game.h"
-#include "bonus.h"
+
 
 static void	outline_loop(t_game *game, int x, int y, char *str)
 {
