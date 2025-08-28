@@ -125,7 +125,40 @@ mlx_del:
 	@echo "MLX removed!"; fi
 
 # Usage: make valgrind MAP=path/to/map.cub
-valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3d $(MAP);
+valgrind: $(NAME)
+	@echo "=== Running Valgrind on $(MAP) ==="
+	@valgrind							\
+		--leak-check=full				\
+		--show-leak-kinds=all			\
+		--track-origins=yes				\
+		./$(NAME) $(MAP)
+
+# Run program normally on invalid then valid maps
+test_all: $(NAME)
+	@echo "\n=== Running invalid maps ==="
+	@for map in $(wildcard maps/invalid/*); do		\
+		echo "\nRunning with $$map";				\
+		./$(NAME) $$map || true;					\
+	done
+	@echo "\n=== Running valid maps ==="
+	@for map in $(wildcard maps/valid/*.cub); do	\
+		echo "\nRunning with $$map";				\
+		./$(NAME) $$map || true;					\
+		sleep 0.25;									\
+	done
+
+# Run leaks on invalid then valid maps
+test_leaks: $(NAME)
+	@echo "\n=== Checking leaks for invalid maps ==="
+	@for map in $(wildcard maps/invalid/*); do				\
+		echo "\nRunning with $$map";						\
+		valgrind --leak-check=full ./$(NAME) $$map || true; \
+	done
+	@echo "\n=== Checking leaks for valid maps ==="
+	@for map in $(wildcard maps/valid/*.cub); do			\
+		echo "\nRunning with $$map";						\
+		valgrind --leak-check=full ./$(NAME) $$map || true; \
+	done
+
 
 .PHONY: all clean fclean re mlx mlx_del valgrind
