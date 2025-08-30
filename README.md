@@ -38,7 +38,7 @@ sudo apt-get install libx11-dev libxext-dev gcc make
 ### Quick Start
 ```bash
 # Clone and build
-git clone [repository-url]
+git clone git@github.com:melmut-42/cub3D.git
 cd cub3D
 make
 
