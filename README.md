@@ -20,7 +20,35 @@ Cub3D is a sophisticated 3D raycasting engine implemented in C using MinilibX. T
 - **Real-time Minimap**: Live 2D overhead view with dynamic player tracking
 - **Custom Map Parser**: Robust `.cub` file format with comprehensive validation
 - **Smooth Controls**: Fluid player movement and camera rotation mechanics
+- **Mouse Movement (Pitch & Yaw)**: Intuitive camera control with horizontal (yaw) and vertical (pitch) rotation using mouse movement
 - **Visual Effects**: Proper depth perception and texture mapping
+
+## 🎥 Showcase
+
+Here are some highlights of Cub3D:
+
+<p float="left">
+  <figure>
+    <img src="./assets/door_demo.gif" alt="Door Animation" width="350"/>
+    <figcaption><b>Doors in Action</b> – Smooth open & close transitions</figcaption>
+  </figure>
+
+<!--
+
+  <figure>
+    <img src="./assets/mouse_demo.gif" alt="Mouse Movement" width="350"/>
+    <figcaption><b>Mouse-Controlled Camera</b> – Fluid camera rotation</figcaption>
+  </figure>
+</p>
+
+-->
+
+<p float="left">
+  <figure>
+    <img src="./assets/minimap_demo.gif" alt="Minimap" width="350"/>
+    <figcaption><b>Real-time Minimap</b> – Dynamic player tracking</figcaption>
+  </figure>
+</p>
 
 ## 🛠️ Installation & Setup
 
