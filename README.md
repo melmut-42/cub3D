@@ -110,14 +110,16 @@ C 225,230,220
 
 ## 🎮 Controls
 
-| Key       | Action            |
-|-----------|-----------------|
-| `W/A/S/D` | Traverse         |
-| `↑/↓/←/→` | Rotate camera    |
-| `E`       | Interact         |
-| `ESC`     | Exit game        |
-| `SHIFT`   | Sprint           |
-| `CTRL`    | Crouch           |
+| Key             | Action            |
+|------------------|-------------------|
+| `W/A/S/D`        | Traverse           |
+| `↑/↓/←/→`        | Rotate camera      |
+| `Mouse Move`     | Look around        |
+| `SPACE`          | Jump               |
+| `E`              | Interact           |
+| `SHIFT`          | Sprint             |
+| `CTRL`           | Crouch             |
+| `ESC`            | Exit game          |
 
 ## 🚀 Usage Examples
 
