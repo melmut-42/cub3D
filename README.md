@@ -114,7 +114,7 @@ C 225,230,220
 |------------------|-------------------|
 | `W/A/S/D`        | Traverse           |
 | `↑/↓/←/→`        | Rotate camera      |
-| `Mouse Move`     | Look around        |
+| `Mouse 🐭`      | Look around       |
 | `SPACE`          | Jump               |
 | `E`              | Interact           |
 | `SHIFT`          | Sprint             |
