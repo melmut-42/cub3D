@@ -1,12 +1,26 @@
 #include "game.h"
 
-
 static void	init_ray(const t_game *g, const t_player *p,
 				t_ray *ray, int x);
 static void	init_steps(const t_player *p, t_ray *ray);
 static void	perform_dda(t_game *game, t_ray *ray);
 static void	calc_perp_dist(t_game *g, t_ray *ray);
 
+/**
+ * @brief Casts a single ray for a screen column.
+ *
+ * @details
+ * - Initializes the ray with player position and direction.
+ * - Calculates step direction and initial side distances.
+ * - Performs DDA (Digital Differential Analyzer) to find the hit point.
+ * - Computes perpendicular wall distance for projection.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param ray (t_ray *): Pointer to the ray structure to fill.
+ * @param x (int): Screen column index (0..screen_width-1).
+ * 
+ * @return void
+ */
 void	cast_ray(t_game *game, t_ray *ray, int x)
 {
 	init_ray(game, &game->player, ray, x);
@@ -15,6 +29,23 @@ void	cast_ray(t_game *game, t_ray *ray, int x)
 	calc_perp_dist(game, ray);
 }
 
+/**
+ * @brief Initializes ray direction, position, and delta distances.
+ *
+ * @details
+ * - Calculates camera_x (-1..1) for current screen column.
+ * - Sets ray direction as player direction + plane * camera_x.
+ * - Sets integer map position (tile coordinates).
+ * - Precomputes delta distances (distance to next x/y side).
+ * - Resets door feature data.
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param p (const t_player *): Constant pointer to the player structure.
+ * @param ray (t_ray *): Pointer to the ray structure.
+ * @param x (int): Screen column index.
+ * 
+ * @return void
+ */
 static void	init_ray(const t_game *g, const t_player *p,
 				t_ray *ray, int x)
 {
@@ -38,6 +69,18 @@ static void	init_ray(const t_game *g, const t_player *p,
 	ray->is_door = false;
 }
 
+/**
+ * @brief Initializes step direction and initial side distances.
+ *
+ * @details
+ * - Determines step_x and step_y depending on ray direction sign.
+ * - Calculates initial side_dist for x and y.
+ *
+ * @param p (const t_player *): Pointer to the player structure.
+ * @param ray (t_ray *): Pointer to the ray structure.
+ * 
+ * @return void
+ */
 static void	init_steps(const t_player *p, t_ray *ray)
 {
 	if (ray->dir.x < 0)
@@ -62,6 +105,20 @@ static void	init_steps(const t_player *p, t_ray *ray)
 	}
 }
 
+/**
+ * @brief Performs DDA algorithm to detect wall or door collision.
+ *
+ * @details
+ * - Iteratively steps through the map grid.
+ * - Chooses smaller side_dist to decide x or y step.
+ * - Stops when a wall is hit.
+ * - If a door is found, calls update_ray_door() to handle it.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param ray (t_ray *): Pointer to the ray structure.
+ * 
+ * @return void
+ */
 static void	perform_dda(t_game *game, t_ray *ray)
 {
 	t_axis_int	pos;
@@ -89,6 +146,19 @@ static void	perform_dda(t_game *game, t_ray *ray)
 	}
 }
 
+/**
+ * @brief Calculates perpendicular distance to the wall.
+ *
+ * @details
+ * - Uses step offset to avoid fisheye effect.
+ * - Chooses distance based on which side (x or y) was hit.
+ * - Stores the result in ray->perp_wall_dist for projection scaling.
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param ray (t_ray *): Pointer to the ray structure.
+ * 
+ * @return void
+ */
 static void	calc_perp_dist(t_game *g, t_ray *ray)
 {
 	double	off;

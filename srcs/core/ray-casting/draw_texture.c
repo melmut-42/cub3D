@@ -1,6 +1,21 @@
-
 #include "game.h"
 
+/**
+ * @brief Initializes column rendering parameters.
+ *
+ * @details
+ * - Calculates wall height based on perpendicular distance.
+ * - Applies vertical pitch adjustment (looking up/down, jump, crouch).
+ * - Clamps top/bottom pixel coordinates within window bounds.
+ * - Determines texture and texture_x coordinate for the wall slice.
+ *
+ * @param col (t_column *): Pointer to the column structure.
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param ray (t_ray *): Pointer to the ray structure.
+ * @param x (int): Current screen column index.
+ * 
+ * @return void
+ */
 static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
 {
 	int	win_h;
@@ -21,6 +36,15 @@ static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
 	col->window_x = x;
 }
 
+/**
+ * @brief Draws ceiling pixels above the wall slice.
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param col (t_column *): Pointer to the column structure.
+ * @param color (int): Ceiling color.
+ * 
+ * @return void
+ */
 static void	draw_ceiling(t_game *g, t_column *col, int color)
 {
 	int	y;
@@ -30,6 +54,15 @@ static void	draw_ceiling(t_game *g, t_column *col, int color)
 		ft_put_pixel(&g->mlx->frame_img, col->window_x, y++, color);
 }
 
+/**
+ * @brief Draws floor pixels below the wall slice.
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param col (t_column *): Pointer to the column structure.
+ * @param color (int): Ceiling color.
+ * 
+ * @return void
+ */
 static void	draw_floor(t_game *g, t_column *col, int color)
 {
 	int	y;
@@ -41,6 +74,20 @@ static void	draw_floor(t_game *g, t_column *col, int color)
 		ft_put_pixel(&g->mlx->frame_img, col->window_x, y++, color);
 }
 
+/**
+ * @brief Draws textured wall slice for the current column.
+ *
+ * @details
+ * - Calculates vertical scaling (step) to map texture pixels to screen pixels.
+ * - Uses tex_pos to determine which texture row to sample.
+ * - Iterates through column pixels from pixel_top to pixel_bottom.
+ * - Samples texture color and writes to frame buffer.
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param col (t_column *): Pointer to the column structure.
+ * 
+ * @return void
+ */
 static void	draw_wall(t_game *g, t_column *col)
 {
 	t_draw_util	draw;
@@ -67,6 +114,20 @@ static void	draw_wall(t_game *g, t_column *col)
 	}
 }
 
+/**
+ * @brief Draws a full screen column (ceiling, wall, floor, and doors).
+ *
+ * @details
+ * - Initializes column parameters from ray data.
+ * - Draws ceiling, wall texture, and floor.
+ * - If a door feature is present in the ray, draws the door overlay.
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param ray (t_ray *): Pointer to the ray structure for this column.
+ * @param x (int): Screen column index.
+ * 
+ * @return void
+ */
 void	draw_column(t_game *g, t_ray *ray, int x)
 {
 	t_column	col;

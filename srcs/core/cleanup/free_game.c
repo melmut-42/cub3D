@@ -27,7 +27,7 @@ void	free_game(t_game *game)
 /**
  * @brief Safely frees a pointer and sets it to NULL.
  *
- * @param ptr Double pointer to the allocated memory.
+ * @param ptr (void **) Double pointer to the allocated memory.
  * 
  * @return void
  */
@@ -43,7 +43,7 @@ void	ft_free(void **ptr)
 /**
  * @brief Frees a NULL-terminated array of strings.
  *
- * @param state The array to free.
+ * @param state (char **) The array to free.
  * 
  * @return void
  */
@@ -65,7 +65,7 @@ void	free_tab(char **state)
 /**
  * @brief Frees texture paths and map data in the game data structure.
  *
- * @param data Pointer to the data structure.
+ * @param data (t_data *) Pointer to the data structure.
  * 
  * @return void
  */
