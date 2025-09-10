@@ -4,12 +4,37 @@ static bool	check_accessability(t_game *game);
 static bool	check_invalid_element(t_game *game, char **matrix);
 static void	flood_fill(t_game *game, char **matrix, int x, int y);
 
+/**
+ * @brief Validates the map of the game.
+ *
+ * @details
+ * - Checks if all elements in the map are valid.
+ * - Ensures that the map is properly closed and accessible
+ *   using a flood fill algorithm.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if the map is valid, false otherwise.
+ */
 bool	check_map(t_game *game)
 {
 	return (check_invalid_element(game, game->data.map.matrix)
 		&& check_accessability(game));
 }
 
+/**
+ * @brief Verifies that the map is fully accessible.
+ *
+ * @details
+ * - Creates a copy of the map matrix.
+ * - Performs flood fill from the player's starting position.
+ * - Ensures no ground tiles (walkable area) are left unreachable.
+ * - Detects leaks (spaces on the border or open edges).
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if the map is accessible, false otherwise.
+ */
 static bool	check_accessability(t_game *game)
 {
 	char	**cpy;
@@ -38,6 +63,24 @@ static bool	check_accessability(t_game *game)
 	return (true);
 }
 
+/**
+ * @brief Checks for invalid characters inside the map matrix.
+ *
+ * @details
+ * Valid elements:
+ * - Space (' ')
+ * - Wall (WALL)
+ * - Ground (GROUND)
+ * - Player start position (N, S, E, W)
+ * - Door (DOOR)
+ *
+ * If an invalid element is found, sets the error flag and displays an error.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param matrix (char **) The map matrix to validate.
+ *
+ * @return (bool): true if all elements are valid, false otherwise.
+ */
 static bool	check_invalid_element(t_game *game, char **matrix)
 {
 	int	i;
@@ -64,6 +107,21 @@ static bool	check_invalid_element(t_game *game, char **matrix)
 	return (true);
 }
 
+/**
+ * @brief Flood fill algorithm to validate accessibility.
+ *
+ * @details
+ * - Marks visited cells to avoid infinite loops.
+ * - If flood fill reaches the border, an accessibility error is raised.
+ * - Recursively checks all adjacent positions (up, down, left, right).
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param matrix (char **): A copy of the map matrix.
+ * @param x (int): Current x position.
+ * @param y (int): Current y position.
+ * 
+ * @return void
+ */
 static void	flood_fill(t_game *game, char **matrix, int x, int y)
 {
 	if (game->error_flag)
