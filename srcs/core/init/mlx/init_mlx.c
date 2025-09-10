@@ -2,6 +2,26 @@
 
 static void	setup_mlx_dimensions(t_mlx *mlx, int w, int h, char *title);
 
+/**
+ * @brief Initializes the MLX context and game window.
+ *
+ * @details
+ * - Allocates memory for the MLX wrapper structure.
+ * - Initializes MLX with mlx_init().
+ * - Creates a new window with given width, height, and title.
+ * - Stores window dimensions and title in the MLX struct.
+ * - Hides the mouse cursor inside the window.
+ * - Assigns the MLX structure to the game instance.
+ *
+ * If any step fails, an error message is displayed and false is returned.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param width (int): Window width in pixels.
+ * @param height (int): Window height in pixels.
+ * @param title (char *): Window title string.
+ *
+ * @return (bool): true if initialization succeeded, false otherwise.
+ */
 bool	init_mlx(t_game *game, int width, int height, char *title)
 {
 	t_mlx	*mlx;
@@ -30,6 +50,22 @@ bool	init_mlx(t_game *game, int width, int height, char *title)
 	return (true);
 }
 
+/**
+ * @brief Creates the main frame buffer image.
+ *
+ * @details
+ * - Allocates an MLX image with the same dimensions as the window.
+ * - Retrieves a pointer to the pixel buffer (addr) along with
+ *   image properties (bpp, line length, endian).
+ * - Stores the image width and height in the structure.
+ *
+ * This frame buffer is later used for all rendering before being
+ * drawn to the screen with mlx_put_image_to_window().
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if the image is successfully created, false otherwise.
+ */
 bool	init_frame_image(t_game *game)
 {
 	t_img	*frame_img;
@@ -54,6 +90,16 @@ bool	init_frame_image(t_game *game)
 	return (true);
 }
 
+/**
+ * @brief Stores window dimensions and title in the MLX structure.
+ *
+ * @param mlx (t_mlx *): Pointer to MLX wrapper structure.
+ * @param w (int): Window width in pixels.
+ * @param h (int): Window height in pixels.
+ * @param title (char *): Window title string.
+ * 
+ * @return void
+ */
 static void	setup_mlx_dimensions(t_mlx *mlx, int w, int h, char *title)
 {
 	mlx->width = w;

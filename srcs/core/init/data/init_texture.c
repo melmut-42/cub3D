@@ -5,6 +5,22 @@ static char	*get_dir_path(t_game *game, char *line);
 static bool	process_texture_attr(t_game *game, t_texture *texture, char *line);
 static void	process_path(t_game *game, t_texture *tex, t_dir dir, char *path);
 
+/**
+ * @brief Processes texture and color data from the .cub file.
+ *
+ * @details
+ * - Reads each line and trims spaces.
+ * - Ignores empty lines.
+ * - Passes lines to process_texture_attr() for handling.
+ * - Stops early if all textures and colors are already valid.
+ * - Ensures all required attributes are present before returning.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param texture (t_texture *): Pointer to the texture structure.
+ * @param fd (int): File descriptor of the .cub file.
+ *
+ * @return (bool): true if textures and colors were processed successfully, false otherwise.
+ */
 bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 {
 	char	*line;
@@ -32,6 +48,21 @@ bool	process_texture_data(t_game *game, t_texture *texture, int fd)
 	return (true);
 }
 
+/**
+ * @brief Processes a single texture or color attribute line.
+ *
+ * @details
+ * - Identifies the type of attribute by its prefix (NO, SO, WE, EA, F, C).
+ * - For NO/SO/WE/EA → extracts path and assigns to texture slot.
+ * - For F/C → parses RGB values via process_rgb().
+ * - Updates color values after successful parsing.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param texture (t_texture *): Pointer to the texture structure.
+ * @param line (char *): Trimmed attribute line.
+ *
+ * @return (bool): true if processed successfully, false otherwise.
+ */
 static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 {
 	char	*data;
@@ -61,6 +92,21 @@ static bool	process_texture_attr(t_game *game, t_texture *texture, char *line)
 	return (true);
 }
 
+/**
+ * @brief Assigns a path to the correct texture slot.
+ *
+ * @details
+ * - Validates the direction (N, S, W, E).
+ * - Prevents duplicate assignment of texture paths.
+ * - Stores the provided path in the appropriate slot.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param tex (t_texture *): Pointer to the texture structure.
+ * @param dir (t_dir): Direction enum (NORTH, SOUTH, WEST, EAST).
+ * @param path (char *): File path string for the texture.
+ * 
+ * @return void
+ */
 static void	process_path(t_game *game, t_texture *tex, t_dir dir, char *path)
 {
 	char	**targets[NUMBER_DIR];
@@ -83,6 +129,19 @@ static void	process_path(t_game *game, t_texture *tex, t_dir dir, char *path)
 	*slot = path;
 }
 
+/**
+ * @brief Extracts the path or data substring from a line.
+ *
+ * @details
+ * - Determines the starting index using get_start_index().
+ * - Extracts the substring after the identifier and spaces.
+ * - Handles allocation errors.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param line (char *): Input line (e.g., "NO ./path/to/tex.xpm").
+ *
+ * @return (char *): Newly allocated substring with the path, or NULL on error.
+ */
 static char	*get_dir_path(t_game *game, char *line)
 {
 	int		i;
@@ -105,6 +164,19 @@ static char	*get_dir_path(t_game *game, char *line)
 	return (path);
 }
 
+/**
+ * @brief Gets the index where the path/data begins after the identifier.
+ *
+ * @details
+ * - For NO/SO/WE/EA → skips 2-character identifier.
+ * - For F/C → skips 1-character identifier.
+ * - Skips any following spaces.
+ * - Returns NPOS if no valid data is found.
+ *
+ * @param line (char *): Input line.
+ *
+ * @return (int): Index of start of path/data, or NPOS if invalid.
+ */
 static int	get_start_index(char *line)
 {
 	int	i;

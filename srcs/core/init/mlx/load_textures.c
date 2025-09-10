@@ -7,6 +7,18 @@ static bool	load_door_frame(t_game *game, t_texture *tex,
 static bool	load_door_textures(t_game *game);
 static void	init_door_paths(t_texture *tex);
 
+/**
+ * @brief Loads all required game textures.
+ *
+ * @details
+ * - Loads wall textures for each direction (N, S, E, W).
+ * - Loads door animation frames.
+ * - Uses MLX XPM loader to create images from file paths.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if all textures are successfully loaded, false otherwise.
+ */
 bool	load_game_textures(t_game *game)
 {
 	if (!load_texture(game, &game->data.texture,
@@ -26,6 +38,21 @@ bool	load_game_textures(t_game *game)
 	return (true);
 }
 
+/**
+ * @brief Loads a single wall texture.
+ *
+ * @details
+ * - Loads XPM file into MLX image.
+ * - Retrieves pixel data pointer and image metadata.
+ * - Stores image in the texture array by direction index.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param tex (t_texture *): Pointer to the texture structure.
+ * @param path (const char *): Path to the XPM texture file.
+ * @param dir (t_dir): Direction enum (NORTH, SOUTH, EAST, WEST).
+ *
+ * @return (bool): true if the texture is successfully loaded, false otherwise.
+ */
 static bool	load_texture(t_game *game, t_texture *tex,
 		const char *path, t_dir dir)
 {
@@ -44,6 +71,18 @@ static bool	load_texture(t_game *game, t_texture *tex,
 	return (true);
 }
 
+/**
+ * @brief Loads all door animation frames.
+ *
+ * @details
+ * - Initializes paths for each door frame.
+ * - Iterates through NUM_DOOR_FRAMES and loads them sequentially.
+ * - Displays an error if any frame fails to load.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if all door frames are successfully loaded, false otherwise.
+ */
 static bool	load_door_textures(t_game *game)
 {
 	size_t		i;
@@ -65,6 +104,21 @@ static bool	load_door_textures(t_game *game)
 	return (true);
 }
 
+/**
+ * @brief Loads a single door animation frame.
+ *
+ * @details
+ * - Loads XPM file into MLX image.
+ * - Retrieves pixel data pointer and image metadata.
+ * - Stores the frame in the doors array at given index.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param tex (t_texture *): Pointer to the texture structure.
+ * @param path (const char *): Path to the XPM door frame file.
+ * @param idx (size_t): Index in the door frames array.
+ *
+ * @return (bool): true if the frame is successfully loaded, false otherwise.
+ */
 static bool	load_door_frame(t_game *game, t_texture *tex,
 		const char *path, size_t idx)
 {
@@ -80,6 +134,17 @@ static bool	load_door_frame(t_game *game, t_texture *tex,
 	return (true);
 }
 
+/**
+ * @brief Initializes door texture paths.
+ *
+ * @details
+ * - Assigns predefined macros (DOOR_FRAME_0 ... DOOR_FRAME_4)
+ *   to the door_paths array.
+ *
+ * @param tex (t_texture *): Pointer to the texture structure.
+ * 
+ * @return void
+ */
 static void	init_door_paths(t_texture *tex)
 {
 	tex->door_paths[0] = DOOR_FRAME_0;

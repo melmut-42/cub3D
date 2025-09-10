@@ -1,9 +1,31 @@
 #include "game.h"
 
-
 static void	data_ctor(t_data *data);
 static void	player_ctor(t_player *player);
 
+/**
+ * @brief Initializes the game structure and all subsystems.
+ *
+ * @details
+ * - Allocates memory for the main game structure.
+ * - Sets map path and default values.
+ * - Initializes data (textures, RGB, etc.).
+ * - Initializes player with default state.
+ * - Sequentially initializes all subsystems:
+ *   - Map data
+ *   - Player position
+ *   - Map validation
+ *   - Doors
+ *   - MLX window
+ *   - Frame buffer
+ *   - Textures
+ *   - Weapon
+ * - If any step fails, frees all resources and returns NULL.
+ *
+ * @param map_path (char *): Path to the map file (.cub).
+ *
+ * @return (t_game *): Pointer to allocated game structure, or NULL on failure.
+ */
 t_game	*init_game(char *map_path)
 {
 	t_game	*game;
@@ -30,6 +52,16 @@ t_game	*init_game(char *map_path)
 	return (game);
 }
 
+/**
+ * @brief Initializes default values for data structure.
+ *
+ * @details
+ * - Sets ceiling and floor RGB values to -1 (uninitialized).
+ *
+ * @param data (t_data *): Pointer to the data structure.
+ * 
+ * @return void
+ */
 static void	data_ctor(t_data *data)
 {
 	int	i;

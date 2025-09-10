@@ -5,6 +5,19 @@ static void	update_pos(t_axis *pos, t_axis new_pos, int *x, int *y);
 static bool	set_player(t_game *game, t_player *player);
 static bool	update_player(t_game *g, t_player *player, t_axis new_pos);
 
+/**
+ * @brief Initializes the player position and direction.
+ *
+ * @details
+ * - Searches the map for a valid player start marker (N, S, W, E).
+ * - Ensures only one player is defined.
+ * - Sets the player's position and direction accordingly.
+ * - Displays an error if no player or multiple players are found.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if initialization succeeded, false otherwise.
+ */
 bool	init_player(t_game *game)
 {
 	if (!set_player(game, &game->player))
@@ -18,6 +31,20 @@ bool	init_player(t_game *game)
 	return (true);
 }
 
+/**
+ * @brief Scans the map matrix to find the player start position.
+ *
+ * @details
+ * - Iterates through all cells of the map.
+ * - If a player marker (N, S, W, E) is found:
+ *   - Calculates the centered position (x + 0.5, y + 0.5).
+ *   - Updates player position and direction using update_player().
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param player (t_player *): Pointer to the player structure.
+ *
+ * @return (bool): true if player position is set, false otherwise.
+ */
 static bool	set_player(t_game *game, t_player *player)
 {
 	t_axis	pos;
@@ -46,6 +73,20 @@ static bool	set_player(t_game *game, t_player *player)
 	return (true);
 }
 
+/**
+ * @brief Updates player position and direction based on map marker.
+ *
+ * @details
+ * - Ensures there is only one player in the map.
+ * - Sets the player's position and orientation (dir and plane).
+ * - Direction is determined by the map marker (N, S, W, E).
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param player (t_player *): Pointer to the player structure.
+ * @param new_pos (t_axis): Position of the player on the map (centered).
+ *
+ * @return (bool): true if successful, false if multiple players found.
+ */
 static bool	update_player(t_game *g, t_player *player, t_axis new_pos)
 {
 	char	*dir_set;
@@ -71,6 +112,19 @@ static bool	update_player(t_game *g, t_player *player, t_axis new_pos)
 	return (true);
 }
 
+/**
+ * @brief Sets player direction and camera plane based on orientation.
+ *
+ * @details
+ * - Direction vector points towards NORTH, SOUTH, WEST, or EAST.
+ * - Camera plane vector (for raycasting) is set perpendicular
+ *   to the direction with a FOV scaling factor (0.66).
+ *
+ * @param dir (t_dir): Direction enum (NORTH, SOUTH, WEST, EAST).
+ * @param p (t_player *): Pointer to the player structure.
+ * 
+ * @return void
+ */
 static void	update_dir(t_dir dir, t_player *p)
 {
 	p->dir.x = (dir == WEST) * -1 + (dir == EAST);
@@ -97,6 +151,20 @@ static void	update_dir(t_dir dir, t_player *p)
 	}
 }
 
+/**
+ * @brief Updates player position coordinates.
+ *
+ * @details
+ * - Stores the new floating-point position.
+ * - Also provides integer grid coordinates for map lookup.
+ *
+ * @param pos (t_axis): Pointer to the player's position (to update).
+ * @param new_pos (t_axis): New position (with fractional offsets).
+ * @param x (int *): Output pointer for integer X coordinate.
+ * @param y (int *): Output pointer for integer Y coordinate.
+ * 
+ * @return void
+ */
 static void	update_pos(t_axis *pos, t_axis new_pos, int *x, int *y)
 {
 	pos->x = new_pos.x;
