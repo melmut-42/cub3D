@@ -3,6 +3,20 @@
 static void	pitch(t_player *player);
 static void	yaw(t_game *game, t_player *player);
 
+/**
+ * @brief Updates player movement and orientation.
+ *
+ * @details
+ * - Handles forward/backward movement (W, S).
+ * - Handles strafing (A, D).
+ * - Updates pitch (looking up/down).
+ * - Updates yaw (looking left/right).
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param p (t_player *): Pointer to the player structure.
+ * 
+ * @return void
+ */
 void	update_player_movement(t_game *g, t_player *p)
 {
 	t_axis	strafe;
@@ -27,6 +41,20 @@ void	update_player_movement(t_game *g, t_player *p)
 	yaw(g, p);
 }
 
+/**
+ * @brief Simulates jump physics for the player.
+ *
+ * @details
+ * - Applies gravity to vertical velocity.
+ * - Updates vertical position over time.
+ * - Stops jump when the player lands back on the ground.
+ * - Updates jump offset used for rendering (jump_off).
+ *
+ * @param p (t_player *): Pointer to the player structure.
+ * @param dt (double): Delta time (in seconds).
+ * 
+ * @return void
+ */
 void	jump_event(t_player *p, double dt)
 {
 	if (p->vertical.in_air)
@@ -44,6 +72,18 @@ void	jump_event(t_player *p, double dt)
 	p->vertical.jump_off = p->vertical.vertical_pos * JUMP_SCALE;
 }
 
+/**
+ * @brief Smoothly transitions the player from crouching to standing.
+ *
+ * @details
+ * - Decreases crouch offset towards crouch_target.
+ * - Ensures the offset never goes below the target.
+ *
+ * @param p (t_player *): Pointer to the player structure.
+ * @param dt (double): Delta time (in seconds).
+ * 
+ * @return void
+ */
 void	stand_up(t_player *p, double dt)
 {
 	if (p->vertical.crouch_off > p->vertical.crouch_target)
@@ -54,6 +94,20 @@ void	stand_up(t_player *p, double dt)
 	}
 }
 
+/**
+ * @brief Applies yaw (horizontal rotation) to the player.
+ *
+ * @details
+ * - If horizontal rotation input (rot.x) exists, calculates the rotation angle
+ *   using sensitivity.
+ * - Rotates both the direction vector and the camera plane vector around the Z-axis.
+ * - Resets rot.x after applying to avoid repeated rotation in the next frame.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param player (t_player *): Pointer to the player structure.
+ * 
+ * @return void
+ */
 static void	yaw(t_game *game, t_player *player)
 {
 	double	angle;
@@ -67,6 +121,18 @@ static void	yaw(t_game *game, t_player *player)
 	}
 }
 
+/**
+ * @brief Applies pitch (vertical rotation) to the player.
+ *
+ * @details
+ * - If vertical rotation input (rot.y) exists, updates the pitch angle
+ *   using sensitivity.
+ * - Resets rot.y after applying to avoid repeated rotation in the next frame.
+ *
+ * @param player (t_player *): Pointer to the player structure.
+ * 
+ * @return void
+ */
 static void	pitch(t_player *player)
 {
 	if (player->rot.y)

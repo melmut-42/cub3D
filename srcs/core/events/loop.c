@@ -1,9 +1,22 @@
 #include "game.h"
 
-
 static void	render_scene(t_game *game);
 static void	render_game(t_game *game);
 
+/**
+ * @brief Main game loop called by MLX.
+ *
+ * @details
+ * - Skips frame update if not necessary (should_update).
+ * - Updates player movement and rotation if active.
+ * - Handles jump and crouch/stand-up events with fixed delta time (0.016s ~ 60 FPS).
+ * - Updates door states (opening/closing).
+ * - Calls the rendering pipeline to draw the scene, minimap, weapon, and HUD.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return (int): Always returns 0.
+ */
 int	gameloop(t_game *game)
 {
 	if (!should_update(game))
@@ -22,6 +35,20 @@ int	gameloop(t_game *game)
 	return (0);
 }
 
+/**
+ * @brief Handles the full rendering pipeline of the game.
+ *
+ * @details
+ * - Renders the 3D scene using raycasting.
+ * - Draws the minimap overlay.
+ * - Draws the weapon sprite if equipped.
+ * - Pushes the final frame buffer to the MLX window.
+ * - Draws HUD elements on top of the frame.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * 
+ * @return void
+ */
 static void	render_game(t_game *game)
 {
 	render_scene(game);
@@ -35,6 +62,18 @@ static void	render_game(t_game *game)
 	draw_hud(game);
 }
 
+/**
+ * @brief Renders the 3D world scene using raycasting.
+ *
+ * @details
+ * - Iterates over every screen column.
+ * - Casts a ray for each column.
+ * - Draws the corresponding vertical slice (walls, doors, etc.).
+ *
+ * @param game (t_game *game): Pointer to the main game structure.
+ * 
+ * @return void
+ */
 static void	render_scene(t_game *game)
 {
 	t_ray	ray;

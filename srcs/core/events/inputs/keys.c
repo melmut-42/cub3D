@@ -1,9 +1,22 @@
 #include "game.h"
 
-
 static void	exec_key_rotation(t_game *game, int keycode, int mode);
 static void	exec_key_special(t_game *game, int keycode);
 
+/**
+ * @brief Handles key press events.
+ *
+ * @details
+ * - ESC: Closes the game.
+ * - W/A/S/D: Starts movement if player is not in air.
+ * - SHIFT, SPACE, CTRL, E: Special actions handled by exec_key_special().
+ * - Arrow keys: Rotation handled by exec_key_rotation().
+ *
+ * @param keycode (int): Pressed key code.
+ * @param game (t_game *): Pointer to the game structure.
+ *
+ * @return Always returns 0.
+ */
 int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
@@ -20,6 +33,21 @@ int	handle_keypress(int keycode, t_game *game)
 	return (0);
 }
 
+/**
+ * @brief Handles key release events.
+ *
+ * @details
+ * - ESC: Closes the game.
+ * - W/A/S/D: Stops movement.
+ * - SHIFT: Restores normal movement speed.
+ * - CTRL: Resets crouch target.
+ * - Arrow keys: Stops rotation or pitch changes.
+ *
+ * @param keycode (int): Released key code.
+ * @param game (t_game *): Pointer to the game structure.
+ *
+ * @return Always returns 0.
+ */
 int	handle_keyrelease(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
@@ -40,6 +68,22 @@ int	handle_keyrelease(int keycode, t_game *game)
 	return (0);
 }
 
+/**
+ * @brief Handles player rotation and pitch adjustments.
+ *
+ * @details
+ * - mode == 0 → applies rotation (on key press).
+ *   - LEFT / RIGHT arrows: rotates horizontally (yaw).
+ *   - UP / DOWN arrows: adjusts pitch angle (looking up/down).
+ *   - Pitch is clamped between MIN_PITCH and MAX_PITCH.
+ * - mode == 1 → resets rotation (on key release).
+ *
+ * @param game Pointer to the game structure.
+ * @param keycode Pressed/released key code.
+ * @param mode 0 = press, 1 = release.
+ * 
+ * @return void
+ */
 static void	exec_key_rotation(t_game *game, int keycode, int mode)
 {
 	if (mode == 1)
@@ -64,6 +108,21 @@ static void	exec_key_rotation(t_game *game, int keycode, int mode)
 		game->player.pitch_angle = MIN_PITCH;
 }
 
+/**
+ * @brief Handles special key actions (non-movement).
+ *
+ * @details
+ * - SHIFT: Increases movement speed (sprint).
+ * - SPACE: Initiates a jump.
+ * - CTRL: Initiates crouch.
+ * - E: Interacts with doors.
+ * - Also forwards arrow keys to exec_key_rotation().
+ *
+ * @param game (t_game *): Pointer to the game structure.
+ * @param keycode (int): Pressed key code.
+ * 
+ * @return void
+ */
 static void	exec_key_special(t_game *game, int keycode)
 {
 	if (keycode == KEY_SHIFT && !game->player.vertical.in_air
@@ -84,6 +143,20 @@ static void	exec_key_special(t_game *game, int keycode)
 	exec_key_rotation(game, keycode, 0);
 }
 
+/**
+ * @brief Handles mouse click events.
+ *
+ * @details
+ * Currently not implemented. Reserved for future interactions
+ * (e.g., shooting, selecting, etc.).
+ *
+ * @param button (int): Mouse button code.
+ * @param x (int): Mouse cursor X position.
+ * @param y (int): Mouse cursor Y position.
+ * @param game (t_game *): Pointer to the game structure.
+ *
+ * @return Always returns 0.
+ */
 int	handle_mouse_click(int button, int x, int y, t_game *game)
 {
 	(void)button;
