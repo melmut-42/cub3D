@@ -2,6 +2,18 @@
 
 static void	free_data(t_data *data);
 
+/**
+ * @brief Frees all allocated memory and resources of the game.
+ *
+ * @details
+ * - Frees map data and texture paths.
+ * - Destroys all loaded images.
+ * - Frees weapon and game structures.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * 
+ * @return void
+ */
 void	free_game(t_game *game)
 {
 	if (!game)
@@ -12,6 +24,13 @@ void	free_game(t_game *game)
 	ft_free((void **)&game);
 }
 
+/**
+ * @brief Safely frees a pointer and sets it to NULL.
+ *
+ * @param ptr Double pointer to the allocated memory.
+ * 
+ * @return void
+ */
 void	ft_free(void **ptr)
 {
 	if (ptr && *ptr)
@@ -21,6 +40,13 @@ void	ft_free(void **ptr)
 	}
 }
 
+/**
+ * @brief Frees a NULL-terminated array of strings.
+ *
+ * @param state The array to free.
+ * 
+ * @return void
+ */
 void	free_tab(char **state)
 {
 	int	i;
@@ -36,6 +62,13 @@ void	free_tab(char **state)
 	ft_free((void **)&state);
 }
 
+/**
+ * @brief Frees texture paths and map data in the game data structure.
+ *
+ * @param data Pointer to the data structure.
+ * 
+ * @return void
+ */
 static void	free_data(t_data *data)
 {
 	ft_free((void **)&data->texture.ea_path);

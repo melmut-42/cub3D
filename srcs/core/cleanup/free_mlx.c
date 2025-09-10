@@ -1,5 +1,17 @@
 #include "game.h"
 
+/**
+ * @brief Frees wall textures.
+ *
+ * @details
+ * - Iterates over all directions (NUMBER_DIR).
+ * - If an image exists, destroys it using mlx_destroy_image.
+ * - Sets img_ptr to NULL after freeing.
+ *
+ * @param game Pointer to the main game structure.
+ * 
+ * @return void
+ */
 static void	free_walls(t_game *game)
 {
 	t_texture	*tex;
@@ -21,6 +33,17 @@ static void	free_walls(t_game *game)
 	}
 }
 
+/**
+ * @brief Frees the weapon texture.
+ *
+ * @details
+ * - Checks if weapon and weapon image exist.
+ * - Destroys the MLX image and frees its structure.
+ *
+ * @param game Pointer to the main game structure.
+ * 
+ * @return void
+ */
 static void	free_weapon(t_game *game)
 {
 	if (!game || !game->mlx || !game->mlx->mlx_ptr || !game->weapon)
@@ -34,6 +57,18 @@ static void	free_weapon(t_game *game)
 	}
 }
 
+/**
+ * @brief Frees door textures and door data.
+ *
+ * @details
+ * - Iterates through all door animation frames (NUM_DOOR_FRAMES).
+ * - Destroys each MLX image if it exists.
+ * - Frees the door array if allocated.
+ *
+ * @param game Pointer to the main game structure.
+ * 
+ * @return void
+ */
 static void	free_doors(t_game *game)
 {
 	int	i;
@@ -53,6 +88,17 @@ static void	free_doors(t_game *game)
 		ft_free((void **)&game->doors);
 }
 
+/**
+ * @brief Frees all game textures.
+ *
+ * @details
+ * - Frees walls, doors, and weapon textures.
+ * - Frees the frame buffer image if allocated.
+ *
+ * @param game Pointer to the main game structure.
+ * 
+ * @return void
+ */
 void	free_textures(t_game *game)
 {
 	free_walls(game);
@@ -66,6 +112,19 @@ void	free_textures(t_game *game)
 	}
 }
 
+/**
+ * @brief Destroys MLX images, window, and display.
+ *
+ * @details
+ * - Frees all textures.
+ * - Destroys the window if it exists.
+ * - Destroys the MLX display and frees its pointer.
+ * - Finally frees the mlx structure itself.
+ *
+ * @param game Pointer to the main game structure.
+ * 
+ * @return void
+ */
 void	destroy_img(t_game *game)
 {
 	if (game->mlx)
