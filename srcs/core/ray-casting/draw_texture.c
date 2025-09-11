@@ -1,5 +1,36 @@
 #include "game.h"
 
+static void	init_column(t_column *col, t_game *g, t_ray *ray, int x);
+static void	draw_ceiling(t_game *g, t_column *col, int color);
+static void	draw_floor(t_game *g, t_column *col, int color);
+static void	draw_wall(t_game *g, t_column *col);
+
+/**
+ * @brief Draws a full screen column (ceiling, wall, floor, and doors).
+ *
+ * @details
+ * - Initializes column parameters from ray data.
+ * - Draws ceiling, wall texture, and floor.
+ * - If a door feature is present in the ray, draws the door overlay.
+ *
+ * @param g (t_game *): Pointer to the game structure.
+ * @param ray (t_ray *): Pointer to the ray structure for this column.
+ * @param x (int): Screen column index.
+ * 
+ * @return void
+ */
+void	draw_column(t_game *g, t_ray *ray, int x)
+{
+	t_column	col;
+
+	init_column(&col, g, ray, x);
+	draw_ceiling(g, &col, g->data.texture.ceil_color);
+	draw_wall(g, &col);
+	draw_floor(g, &col, g->data.texture.floor_color);
+	if (ray->door_feat.ptr)
+		start_draw_doors(g, ray, x);
+}
+
 /**
  * @brief Initializes column rendering parameters.
  *
@@ -112,30 +143,4 @@ static void	draw_wall(t_game *g, t_column *col)
 		draw.tex_pos += draw.step;
 		(draw.window_y)++;
 	}
-}
-
-/**
- * @brief Draws a full screen column (ceiling, wall, floor, and doors).
- *
- * @details
- * - Initializes column parameters from ray data.
- * - Draws ceiling, wall texture, and floor.
- * - If a door feature is present in the ray, draws the door overlay.
- *
- * @param g (t_game *): Pointer to the game structure.
- * @param ray (t_ray *): Pointer to the ray structure for this column.
- * @param x (int): Screen column index.
- * 
- * @return void
- */
-void	draw_column(t_game *g, t_ray *ray, int x)
-{
-	t_column	col;
-
-	init_column(&col, g, ray, x);
-	draw_ceiling(g, &col, g->data.texture.ceil_color);
-	draw_wall(g, &col);
-	draw_floor(g, &col, g->data.texture.floor_color);
-	if (ray->door_feat.ptr)
-		start_draw_doors(g, ray, x);
 }

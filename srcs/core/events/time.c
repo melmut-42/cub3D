@@ -31,7 +31,7 @@ t_ms	get_timestamp(t_game *game)
  *
  * @details
  * - Calculates elapsed time since the last update.
- * - Ensures updates occur at the target frame rate (TARGET_FPS).
+ * - Ensures updates occur at the target frame rate.
  * - Updates last_update if enough time has passed.
  *
  * @param game (t_game *) Pointer to the main game structure.

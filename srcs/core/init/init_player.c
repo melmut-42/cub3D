@@ -37,8 +37,8 @@ bool	init_player(t_game *game)
  * @details
  * - Iterates through all cells of the map.
  * - If a player marker (N, S, W, E) is found:
- *   - Calculates the centered position (x + 0.5, y + 0.5).
- *   - Updates player position and direction using update_player().
+ *   - Calculates the centered position.
+ *   - Updates player position and direction.
  *
  * @param game (t_game *): Pointer to the main game structure.
  * @param player (t_player *): Pointer to the player structure.
@@ -83,7 +83,7 @@ static bool	set_player(t_game *game, t_player *player)
  *
  * @param g (t_game *): Pointer to the main game structure.
  * @param player (t_player *): Pointer to the player structure.
- * @param new_pos (t_axis): Position of the player on the map (centered).
+ * @param new_pos (t_axis): Position of the player on the map.
  *
  * @return (bool): true if successful, false if multiple players found.
  */

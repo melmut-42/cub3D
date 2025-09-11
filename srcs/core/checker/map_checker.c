@@ -10,7 +10,6 @@ static void	flood_fill(t_game *game, char **matrix, int x, int y);
  * @details
  * - Checks if all elements in the map are valid.
  * - Ensures that the map is properly closed and accessible
- *   using a flood fill algorithm.
  *
  * @param game (t_game *): Pointer to the main game structure.
  *
@@ -24,12 +23,6 @@ bool	check_map(t_game *game)
 
 /**
  * @brief Verifies that the map is fully accessible.
- *
- * @details
- * - Creates a copy of the map matrix.
- * - Performs flood fill from the player's starting position.
- * - Ensures no ground tiles (walkable area) are left unreachable.
- * - Detects leaks (spaces on the border or open edges).
  *
  * @param game (t_game *): Pointer to the main game structure.
  *

@@ -7,9 +7,8 @@ static void	render_game(t_game *game);
  * @brief Main game loop called by MLX.
  *
  * @details
- * - Skips frame update if not necessary (should_update).
  * - Updates player movement and rotation if active.
- * - Handles jump and crouch/stand-up events with fixed delta time (0.016s ~ 60 FPS).
+ * - Handles jump and crouch/stand-up events with fixed delta time
  * - Updates door states (opening/closing).
  * - Calls the rendering pipeline to draw the scene, minimap, weapon, and HUD.
  *

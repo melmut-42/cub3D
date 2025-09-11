@@ -53,9 +53,8 @@ static void	setup_trig_table(t_data *data)
  * @brief Processes texture and map data from the input file.
  *
  * @details
- * - Opens the .cub file in read-only mode.
- * - Extracts texture paths and RGB data using process_texture_data().
- * - Extracts map matrix data using process_map_data().
+ * - Extracts texture paths and RGB data.
+ * - Extracts map matrix data.
  * - Handles errors by clearing the GNL buffer and closing the file.
  *
  * @param game (t_game *): Pointer to the main game structure.

@@ -146,10 +146,6 @@ static void	exec_key_special(t_game *game, int keycode)
 /**
  * @brief Handles mouse click events.
  *
- * @details
- * Currently not implemented. Reserved for future interactions
- * (e.g., shooting, selecting, etc.).
- *
  * @param button (int): Mouse button code.
  * @param x (int): Mouse cursor X position.
  * @param y (int): Mouse cursor Y position.
