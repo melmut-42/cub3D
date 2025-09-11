@@ -1,6 +1,43 @@
 #include "game.h"
 
+static void	render_fps(t_game *game, int x, int y, int color);
+static void	render_coordinates(t_game *game, int x, int y, int color);
+static const char	*get_compass_dir(double angle);
+static void	render_compass(t_game *game, int x, int y, int color);
 
+/**
+ * @brief Draws the entire HUD, including FPS, coordinates, and compass.
+ *
+ * @details
+ * - Calls render_fps(), render_coordinates(), and render_compass().
+ * - Places them at fixed screen positions with white text color.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return void
+ */
+void	draw_hud(t_game *game)
+{
+	render_fps(game, 10, 20, COLOR_WHITE);
+	render_coordinates(game, 10, 40, COLOR_WHITE);
+	render_compass(game, 10, 60, COLOR_WHITE);
+}
+
+/**
+ * @brief Renders the current frames per second (FPS) on the HUD.
+ *
+ * @details
+ * - Uses static variables to track frame count and elapsed time.
+ * - Updates the FPS value every 1000 ms.
+ * - Displays the FPS string on screen using mlx_out_txt().
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param x (int): X-coordinate for FPS text rendering.
+ * @param y (int): Y-coordinate for FPS text rendering.
+ * @param color (int): Text color (unused).
+ *
+ * @return void
+ */
 static void	render_fps(t_game *game, int x, int y, int color)
 {
 	static t_ms	last_time = 0;
@@ -22,6 +59,20 @@ static void	render_fps(t_game *game, int x, int y, int color)
 	mlx_out_txt(game, x, y, buffer);
 }
 
+/**
+ * @brief Displays the player's map coordinates on the HUD.
+ *
+ * @details
+ * - Formats the player's position as integers.
+ * - Renders the coordinates using mlx_out_txt().
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param x (int): X-coordinate for text placement.
+ * @param y (int): Y-coordinate for text placement.
+ * @param color (int): Text color (unused).
+ *
+ * @return void
+ */
 static void	render_coordinates(t_game *game, int x, int y, int color)
 {
 	char	buffer[32];
@@ -32,6 +83,17 @@ static void	render_coordinates(t_game *game, int x, int y, int color)
 	mlx_out_txt(game, x, y, buffer);
 }
 
+/**
+ * @brief Converts an angle in degrees to a compass direction label.
+ *
+ * @details
+ * - Normalizes the angle to [0, 360).
+ * - Returns N, NE, E, SE, S, SW, W, or NW based on angle range.
+ *
+ * @param angle (double): The angle in degrees.
+ *
+ * @return (const char*): Compass direction string.
+ */
 static const char	*get_compass_dir(double angle)
 {
 	angle = fmod(angle, 360.0);
@@ -55,6 +117,21 @@ static const char	*get_compass_dir(double angle)
 		return ("N");
 }
 
+/**
+ * @brief Renders the player's facing direction and angle as a compass.
+ *
+ * @details
+ * - Calculates the player's angle from their direction vector.
+ * - Converts the angle to a compass direction using get_compass_dir().
+ * - Displays both the compass label and numeric angle using mlx_out_txt().
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param x (int): X-coordinate for compass text rendering.
+ * @param y (int): Y-coordinate for compass text rendering.
+ * @param color (int): Text color (unused).
+ *
+ * @return void
+ */
 static void	render_compass(t_game *game, int x, int y, int color)
 {
 	char		buffer[32];
@@ -71,11 +148,4 @@ static void	render_compass(t_game *game, int x, int y, int color)
 	dir = get_compass_dir(angle);
 	sprintf(buffer, "Dir: %s (%.1f%c)", dir, display_angle, 176);
 	mlx_out_txt(game, x, y, buffer);
-}
-
-void	draw_hud(t_game *game)
-{
-	render_fps(game, 10, 20, COLOR_WHITE);
-	render_coordinates(game, 10, 40, COLOR_WHITE);
-	render_compass(game, 10, 60, COLOR_WHITE);
 }

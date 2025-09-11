@@ -1,10 +1,22 @@
 #include "game.h"
 
-
 static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img);
 static void	shake_on_movement(t_game *game);
 static void	shake_on_jump(t_game *game);
 
+/**
+ * @brief Draws the weapon on screen and applies shake effects.
+ *
+ * @details
+ * - Increments the weapon frame counter.
+ * - Applies vertical shake if the player is jumping.
+ * - Applies horizontal/vertical sway if the player is moving.
+ * - Renders the weapon image with offsets for shake effect.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return void
+ */
 void	draw_weapon(t_game *game)
 {
 	game->weapon->frame_count++;
@@ -14,6 +26,20 @@ void	draw_weapon(t_game *game)
 	shake_weapon(game, game->weapon, game->weapon->weapon_img);
 }
 
+/**
+ * @brief Renders the weapon image at its shaken position.
+ *
+ * @details
+ * - Calculates x and y offsets based on shake offsets.
+ * - Initializes weapon_base_y on first draw.
+ * - Iterates through the weapon texture and plots visible pixels.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param weapon (t_weapon *): Pointer to the weapon state structure.
+ * @param weapon_img (t_img *): Pointer to the weapon image.
+ *
+ * @return void
+ */
 static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
 {
 	int	x_offset;
@@ -43,6 +69,17 @@ static void	shake_weapon(t_game *game, t_weapon *weapon, t_img *weapon_img)
 	}
 }
 
+/**
+ * @brief Applies vertical shaking effect when the player is jumping.
+ *
+ * @details
+ * - Increases jump_frame counter for sine-based motion.
+ * - Resets offsets when not jumping.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return void
+ */
 static void	shake_on_jump(t_game *game)
 {
 	t_weapon	*weapon;
@@ -60,6 +97,17 @@ static void	shake_on_jump(t_game *game)
 	}
 }
 
+/**
+ * @brief Applies weapon sway when the player is moving.
+ *
+ * @details
+ * - Updates shake offsets and directions based on frame count.
+ * - Uses lerp to gradually reset offsets when movement stops.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ *
+ * @return void
+ */
 static void	shake_on_movement(t_game *game)
 {
 	t_weapon	*weapon;
@@ -86,6 +134,17 @@ static void	shake_on_movement(t_game *game)
 	}
 }
 
+/**
+ * @brief Initializes the weapon structure with default values.
+ *
+ * @details
+ * - Resets frame counters, offsets, and directions.
+ * - Sets weapon_img to NULL and weapon_base_y to 0.
+ *
+ * @param weapon (t_weapon *): Pointer to the weapon structure.
+ *
+ * @return void
+ */
 void	weapon_ctor(t_weapon *weapon)
 {
 	if (!weapon)
