@@ -1,24 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 11:51:45 by mmunajed          #+#    #+#             */
-/*   Updated: 2024/10/18 16:53:28 by mmunajed         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
+#include <unistd.h>
 
 void	ft_putstr_fd(char *s, int fd)
 {
+	int	len;
+
 	if (!s)
 		return ;
-	while (*s != '\0')
+	if (s)
 	{
-		ft_putchar_fd(*s, fd);
-		s++;
+		len = ft_strlen(s);
+		write(fd, s, len);
 	}
 }

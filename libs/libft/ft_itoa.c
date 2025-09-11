@@ -1,62 +1,71 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 11:50:17 by mmunajed          #+#    #+#             */
-/*   Updated: 2024/10/12 10:53:16 by mmunajed         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static char	*ft_char(char *s, unsigned int number, long int len)
+static int	ft_digit_len(int n)
 {
-	while (number > 0)
+	int	i;
+
+	i = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+		i++;
+	while (n)
 	{
-		s[len--] = 48 + (number % 10);
-		number = number / 10;
+		n /= 10;
+		i++;
 	}
-	return (s);
+	return (i);
 }
 
-static long int	ft_len(int n)
+static char	*ft_itoa_negatives(int n, int digit_len)
 {
-	int	len;
+	char	*arr;
 
-	len = 0;
-	if (n <= 0)
-		len = 1;
-	while (n != 0)
+	if (n == -2147483648)
 	{
-		len++;
-		n = n / 10;
+		return (ft_strdup("-2147483648"));
 	}
-	return (len);
+	arr = malloc(digit_len + 1);
+	if (!arr)
+		return (NULL);
+	n = -n;
+	arr[digit_len] = '\0';
+	arr[0] = '-';
+	digit_len--;
+	while (digit_len > 0)
+	{
+		arr[digit_len] = (n % 10) + '0';
+		n /= 10;
+		digit_len--;
+	}
+	return (arr);
 }
 
 char	*ft_itoa(int n)
 {
-	char				*s;
-	long int			len;
-	unsigned int		number;
+	int		i;
+	int		digit_len;
+	char	*arr;
 
-	len = ft_len(n);
-	s = (char *)malloc(sizeof(char) * (len + 1));
-	if (!(s))
-		return (NULL);
-	s[len--] = '\0';
-	if (n == 0)
-		s[0] = '0';
+	digit_len = ft_digit_len(n);
+	i = digit_len - 1;
 	if (n < 0)
+		return (ft_itoa_negatives(n, digit_len));
+	arr = malloc(digit_len + 1);
+	if (!arr)
+		return (NULL);
+	if (n == 0)
 	{
-		number = n * -1;
-		s[0] = '-';
+		arr[0] = '0';
+		arr[1] = '\0';
+		return (arr);
 	}
-	else
-		number = n;
-	s = ft_char(s, number, len);
-	return (s);
+	arr[digit_len] = '\0';
+	while (i >= 0)
+	{
+		arr[i] = (n % 10) + '0';
+		n /= 10;
+		i--;
+	}
+	return (arr);
 }

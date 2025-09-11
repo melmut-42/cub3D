@@ -1,64 +1,63 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmunajed <mmunajed@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 11:53:13 by mmunajed          #+#    #+#             */
-/*   Updated: 2024/10/07 17:21:25 by mmunajed         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static char	*ft_strnew(size_t size)
+static int	ft_is_set(char c, char const *set)
 {
-	char	*string;
-
-	string = (char *)malloc((size + 1));
-	if (!string)
-		return (NULL);
-	ft_memset(string, 0, size + 1);
-	return (string);
-}
-
-static char	*ft_strncpy(char *dest, char *src, unsigned int n)
-{
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (src[i] != '\0' && i < n)
+	while (set[i] != '\0')
 	{
-		dest[i] = src[i];
+		if (c == set[i])
+			return (1);
 		i++;
 	}
-	while (i < n)
+	return (0);
+}
+
+static int	ft_trimlen(char const *s1, char const *set)
+{
+	int	j;
+	int	counter;
+	int	total_len;
+
+	counter = 0;
+	total_len = ft_strlen(s1);
+	j = total_len - 1;
+	while (s1[counter] != '\0' && ft_is_set(s1[counter], set))
 	{
-		dest[n] = '\0';
-		i++;
+		counter++;
+		if (s1[counter] == '\0')
+			return (0);
 	}
-	return (dest);
+	while (j >= 0 && ft_is_set(s1[j], set))
+	{
+		counter++;
+		j--;
+	}
+	return (total_len - counter);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*string;
-	size_t	start;
-	size_t	end;
-	size_t	size;
+	char	*arr;
+	int		len;
+	int		i;
+	int		j;
 
-	start = 0;
-	while (ft_strchr(set, s1[start]) && s1[start])
-		start++;
-	end = ft_strlen(s1);
-	while (ft_strchr(set, s1[end - 1]) && end > start)
-		end--;
-	size = end - start;
-	string = ft_strnew(size);
-	if (!string)
+	len = ft_trimlen(s1, set);
+	arr = malloc(len + 1);
+	if (!arr)
 		return (NULL);
-	ft_strncpy(string, (char *)s1 + start, size);
-	string[size] = '\0';
-	return (string);
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0' && ft_is_set(s1[i], set))
+		i++;
+	while (j < len)
+	{
+		arr[j] = s1[i];
+		i++;
+		j++;
+	}
+	arr[len] = '\0';
+	return (arr);
 }
