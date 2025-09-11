@@ -8,6 +8,18 @@ static void	draw_minimap_player(t_img *img, t_axis_int offset);
 static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor,
 				t_axis_int *map);
 
+
+/**
+ * @brief Draws the entire minimap, including tiles, rays, and player position.
+ *
+ * @details
+ * - Calculates offset to position the minimap on the screen.
+ * - Draws map tiles, casts rays, and renders the player's marker.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ *
+ * @return void
+ */
 void	draw_minimap(t_game *g)
 {
 	t_img		*img;
@@ -21,6 +33,21 @@ void	draw_minimap(t_game *g)
 	draw_minimap_player(img, offset);
 }
 
+/**
+ * @brief Plots a single pixel on the minimap representing a map tile.
+ *
+ * @details
+ * - Converts delta values to map coordinates based on player position.
+ * - Determines tile type (wall, door, or empty) and applies the proper color.
+ * - Handles out-of-bounds checks to avoid invalid memory access.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param img (t_img *): Pointer to the image buffer for drawing.
+ * @param delta (t_axis_int): Delta coordinates relative to player position.
+ * @param offset (t_axis_int): Offset for minimap placement on the screen.
+ *
+ * @return void
+ */
 static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 		t_axis_int offset)
 {
@@ -51,6 +78,20 @@ static void	put_tile_pixel(t_game *g, t_img *img, t_axis_int delta,
 		ft_put_pixel(img, cor.x, cor.y, COLOR_GREY);
 }
 
+/**
+ * @brief Draws a door pixel on the minimap with color based on its state.
+ *
+ * @details
+ * - Retrieves the door object at given map coordinates.
+ * - Colors open doors green and partially/closed doors pink.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param img (t_img *): Pointer to the image buffer for drawing.
+ * @param cor (t_axis_int *): Screen coordinates where the pixel will be drawn.
+ * @param map (t_axis_int *): Map coordinates of the door.
+ *
+ * @return void
+ */
 static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor,
 				t_axis_int *map)
 {
@@ -65,6 +106,20 @@ static void	draw_door_in_minimap(t_game *g, t_img *img, t_axis_int *cor,
 		ft_put_pixel(img, cor->x, cor->y, COLOR_PINK);
 }
 
+/**
+ * @brief Renders all map tiles within the minimap's circular boundary.
+ *
+ * @details
+ * - Iterates through a square bounding box around the minimap radius.
+ * - Uses circle equation to limit pixels to circular minimap area.
+ * - Calls put_tile_pixel() to draw each tile pixel.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param img (t_img *): Pointer to the image buffer for drawing.
+ * @param offset (t_axis_int): Offset for minimap placement on the screen.
+ *
+ * @return void
+ */
 static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset)
 {
 	t_axis_int	d;
@@ -83,6 +138,18 @@ static void	draw_minimap_tiles(t_game *g, t_img *img, t_axis_int offset)
 	}
 }
 
+/**
+ * @brief Draws the player's marker at the center of the minimap.
+ *
+ * @details
+ * - Creates a small square centered at minimap radius.
+ * - Colors the player's position red for visibility.
+ *
+ * @param img (t_img *): Pointer to the image buffer for drawing.
+ * @param offset (t_axis_int): Offset for minimap placement on the screen.
+ *
+ * @return void
+ */
 static void	draw_minimap_player(t_img *img, t_axis_int offset)
 {
 	t_axis_int	p;

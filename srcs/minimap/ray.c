@@ -8,6 +8,20 @@ static bool			is_inside_circle(t_axis_int delta);
 static t_axis_int	get_ray_screen_pos(t_game *g, double angle, double len,
 						t_axis_int offset);
 
+/**
+ * @brief Draws all minimap rays representing the player's field of view.
+ *
+ * @details
+ * - Calculates the start angle based on player direction.
+ * - Iterates through RAY_COUNT steps across the MINIMAP_FOV.
+ * - Calls draw_minimap_ray() for each ray to render its dots.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param img (t_img *): Pointer to the minimap image buffer.
+ * @param offset (t_axis_int): Offset for minimap placement on the screen.
+ *
+ * @return void
+ */
 void	draw_minimap_rays(t_game *g, t_img *img, t_axis_int offset)
 {
 	int		i;
@@ -27,6 +41,21 @@ void	draw_minimap_rays(t_game *g, t_img *img, t_axis_int offset)
 	}
 }
 
+/**
+ * @brief Draws a single ray on the minimap at a given angle.
+ *
+ * @details
+ * - Increments length until reaching RAY_MAX_LEN or leaving the minimap circle.
+ * - Converts world coordinates to screen coordinates with get_ray_screen_pos().
+ * - Draws a small yellow dot for each step in the ray.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param img (t_img *): Pointer to the minimap image buffer.
+ * @param angle (double): Current ray angle in radians.
+ * @param offset (t_axis_int): Offset for minimap placement on the screen.
+ *
+ * @return void
+ */
 static void	draw_minimap_ray(t_game *g, t_img *img, double angle,
 		t_axis_int offset)
 {
@@ -47,6 +76,21 @@ static void	draw_minimap_ray(t_game *g, t_img *img, double angle,
 	}
 }
 
+/**
+ * @brief Converts a ray's world position to screen coordinates on the minimap.
+ *
+ * @details
+ * - Uses precomputed cosine/sine tables for efficiency.
+ * - Calculates displacement relative to player position.
+ * - Scales the result according to MINIMAP_SCALE and applies screen offset.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param angle (double): Ray angle in radians.
+ * @param len (double): Current distance along the ray.
+ * @param offset (t_axis_int): Offset for minimap placement on the screen.
+ *
+ * @return (t_axis_int): The screen position of the ray point.
+ */
 static t_axis_int	get_ray_screen_pos(t_game *g, double angle, double len,
 		t_axis_int offset)
 {
@@ -64,12 +108,34 @@ static t_axis_int	get_ray_screen_pos(t_game *g, double angle, double len,
 	return (pos);
 }
 
+/**
+ * @brief Checks if a delta coordinate is within the minimap circle.
+ *
+ * @details
+ * - Uses the circle equation (x² + y² ≤ r²) for boundary check.
+ *
+ * @param delta (t_axis_int): Delta from minimap center.
+ *
+ * @return (bool): true if inside the circle, false otherwise.
+ */
 static bool	is_inside_circle(t_axis_int delta)
 {
 	return (delta.x * delta.x + delta.y * delta.y <= MINIMAP_RADIUS
 		* MINIMAP_RADIUS);
 }
 
+/**
+ * @brief Draws a small yellow dot at a given position for the minimap ray.
+ *
+ * @details
+ * - Draws a 3x3 square of yellow pixels centered at the given position.
+ * - Enhances ray visibility on the minimap.
+ *
+ * @param img (t_img *): Pointer to the minimap image buffer.
+ * @param pos (t_axis_int): Screen position of the ray dot.
+ *
+ * @return void
+ */
 static void	draw_ray_dot(t_img *img, t_axis_int pos)
 {
 	t_axis_int	d;
