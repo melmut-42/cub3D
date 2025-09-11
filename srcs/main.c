@@ -1,6 +1,5 @@
 #include "../includes/core/game.h"
 
-
 /**
  * @brief Executes the main game loop.
  *
