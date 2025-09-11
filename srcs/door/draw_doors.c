@@ -5,6 +5,15 @@ static int	get_door_texture_x(t_game *g, t_ray *ray, t_img *text);
 static void	init_column(t_column *col, t_game *g, t_ray *ray, int x);
 static void	draw_doors(t_game *game, t_column *col);
 
+/**
+ * @brief Entry point for rendering a door slice at a specific screen column.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param ray (t_ray *): Pointer to the ray that intersected a door.
+ * @param x (int): Current screen column (x-coordinate) to render.
+ *
+ * @return void
+ */
 void	start_draw_doors(t_game *game, t_ray *ray, int x)
 {
 	t_column	col;
@@ -13,6 +22,19 @@ void	start_draw_doors(t_game *game, t_ray *ray, int x)
 	draw_doors(game, &col);
 }
 
+/**
+ * @brief Draws a single vertical slice of a door on the screen.
+ *
+ * @details
+ * - Calculates vertical center, step size for texture sampling, and start position.
+ * - Iterates over each pixel in the slice from top to bottom.
+ * - Fetches the corresponding texture pixel and plots it if not transparent.
+ *
+ * @param game (t_game *): Pointer to the main game structure.
+ * @param col (t_column *): Pointer to the column containing rendering parameters.
+ *
+ * @return void
+ */
 static void	draw_doors(t_game *game, t_column *col)
 {
 	t_draw_util	draw;
@@ -41,6 +63,21 @@ static void	draw_doors(t_game *game, t_column *col)
 	}
 }
 
+/**
+ * @brief Initializes a rendering column for drawing a door slice.
+ *
+ * @details
+ * - Calculates wall height based on perpendicular distance.
+ * - Computes top and bottom pixel positions, clamping to screen height.
+ * - Determines which texture and texture x-coordinate to use.
+ *
+ * @param col (t_column *): Pointer to the column data structure to initialize.
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param ray (t_ray *): Pointer to the ray that hit the door.
+ * @param x (int): Current screen column (x-coordinate).
+ *
+ * @return void
+ */
 static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
 {
 	int	win_h;
@@ -61,6 +98,20 @@ static void	init_column(t_column *col, t_game *g, t_ray *ray, int x)
 	col->texture_x = get_door_texture_x(g, ray, col->texture);
 }
 
+/**
+ * @brief Calculates the x-coordinate on the door texture to sample.
+ *
+ * @details
+ * - Determines the exact horizontal hit position on the door surface.
+ * - Converts the fractional wall coordinate into a texture x-index.
+ * - Flips the texture coordinate for certain ray directions and sides.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param ray (t_ray *): Pointer to the ray containing door hit data.
+ * @param text (t_img *): Pointer to the door texture image.
+ *
+ * @return (int): The x-coordinate on the door texture.
+ */
 static int	get_door_texture_x(t_game *g, t_ray *ray, t_img *text)
 {
 	double	wall_x;
