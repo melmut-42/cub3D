@@ -1,8 +1,21 @@
 #include "game.h"
 
-
 static bool	is_blocking_tile(t_game *g, int x, int y);
 
+/**
+ * @brief Checks if the player can move to the specified coordinates.
+ *
+ * @details
+ * - Verifies the target position is within the map boundaries.
+ * - Calculates margins around the player's position to avoid clipping walls.
+ * - Uses is_blocking_tile() to test surrounding tiles for collisions.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param x (double): Target x-coordinate.
+ * @param y (double): Target y-coordinate.
+ *
+ * @return (bool): true if movement is allowed, false otherwise.
+ */
 bool	can_move(t_game *g, double x, double y)
 {
 	int	left;
@@ -28,6 +41,20 @@ bool	can_move(t_game *g, double x, double y)
 	return (true);
 }
 
+/**
+ * @brief Attempts to move the player by dx and dy while checking collisions.
+ *
+ * @details
+ * - Calculates the new position based on delta values.
+ * - Updates each axis independently to prevent corner clipping.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param pos (t_axis *): Current player position.
+ * @param dx (double): Change in x-coordinate.
+ * @param dy (double): Change in y-coordinate.
+ *
+ * @return void
+ */
 void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 {
 	t_axis	new_pos;
@@ -40,18 +67,52 @@ void	attempt_move(t_game *g, t_axis *pos, double dx, double dy)
 		pos->y = new_pos.y;
 }
 
+/**
+ * @brief Checks whether the player is currently moving.
+ *
+ * @details
+ * - Compares opposite movement inputs (W/S and A/D).
+ * - Returns true if forward/backward or left/right inputs are active.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if the player is moving, false otherwise.
+ */
 bool	is_moving(t_game *g)
 {
 	return ((g->player.movement[W] != g->player.movement[S])
 		|| (g->player.movement[A] != g->player.movement[D]));
 }
 
+/**
+ * @brief Determines if the player is currently jumping upward.
+ *
+ * @details
+ * - Checks if the player is marked as in_air and has a positive vertical velocity.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ *
+ * @return (bool): true if the player is in the air and ascending, false otherwise.
+ */
 bool	is_jumping(t_game *g)
 {
 	return (g->player.vertical.in_air
 		&& g->player.vertical.vertical_vel > 0);
 }
 
+/**
+ * @brief Determines if a map tile blocks movement.
+ *
+ * @details
+ * - Returns true for out-of-bounds coordinates or walls.
+ * - Checks for doors and blocks movement unless fully open.
+ *
+ * @param g (t_game *): Pointer to the main game structure.
+ * @param x (int): Tile x-coordinate.
+ * @param y (int): Tile y-coordinate.
+ *
+ * @return (bool): true if the tile blocks movement, false otherwise.
+ */
 static bool	is_blocking_tile(t_game *g, int x, int y)
 {
 	char	tile;
