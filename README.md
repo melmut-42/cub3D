@@ -160,6 +160,8 @@ This implementation showcases advanced programming concepts:
 
 ---
 
-**Built with mathematical precision and graphics programming excellence.**
-
 *"Where mathematics meets visual artistry in the realm of computer graphics."*
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
